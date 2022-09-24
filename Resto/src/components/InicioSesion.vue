@@ -1,29 +1,7 @@
 
-<script >
+<script setup>
 import Encabezado from "./Encabezado.vue";
 import Footer from "./Footer.vue";
-
-export default {
-  data() {
-    return {
-      Usuario: {user:"", pass:""},
-      errorUser: false,
-      errorPass: false,
-    }
-  },
-  methods: {
-    validar(e) {
-        this.errorUser = this.Usuario.user.length < 3;
-        this.errorPass = this.Usuario.pass.length < 3;
-        if (!this.errorUser && !this.errorPass) {
-        return true;
-      }
-        e.preventDefault();
-      }
-      
-
-    }
-  }
 </script>
     
 <template>
@@ -78,3 +56,26 @@ export default {
     </div>
   </body>
 </template>
+<script>
+  export default {
+  data() {
+    return {
+      Usuario: {user:"", pass:""},
+      errorUser: false,
+      errorPass: false,
+    }
+  },
+  methods: {
+    validar(e) {
+        this.errorUser = this.Usuario.user.length < 3;
+        this.errorPass = this.Usuario.pass.length < 3;
+        if (!this.errorUser && !this.errorPass) {
+        return true;
+      }
+        e.preventDefault();
+      }
+      
+
+    }
+  }
+</script>
