@@ -3,10 +3,7 @@ import Encabezado from "./Encabezado.vue";
 import Footer from "./Footer.vue";
 </script>
     <template>
-  <body class="main">
-    <div id="main">
-      <div id="inner">
-        <Encabezado></Encabezado>
+        <Encabezado/>
         <div class="row">
           <div class="col-9">
             <h1>Nuestra Dirección</h1>
@@ -44,9 +41,6 @@ import Footer from "./Footer.vue";
             </ul>
           </div>
         </div>
-        <Footer />
-      </div>
-    </div>
-  </body>
+  <Footer/>
 </template>
     

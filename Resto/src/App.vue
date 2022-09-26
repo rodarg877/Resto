@@ -6,10 +6,16 @@ import Registro from "./components/Registro.vue";
 </script>
 
 <template>
-  <Principal />
-  <Contacto />
-  <Registro />
-  <InicioSesion />
+  <body class="main">
+    <div id="main">
+      <div id="inner">
+        <Principal />
+        <Contacto />
+        <Registro />
+        <InicioSesion />
+      </div>
+    </div>
+  </body>
 </template>
 
 <style scoped></style>
