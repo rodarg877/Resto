@@ -1,11 +1,14 @@
-<script setup>
-import Encabezado from "./Encabezado.vue";
-import Footer from "./Footer.vue";
-</script>
-
 <template>
-  <Encabezado />
-  <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+  <Encabezado/>
+  <div
+    class="
+      d-flex
+      flex-column
+      min-vh-100
+      justify-content-center
+      align-items-center
+    "
+  >
     <div class="card p-4 text-light bg-secondary mb-5 rounded-lg ancho">
       <div class="card-header">
         <h3>Iniciar sesión</h3>
@@ -56,26 +59,33 @@ import Footer from "./Footer.vue";
       </div>
     </div>
   </div>
-  <Footer />
+  <Pie/>
 </template>
 <script>
+import Encabezado from "./Encabezado.vue";
+import Pie from "./Pie.vue";
 export default {
-  data() {
-    return {
-      Usuario: { user: "", pass: "" },
-      errorUser: false,
-      errorPass: false,
-    };
-  },
-  methods: {
-    validar(e) {
-      this.errorUser = this.Usuario.user.length < 3;
-      this.errorPass = this.Usuario.pass.length < 3;
-      if (!this.errorUser && !this.errorPass) {
-        return true;
-      }
-      e.preventDefault();
+  name: "InicioSesion",
+  components: {
+    Encabezado,
+    Pie
+},
+    data() {
+        return {
+            Usuario: { user: "", pass: "" },
+            errorUser: false,
+            errorPass: false,
+        };
     },
-  },
+    methods: {
+        validar(e) {
+            this.errorUser = this.Usuario.user.length < 3;
+            this.errorPass = this.Usuario.pass.length < 3;
+            if (!this.errorUser && !this.errorPass) {
+                return true;
+            }
+            e.preventDefault();
+        },
+    },
 };
 </script>

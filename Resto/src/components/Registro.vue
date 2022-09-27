@@ -1,8 +1,3 @@
-<script setup>
-import Encabezado from "./Encabezado.vue";
-import Footer from "./Footer.vue";
-</script>
-        
 <template>
   <Encabezado />
   <div
@@ -82,7 +77,14 @@ import Footer from "./Footer.vue";
   <Footer />
 </template>
 <script>
+  import Encabezado from "./Encabezado.vue";
+import Footer from "./Footer.vue";
 export default {
+  name:'Registro',
+  components: {
+    Footer,
+    Encabezado,
+  },
   data: () => ({
     Usuario: {},
     reg: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,

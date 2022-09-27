@@ -1,10 +1,10 @@
 <script setup>
 import Encabezado from "./Encabezado.vue";
-import Footer from "./Footer.vue";
+import Pie from "./Pie.vue";
 </script>
 
 <template>
-  <Encabezado></Encabezado>
+  <Encabezado/>
 
   <div id="slider_wrapper">
     <div id="slider">
@@ -104,5 +104,5 @@ import Footer from "./Footer.vue";
       </div>
     </div>
   </div>
-  <Footer></Footer>
+  <Pie/>
 </template>
