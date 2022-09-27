@@ -5,7 +5,7 @@ import 'jquery';
 import 'popper.js';
 import 'bootstrap';
 import './assets/app.scss';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import './bootstrap-icons/font/bootstrap-icons.css';
 
 
 
