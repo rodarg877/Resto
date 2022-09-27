@@ -1,7 +1,7 @@
 <script setup>
 import Principal from "./components/Main.vue";
- import Contacto from "./components/Contacto.vue";
- import InicioSesion from "./components/InicioSesion.vue";
+import Contacto from "./components/Contacto.vue";
+import InicioSesion from "./components/InicioSesion.vue";
 import Registro from "./components/Registro.vue";
 import Menu from "./components/Menu.vue";
 </script>
@@ -10,11 +10,11 @@ import Menu from "./components/Menu.vue";
   <body class="main">
     <div id="main">
       <div id="inner">
-       <Principal />
+        <Principal />
         <Contacto />
         <Registro />
         <InicioSesion />
-        <Menu/>
+        <Menu />
       </div>
     </div>
   </body>
