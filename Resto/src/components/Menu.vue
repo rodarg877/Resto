@@ -6,19 +6,18 @@
         <div class="col-10">
           <h1>Our Menu</h1>
           <div class="row">
-            <div class="col-5">
+            <div v-for="(menu,index) in menues" :key="index" class="col-5">
               <div class="thumb4">
                 <div class="thumbnail clearfix">
                   <figure class="">
-                    <img src="https://via.placeholder.com/160x192" alt="" />
+                    <img :src="menu.link" alt="" />
                   </figure>
                   <div class="caption">
-                    <div class="txt1">SEASONAL VEGETABLES</div>
+                    <div class="txt1">{{menu.titulo}}</div>
                     <div class="txt2">
-                      Sliced vegetables, chargrilled & marinated in herbs &
-                      olive oil
+                      {{menu.descripcion}}
                     </div>
-                    <div class="txt3">$12.00</div>
+                    <div class="txt3">${{menu.precio}}</div>
                   </div>
                 </div>
               </div>
@@ -54,7 +53,9 @@ export default {
 
   data() {
     return {
-      menues: [],
+      menues: [{titulo:"mila",descripcion:"rica mila",link:"https://via.placeholder.com/160x192",precio:150},
+              {titulo:"papas",descripcion:"rica mila",link:"https://via.placeholder.com/160x192",precio:150},
+              {titulo:"hamburguesa",descripcion:"rica mila",link:"https://via.placeholder.com/160x192",precio:150}],
     };
   },
 };

@@ -55,11 +55,6 @@ header{float: left;}
 #caroufredsel_slider1  { padding: 0; margin: 0; float: left;}
 #caroufredsel_slider1  .img{width: 100%;}
 
-.main{}
-
-
-
-
 
 
 
@@ -78,32 +73,6 @@ header{float: left;}
 .banner1{padding-top: 20px;}
 .banner1 a{display: block;}
 .banner1 a img{width: 100%;}
-
-
-/* ============================= footer ====================== */
-.bot1{height: 22px; background: url(../images/px3.jpg) 0 0 repeat-x;}
-.bot2{background: url(../images/px4.jpg) 0 0 repeat; padding-top: 40px; padding-bottom: 0px;}
-
-.social_wrapper{float: right;}
-.social{ display: inline-block; margin: 0 0px; padding-top: 0px; list-style: none; white-space: nowrap;}
-.social li{display: inline-block; margin: 0 5px; float: left;}
-.social li a{opacity: 1; filter: alpha(opacity=100);
-transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-transition: all 0.3s ease-out; -o-transition: all 0.3s ease-out;
-}
-.social li a:hover{opacity: 0.6; filter: alpha(opacity=60);}
-
-
-
-
-footer{position: relative; z-index: 1; background: url(../images/footer.png) 0 0 repeat-x; margin-top: 20px; padding-top: 22px; padding-bottom: 14px; }
-
-.copyright{color:#ffffff; padding-top: 0px; line-height: 20px; font-size: 12px; font-family: Arial, Helvetica, sans-serif;}
-
-
-
-
-
-
 
 /* ============================= main menu ====================== */
 .navbar_ { margin: 0; padding: 0; background: none; position: relative;z-index: 30; float: right; padding-top: 30px; padding-bottom: 0;}
@@ -258,13 +227,6 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 
 
 
-
-
-
-
-
-
-
 .thumb-isotope {}
 .thumb-isotope .thumbnail{padding: 0px; border: none; border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px; box-shadow: none;-moz-box-shadow: none; -webkit-box-shadow: none; }
 .thumb-isotope .thumbnail a{position: relative;  display: block; text-decoration: none; padding: 0px;}
@@ -333,17 +295,6 @@ transition: all 0.3s ease-out; -moz-transition: all 0.3s ease-out; -webkit-trans
 #ajax-contact-form img{float:left; width:170px; height:42px;margin-bottom: 10px;}
 #ajax-contact-form .submit{border: 0; margin: 0; display: inline-block;line-height:28px;  text-decoration: none;font-size:16px; font-family: 'Thyssen'; font-weight: 400;  color:#cacaca; white-space:nowrap; letter-spacing:0px; background:url(../images/button1.jpg) left top repeat-x; padding:0px 20px; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;}
 #ajax-contact-form .submit:hover{ background-position: bottom; color: #cacaca;}
-
-
-
-
-/*================= 404 =========================*/
-.page-404{text-align: center;}
-.page-404 .txt1{font-family:'Playfair Display'; font-weight:700; font-size:220px; color:#402f1f; line-height:220px; }
-.page-404 .txt2{font-family:'Playfair+Display'; font-weight:400; font-size:70px; color:#402f1f; line-height:70px; }
-
-
-
 
 
 /*----- media queries ------*/

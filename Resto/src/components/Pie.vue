@@ -39,3 +39,59 @@
   </div>
 </template>
 
+<style scoped>
+.bot1 {
+  height: 22px;
+  background: url(../images/px3.jpg) 0 0 repeat-x;
+}
+.bot2 {
+  background: url(../images/px4.jpg) 0 0 repeat;
+  padding-top: 40px;
+  padding-bottom: 0px;
+}
+
+.social_wrapper {
+  float: right;
+}
+.social {
+  display: inline-block;
+  margin: 0 0px;
+  padding-top: 0px;
+  list-style: none;
+  white-space: nowrap;
+}
+.social li {
+  display: inline-block;
+  margin: 0 5px;
+  float: left;
+}
+.social li a {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+}
+.social li a:hover {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  background: url(../images/footer.png) 0 0 repeat-x;
+  margin-top: 20px;
+  padding-top: 22px;
+  padding-bottom: 14px;
+}
+
+.copyright {
+  color: #ffffff;
+  padding-top: 0px;
+  line-height: 20px;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>

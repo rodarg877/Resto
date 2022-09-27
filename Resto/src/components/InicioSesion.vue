@@ -1,5 +1,5 @@
 <template>
-  <Encabezado/>
+  <Encabezado />
   <div
     class="
       d-flex
@@ -59,7 +59,7 @@
       </div>
     </div>
   </div>
-  <Pie/>
+  <Pie />
 </template>
 <script>
 import Encabezado from "./Encabezado.vue";
@@ -68,24 +68,24 @@ export default {
   name: "InicioSesion",
   components: {
     Encabezado,
-    Pie
-},
-    data() {
-        return {
-            Usuario: { user: "", pass: "" },
-            errorUser: false,
-            errorPass: false,
-        };
+    Pie,
+  },
+  data() {
+    return {
+      Usuario: { user: "", pass: "" },
+      errorUser: false,
+      errorPass: false,
+    };
+  },
+  methods: {
+    validar(e) {
+      this.errorUser = this.Usuario.user.length < 3;
+      this.errorPass = this.Usuario.pass.length < 3;
+      if (!this.errorUser && !this.errorPass) {
+        return true;
+      }
+      e.preventDefault();
     },
-    methods: {
-        validar(e) {
-            this.errorUser = this.Usuario.user.length < 3;
-            this.errorPass = this.Usuario.pass.length < 3;
-            if (!this.errorUser && !this.errorPass) {
-                return true;
-            }
-            e.preventDefault();
-        },
-    },
+  },
 };
 </script>

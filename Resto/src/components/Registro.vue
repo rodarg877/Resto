@@ -38,14 +38,18 @@
             <span id="name" class="text-danger" v-if="errorEmail"
               >Mail invalido</span
             >
-            <label class="w-100 mt-3" for="confirmPass">Confirma tu dirección</label>
+            <label class="w-100 mt-3" for="confirmPass"
+              >Confirma tu dirección</label
+            >
             <input
               type="text"
               class="form-control w-100 mt-1"
               placeholder="email@email.com"
               v-model="Usuario.confEmail"
             />
-            <span id="name" class="text-danger" v-if="errorConfEmail">Error en la confirmacion de email</span>
+            <span id="name" class="text-danger" v-if="errorConfEmail"
+              >Error en la confirmacion de email</span
+            >
             <label class="w-100 mt-3" for="pass">Password</label>
             <input
               type="password"
@@ -53,15 +57,21 @@
               placeholder="Contraseña"
               v-model="Usuario.pass"
             />
-            <span id="name" v-if="errorPass" class="text-danger">Password no valido</span>
-            <label for="confirmPass" class="w-100 mt-3">Confirma tu Password</label>
+            <span id="name" v-if="errorPass" class="text-danger"
+              >Password no valido</span
+            >
+            <label for="confirmPass" class="w-100 mt-3"
+              >Confirma tu Password</label
+            >
             <input
               type="password"
               class="form-control w-100 mt-1"
               placeholder="Contraseña"
               v-model="Usuario.confPass"
             />
-            <span id="name" v-if="errorConfPass" class="text-danger">No coincide el Password </span>
+            <span id="name" v-if="errorConfPass" class="text-danger"
+              >No coincide el Password
+            </span>
           </div>
           <div class="form-group mt-5">
             <input
@@ -74,16 +84,18 @@
       </div>
     </div>
   </div>
-  <Footer />
+  <Pie />
 </template>
+
+
 <script>
-  import Encabezado from "./Encabezado.vue";
-import Footer from "./Footer.vue";
+import Encabezado from "./Encabezado.vue";
+import Pie from "./Pie.vue";
 export default {
-  name:'Registro',
+  name: "Registro",
   components: {
-    Footer,
     Encabezado,
+    Pie,
   },
   data: () => ({
     Usuario: {},
@@ -97,10 +109,13 @@ export default {
   methods: {
     validar(e) {
       this.errorUser = !this.Usuario.user || this.Usuario.user.length < 3;
-      this.errorEmail = !this.Usuario.email || !this.reg.test(this.Usuario.email);
-      this.errorConfEmail= !this.Usuario.confEmail|| this.Usuario.email!=this.Usuario.confEmail;
-      this.errorPass= !this.Usuario.pass || this.Usuario.pass.length<6;
-      this.errorConfPass= !this.Usuario.confPass || this.Usuario.pass!=this.Usuario.confPass;
+      this.errorEmail =
+        !this.Usuario.email || !this.reg.test(this.Usuario.email);
+      this.errorConfEmail =
+        !this.Usuario.confEmail || this.Usuario.email != this.Usuario.confEmail;
+      this.errorPass = !this.Usuario.pass || this.Usuario.pass.length < 6;
+      this.errorConfPass =
+        !this.Usuario.confPass || this.Usuario.pass != this.Usuario.confPass;
       if (
         !this.errorUser &&
         !this.errorEmail &&
