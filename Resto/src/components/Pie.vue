@@ -49,7 +49,6 @@
   padding-top: 40px;
   padding-bottom: 0px;
 }
-
 .social_wrapper {
   float: right;
 }
@@ -77,7 +76,6 @@
   opacity: 0.6;
   filter: alpha(opacity=60);
 }
-
 footer {
   position: relative;
   z-index: 1;
@@ -86,7 +84,6 @@ footer {
   padding-top: 22px;
   padding-bottom: 14px;
 }
-
 .copyright {
   color: #ffffff;
   padding-top: 0px;
