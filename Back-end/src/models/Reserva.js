@@ -1,12 +1,12 @@
-export default class Reserva{
-    static cont=0;
-    constructor(fecha, mesa, turno){
-        this.nro=this.constructor.cont++;
-        this.platos=[];
-        this.fecha =fecha;
-        this.mesa=mesa;
-        this.turno=turno;
-    };
-    
-    
+export default class Reserva {
+    constructor(mesa, turno) {
+        this.nro = Reserva.cont++;
+        this.platos = new Array;
+        this.fecha = new Date(2017, 1, 1);
+        this.mesa = mesa;
+        this.turno = turno;
+        this.mesa.OcuparMesa();
+    }
+    ;
 }
+Reserva.cont = 0;
