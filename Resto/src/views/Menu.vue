@@ -1,5 +1,4 @@
 <template>
-  <Encabezado />
   <div id="content">
     <div class="container">
       <div class="row">
@@ -39,17 +38,11 @@
       </div>
     </div>
   </div>
-  <Pie/>
 </template>
 <script>
-import Encabezado from "./Encabezado.vue";
-import Pie from "./Pie.vue";
 export default {
   name: "Menu",
-  components: {
-    Encabezado,
-    Pie
-},
+  components: {},
 
   data() {
     return {

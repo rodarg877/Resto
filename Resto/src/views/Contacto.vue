@@ -1,5 +1,4 @@
 <template>
-  <Encabezado />
   <div class="row">
     <div class="col-9">
       <h1>Nuestra Dirección</h1>
@@ -34,17 +33,11 @@
       </ul>
     </div>
   </div>
-  <Pie />
 </template>
 <script>
-import Encabezado from "./Encabezado.vue";
-import Pie from "./Pie.vue";
 export default {
   name: "Contacto",
-  components: {
-    Encabezado,
-    Pie,
-  },
+  components: {},
   data: () => ({}),
   methods: {},
 };

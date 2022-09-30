@@ -1,11 +1,7 @@
 <script setup>
-import Encabezado from "./Encabezado.vue";
-import Pie from "./Pie.vue";
 </script>
 
 <template>
-  <Encabezado/>
-
   <div id="slider_wrapper">
     <div id="slider">
       <img src="../images/slider_bg.png" alt="" class="slider_bg" />
@@ -104,5 +100,4 @@ import Pie from "./Pie.vue";
       </div>
     </div>
   </div>
-  <Pie/>
 </template>

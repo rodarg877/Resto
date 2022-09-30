@@ -1,5 +1,4 @@
 <template>
-  <Encabezado />
   <div
     class="
       d-flex
@@ -84,18 +83,14 @@
       </div>
     </div>
   </div>
- <Pie />
+ 
 </template>
 
 
 <script>
-import Encabezado from "./Encabezado.vue";
-import Pie from "./Pie.vue";
 export default {
   name: "Registro",
   components: {
-    Encabezado,
-    Pie,
   },
   data: () => ({
     Usuario: {},

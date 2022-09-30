@@ -1,5 +1,4 @@
 <template>
-  <Encabezado />
   <div
     class="
       d-flex
@@ -59,17 +58,11 @@
       </div>
     </div>
   </div>
-  <Pie />
 </template>
 <script>
-import Encabezado from "./Encabezado.vue";
-import Pie from "./Pie.vue";
 export default {
   name: "InicioSesion",
-  components: {
-    Encabezado,
-    Pie,
-  },
+  components: {},
   data() {
     return {
       Usuario: { user: "", pass: "" },

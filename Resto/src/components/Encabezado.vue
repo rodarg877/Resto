@@ -7,8 +7,8 @@
         <div class="col-12">
           <div class="top1_inner clearfix">
             <div class="search-form-wrapper">
-              <a style="margin-right: 10px" href="#">Registrarse</a>
-              <a href="#">Iniciar Sesion</a>
+              <router-link to="/registro" style="margin-right: 10px" href="#">Registrarse</router-link>
+              <router-link to="/inicioSesion">Iniciar Sesion</router-link>
             </div>
           </div>
         </div>
@@ -23,9 +23,7 @@
           <div class="top3_inner clearfix">
             <header>
               <div class="logo_wrapper">
-                <a href="index.html" class="logo"
-                  ><img src="../images/logoA.png" alt=""
-                /></a>
+                <router-link class="logo" to="/"><img src="../images/logoA.png" alt=""/></router-link>
               </div>
             </header>
             <div class="navbar navbar_">
@@ -38,37 +36,31 @@
                 </a>
                 <div class="nav-collapse nav-collapse_ collapse">
                   <ul class="nav sf-menu clearfix">
-                    <li class="active">
-                      <a href="index.html">Inicio</a>
+                    <li>
+                      <router-link to="/">Inicio</router-link>
                     </li>
-                    <li><a href="index-1.html">Quienes Somos?</a></li>
+                    <li><router-link to="/quienesSomos">Quienes Somos?</router-link></li>
                     <li class="sub-menu sub-menu-1">
-                      <a href="index-2.html" data-bs-toggle="dropdown"
-                        >Nuestro Menu</a
-                      >
+                      <router-link to="/menu" data-bs-toggle="dropdown">Nuestro Menu</router-link >
                       <ul class="dropdown-menu">
                         <li>
-                          <a class="dropdown-item" href="index-2.html">pizza</a>
+                          <router-link to="/menu" class="dropdown-item" >pizza</router-link>
                         </li>
                         <li>
-                          <a class="dropdown-item" href="index-2.html">pasta</a>
+                          <router-link to="/menu" class="dropdown-item">pasta</router-link>
                         </li>
                         <li>
-                          <a class="dropdown-item" href="index-2.html"
-                            >salads</a
-                          >
+                          <router-link to="/menu" class="dropdown-item">salads</router-link>
                         </li>
                         <li>
-                          <a class="dropdown-item" href="index-2.html"
-                            >drinks</a
-                          >
+                          <router-link to="/menu" class="dropdown-item">drinks</router-link>
                         </li>
                         <li>
-                          <a class="dropdown-item" href="index-2.html">cakes</a>
+                          <router-link to="/menu" class="dropdown-item" >cakes</router-link>
                         </li>
                       </ul>
                     </li>
-                    <li><a href="index-5.html">Contactanos</a></li>
+                    <li><router-link to="/contacto">Contactanos</router-link></li>
                   </ul>
                 </div>
               </div>

@@ -1,5 +1,4 @@
 <template>
-  <Encabezado />
   <h1>Seleccione su mesa</h1>
   <div class="row">
     <div v-for="mesa in mesas" :key="mesa.id" class="col-6">
@@ -21,14 +20,11 @@
       </div>
     </div>
   </div>
-  <Pie/>
 </template>
 
 <script>
-import Encabezado from "./Encabezado.vue";
-import Pie from "./Pie.vue";
 export default {
-  components: { Encabezado, Pie },
+  components: {},
   data() {
     return {
       mesas: [

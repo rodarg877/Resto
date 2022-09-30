@@ -1,25 +1,20 @@
-<script setup>
-import Principal from "./components/Main.vue";
-import Contacto from "./components/Contacto.vue";
-import InicioSesion from "./components/InicioSesion.vue";
-import Registro from "./components/Registro.vue";
-import Menu from "./components/Menu.vue";
-import Mesas from "./components/Mesas.vue";
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import Encabezado from './components/Encabezado.vue'
+import Pie from './components/Pie.vue'
 </script>
 
 <template>
   <body class="main">
     <div id="main">
       <div id="inner">
-        <Principal />
-        <Contacto />
-        <Registro />
-        <InicioSesion />
-        <Menu />
-        <Mesas/>
+        <Encabezado/>
+        <RouterView />
+        <Pie/>
       </div>
     </div>
   </body>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
