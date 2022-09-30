@@ -2,18 +2,26 @@
   <Encabezado />
   <h1>Seleccione su mesa</h1>
   <div class="row">
-  <div v-for="mesa in mesas" :key="mesa.id" class="col-6">
-  <div
-    class="btn-group"
-    role="group"
-    aria-label="Basic radio toggle button group">
-    
-      <input type="radio" class="btn-check" name="btnradio" :id="mesa.id" autocomplete="off" />
-      <label class="btn btn-outline-primary btn-disable" :for="mesa.id"><img :src="`/src/images/mesa${mesa.cantAsientos}.png`"/></label>
+    <div v-for="mesa in mesas" :key="mesa.id" class="col-6">
+      <div
+        class="btn-group"
+        role="group"
+        aria-label="Basic radio toggle button group"
+      >
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          :id="mesa.id"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-primary" :for="mesa.id"
+          ><img :src="`/src/images/mesa${mesa.cantAsientos}.png`"
+        /></label>
+      </div>
     </div>
   </div>
-</div>
-  <Pie />
+  <Pie/>
 </template>
 
 <script>
