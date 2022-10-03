@@ -22,8 +22,8 @@ app.get('/Reservas/:id', async (req, res) => {
     res.json(await reservas.filter(r=>r.nro==id)[0]);
 })
 
-app.put('/Reservas/:id/:mesa',async (req, res) => {
-    let mesa = Number(req.params.mesa);
+app.put('/Reservas/:id',async (req, res) => {
+    let mesa = req.body;
     const {id}=req.params;
     reservas.filter(r=>r.nro==id)[0].mesa=mesa;
     res.json(await reservas);

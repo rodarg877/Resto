@@ -22,7 +22,7 @@
               placeholder="Usuario"
               v-model="Usuario.user"
             />
-            <span id="name" class="text-danger" v-if="errorUser">
+            <span id="name" class="alert alert-danger" v-if="errorUser">
               Usuario no valido</span
             >
             <label class="w-100 mt-3" for="pass"
@@ -34,7 +34,7 @@
               placeholder="email@email.com"
               v-model="Usuario.email"
             />
-            <span id="name" class="text-danger" v-if="errorEmail"
+            <span id="name" class="alert alert-danger" v-if="errorEmail"
               >Mail invalido</span
             >
             <label class="w-100 mt-3" for="confirmPass"
@@ -46,7 +46,7 @@
               placeholder="email@email.com"
               v-model="Usuario.confEmail"
             />
-            <span id="name" class="text-danger" v-if="errorConfEmail"
+            <span id="name" class="alert alert-danger" v-if="errorConfEmail"
               >Error en la confirmacion de email</span
             >
             <label class="w-100 mt-3" for="pass">Password</label>
@@ -56,7 +56,7 @@
               placeholder="Contraseña"
               v-model="Usuario.pass"
             />
-            <span id="name" v-if="errorPass" class="text-danger"
+            <span id="name" v-if="errorPass" class="alert alert-danger"
               >Password no valido</span
             >
             <label for="confirmPass" class="w-100 mt-3"
@@ -68,7 +68,7 @@
               placeholder="Contraseña"
               v-model="Usuario.confPass"
             />
-            <span id="name" v-if="errorConfPass" class="text-danger"
+            <span id="name" v-if="errorConfPass" class="alert alert-danger"
               >No coincide el Password
             </span>
           </div>
