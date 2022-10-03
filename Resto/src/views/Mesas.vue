@@ -15,8 +15,8 @@
           name="btnradio"
           :id="mesa.id"
           autocomplete="off"
-          v-model="picked"
-          :value=mesa
+          v-model="seleccionado"
+          :value="mesa"
         />
         <label class="btn btn-outline-primary" :for="mesa.id"
           ><img style="heigth:50%;width:50%" :src="`/src/images/mesa${mesa.cantAsientos}.png`"/>
@@ -24,14 +24,12 @@
       </div>
     </div>
   </div>
-  
-<button @click="agregarMesas">agregar mesa</button>
+  <div>{{seleccionado}}</div>
   <div class="text-center mt-5  mb-5">  
     <input class="btn btn-success text-center" type="submit" value="Seleccionar">
   </div>
 </form>
-<div>{{seleccionado}}</div>
-
+<div>{{}}</div>
 </div>
 </template>
 
@@ -48,20 +46,13 @@ export default {
         { id: 4, cantAsientos: 6, estaOcupado: false },
         { id: 5, cantAsientos: 8, estaOcupado: false },
       ],
-    };
+    }
   },
-  metods: {
-    agregarMesa(e){
-      alert(e)
-      console.log(picked);
-      e.preventDefault();
-
-    },
-    computed:{
-      agregarMesas(e){
-          seleccionado=picked
-          e.preventDefault()
-      }
+  methods: {
+    agregarMesa(event){
+      alert(this.seleccionado)
+      console.log(this.seleccionado.id);
+      event.preventDefault();
     }
   },
 };
