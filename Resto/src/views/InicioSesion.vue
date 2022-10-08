@@ -13,7 +13,7 @@
         <h3>Iniciar sesión</h3>
       </div>
       <div class="card-body w-100 mt-3">
-        <form @submit="validar" method="post">
+        <form @submit.prevent="validar">
           <div class="input-group form-group mt-3">
             <div class="bg-dark rounded-start d-flex align-items-center">
               <span class="m-3"><i class="bi bi-person mt-3"></i></span>
@@ -22,7 +22,7 @@
               type="text"
               class="form-control"
               placeholder="Usuario"
-              v-model="Usuario.user"
+              v-model.trim="Usuario.nick"
             />
           </div>
           <div v-if="errorUser" class="text-danger">Usuario invalido</div>
@@ -34,10 +34,11 @@
               type="password"
               class="form-control"
               placeholder="Contraseña"
-              v-model="Usuario.pass"
+              v-model.trim="Usuario.pass"
             />
           </div>
           <div v-if="errorPass" class="text-danger">password invalido</div>
+          <div v-if="errorUsuario" class="text-danger">password o usuario incorrecto</div>
           <div class="form-group mt-5">
             <input
               type="submit"
@@ -60,24 +61,33 @@
   </div>
 </template>
 <script>
+import { UsuarioStore } from "@/stores/usuario";
+import { storeToRefs } from 'pinia';
 export default {
   name: "InicioSesion",
+  setup() {
+    const store = UsuarioStore();
+   const {usuario, chequearUser}=storeToRefs(store);
+    return { store};
+  },
   components: {},
   data() {
     return {
-      Usuario: { user: "", pass: "" },
+      Usuario: { nick: "", pass: "" },
       errorUser: false,
       errorPass: false,
+      errorUsuario:false
     };
   },
   methods: {
-    validar(e) {
-      this.errorUser = this.Usuario.user.length < 3;
+    async validar() {
+      this.errorUser = this.Usuario.nick.length < 3;
       this.errorPass = this.Usuario.pass.length < 3;
       if (!this.errorUser && !this.errorPass) {
-        return true;
+        
+       this.errorUsuario=await this.store.chequearUser(this.Usuario)
+      !this.errorUsuario? this.$router.push('/'):''
       }
-      e.preventDefault();
     },
   },
 };
