@@ -1,24 +1,22 @@
 <script>
-import {UsuarioStore} from '../stores/usuario.ts'
-import { storeToRefs } from 'pinia';
+import { UsuarioStore } from "../stores/usuario.ts";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "Encabezado",
   setup() {
     const store = UsuarioStore();
-    const {usuario}=storeToRefs(store);
-    const {cerrarSesion} = store
-    return {usuario, cerrarSesion};
+    const { usuario } = storeToRefs(store);
+    const { cerrarSesion } = store;
+    return { usuario, cerrarSesion };
   },
   components: {},
   data() {
-    return {
-      
-    };
+    return {};
   },
   methods: {
     cerrarSesionEn() {
-      this.cerrarSesion()
+      this.cerrarSesion();
     },
   },
 };
@@ -26,30 +24,38 @@ export default {
 
 <template>
   <div>
-    <div class="top1">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="top1_inner clearfix">
-              <div class="search-form-wrapper">
-                <router-link to="/registro" style="margin-right: 10px" href="#">Registrarse</router-link>
-                <router-link to="/inicioSesion" v-if="usuario==null">Iniciar Sesion</router-link>
-                <router-link to="/" v-else @click="cerrarSesionEn">Cerrar Sesion</router-link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <div class="top1 container">
+    <ul class="nav justify-content-end">
+      <li class="nav-item mt-2">
+        <router-link to="/registro" style="font-size: 1rem;" class="nav-link">Registrarse</router-link>
+      </li>
+      <li class="nav-item mt-2">
+        <router-link to="/inicioSesion" style="font-size: 1rem;" class="nav-link " v-if="usuario == null">Iniciar Sesion</router-link>
+      </li>
+      <li class="nav-item mt-2">
+        <router-link to="/" v-if="usuario != null" style="font-size: 1rem;" class="nav-link" @click="cerrarSesionEn">Cerrar Sesion</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/carrito" v-if="usuario != null" class="nav-link" ><i style="font-size: 2rem;" class="bi bi-cart3 ">
+          <span style="font-size: 0.8rem;" class="position-absolute top-45 start-100 translate-middle badge rounded-pill bg-danger">
+             99+
+            <span class="visually-hidden">unread messages</span>
+           </span>
+    </i>
+</router-link>
+      </li>
+    </ul>
+  </div>
     <div class="top2">
       <div class="container">
         <div class="row">
           <div class="col-12">
             <div class="top3_inner clearfix">
-              <header>
+              <header>  
                 <div class="logo_wrapper">
-                  <router-link class="logo" to="/"><img src="../images/logoA.png" alt=""/></router-link>
+                  <router-link class="logo" to="/"
+                    ><img src="../images/logoA.png" alt=""
+                  /></router-link>
                 </div>
               </header>
               <div class="navbar navbar_">
@@ -65,28 +71,46 @@ export default {
                       <li>
                         <router-link to="/">Inicio</router-link>
                       </li>
-                      <li><router-link to="/quienesSomos">Quienes Somos?</router-link></li>
+                      <li>
+                        <router-link to="/quienesSomos"
+                          >Quienes Somos?</router-link
+                        >
+                      </li>
                       <li class="sub-menu sub-menu-1">
-                        <router-link to="/menu" data-bs-toggle="dropdown">Nuestro Menu</router-link >
+                        <router-link to="/menu" data-bs-toggle="dropdown"
+                          >Nuestro Menu</router-link
+                        >
                         <ul class="dropdown-menu">
                           <li>
-                            <router-link to="/menu" class="dropdown-item" >pizza</router-link>
+                            <router-link to="/menu" class="dropdown-item"
+                              >pizza</router-link
+                            >
                           </li>
                           <li>
-                            <router-link to="/menu" class="dropdown-item">pasta</router-link>
+                            <router-link to="/menu" class="dropdown-item"
+                              >pasta</router-link
+                            >
                           </li>
                           <li>
-                            <router-link to="/menu" class="dropdown-item">salads</router-link>
+                            <router-link to="/menu" class="dropdown-item"
+                              >salads</router-link
+                            >
                           </li>
                           <li>
-                            <router-link to="/menu" class="dropdown-item">drinks</router-link>
+                            <router-link to="/menu" class="dropdown-item"
+                              >drinks</router-link
+                            >
                           </li>
                           <li>
-                            <router-link to="/menu" class="dropdown-item" >cakes</router-link>
+                            <router-link to="/menu" class="dropdown-item"
+                              >cakes</router-link
+                            >
                           </li>
                         </ul>
                       </li>
-                      <li><router-link to="/contacto">Contactanos</router-link></li>
+                      <li>
+                        <router-link to="/contacto">Contactanos</router-link>
+                      </li>
                     </ul>
                   </div>
                 </div>

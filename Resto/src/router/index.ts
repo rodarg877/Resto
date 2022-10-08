@@ -39,6 +39,11 @@ const router = createRouter({
       name: 'mesa',
       component: () => import('../views/Mesas.vue')
     },
+    {
+      path: '/carrito',
+      name: 'carrito',
+      component: () => import('../views/Carrito.vue')
+    },
 
   ]
 })
