@@ -67,8 +67,9 @@ export default {
   name: "InicioSesion",
   setup() {
     const store = UsuarioStore();
-   const {usuario, chequearUser}=storeToRefs(store);
-    return { store};
+   const {usuario}=storeToRefs(store);
+   const {chequearUser}=store;
+    return { usuario, chequearUser};
   },
   components: {},
   data() {
@@ -85,7 +86,7 @@ export default {
       this.errorPass = this.Usuario.pass.length < 3;
       if (!this.errorUser && !this.errorPass) {
         
-       this.errorUsuario=await this.store.chequearUser(this.Usuario)
+       this.errorUsuario=await this.chequearUser(this.Usuario)
       !this.errorUsuario? this.$router.push('/'):''
       }
     },
