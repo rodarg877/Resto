@@ -7,7 +7,7 @@ export default class Reserva{
     private nro:Number;
     private mesa:Mesa;
     private turno:String;
-    static cont=0;
+    private static cont=0;
 
     constructor(mesa:Mesa, turno:String){
         this.nro=Reserva.cont++;
