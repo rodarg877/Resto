@@ -3,5 +3,6 @@ export default class Usuario {
         this.nick = nick;
         this.pass = pass;
         this.email = email;
+        this.pedido = [];
     }
 }

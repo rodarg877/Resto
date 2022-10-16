@@ -1,8 +1,23 @@
-import Mesa from "./models/Mesa.js";
-import Reserva from "./models/Reserva.js";
+import express from "express";
+import { connectToDatabase } from "./servicio/datos.servicio.js"
+import { platosRouter } from "./routes/plato.routes.js";
+import { usuariosRouter } from "./routes/usuario.router.js";
+import cors from 'cors'
 
+const app = express()
+app.use(cors())
+const port = 8080
 
-const res:Reserva = new Reserva(new Mesa(4,1),"T")
-const res2:Reserva = new Reserva(new Mesa(4,2),"T")
-console.log(res);
-console.log(res2);
+connectToDatabase()
+    .then(() => {
+        app.use("/platos", platosRouter);
+        app.use("/usuarios", usuariosRouter);
+
+        app.listen(port, () => {
+            console.log(`Server started at http://localhost:${port}`);
+        });
+    })
+    .catch((error: Error) => {
+        console.error("Database connection failed", error);
+        process.exit();
+    });

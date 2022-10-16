@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 export default class Plato {
    
     private nombre:String;
@@ -5,8 +6,9 @@ export default class Plato {
     private img:String;
     private precio:Number;
     private cantidad:Number;
+    public id?: ObjectId
 
-    constructor(nombre:String, descripcion:String, img:String, precio:Number) {
+    constructor(nombre:String, descripcion:String, img:String, precio:Number,id?:ObjectId) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.img = img;
