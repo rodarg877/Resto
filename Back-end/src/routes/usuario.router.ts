@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express'
 import { collections } from '../servicio/datos.servicio.js';
 import { ObjectId } from 'mongodb';
 import Usuario from '../models/Usuario.js';
+import Plato from '../models/Plato.js';
+import Pedido from '../models/Pedido.js';
 
 
 
@@ -45,6 +47,25 @@ usuariosRouter.post("/", async (req: Request, res: Response) => {
             : res.status(500).send("Failed to create a usuario");
     } catch (error: any) {
         console.error(error);
+        res.status(400).send(error.message);
+    }
+});
+usuariosRouter.put("/pedidos/:id", async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    try {
+        console.log(req.body);
+        
+        const updatedUsuario: Plato[] = req.body as Plato[];
+        const query = { nick:id };
+      
+        const result = await collections.usuarios?.updateOne(query, { $push: {pedidos:  new Pedido(updatedUsuario)} });
+
+        result
+            ? res.status(200).send(`Successfully updated Usuario with id ${id}`)
+            : res.status(304).send(`Usuario with id: ${id} not updated`);
+    } catch (error) {
+        console.error(error.message);
         res.status(400).send(error.message);
     }
 });

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import express from 'express';
 import { collections } from '../servicio/datos.servicio.js';
+import Pedido from '../models/Pedido.js';
 export const usuariosRouter = express.Router();
 usuariosRouter.use(express.json());
 usuariosRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -49,6 +50,23 @@ usuariosRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.error(error);
+        res.status(400).send(error.message);
+    }
+}));
+usuariosRouter.put("/pedidos/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _e, _f;
+    const id = (_e = req === null || req === void 0 ? void 0 : req.params) === null || _e === void 0 ? void 0 : _e.id;
+    try {
+        console.log(req.body);
+        const updatedUsuario = req.body;
+        const query = { nick: id };
+        const result = yield ((_f = collections.usuarios) === null || _f === void 0 ? void 0 : _f.updateOne(query, { $push: { pedidos: new Pedido(updatedUsuario) } }));
+        result
+            ? res.status(200).send(`Successfully updated Usuario with id ${id}`)
+            : res.status(304).send(`Usuario with id: ${id} not updated`);
+    }
+    catch (error) {
+        console.error(error.message);
         res.status(400).send(error.message);
     }
 }));
