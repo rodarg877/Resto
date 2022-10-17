@@ -12,6 +12,7 @@ connectToDatabase()
     .then(() => {
         app.use("/platos", platosRouter);
         app.use("/usuarios", usuariosRouter);
+    
 
         app.listen(port, () => {
             console.log(`Server started at http://localhost:${port}`);
