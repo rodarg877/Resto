@@ -5,18 +5,52 @@
         <div class="col-10">
           <h1>Our Menu</h1>
           <div class="row">
-            <div v-for="(menu,index) in menues" :key="index" class="col-5">
+            <div v-for="(menu, index) in menues" :key="index" class="col-6">
               <div class="thumb4">
                 <div class="thumbnail clearfix">
-                  <figure class="">
-                    <img :src="menu.link" alt="" />
-                  </figure>
-                  <div class="caption">
-                    <div class="txt1">{{menu.titulo}}</div>
-                    <div class="txt2">
-                      {{menu.descripcion}}
+                  <div class="row">
+                    <div class="col-6">
+                      <figure class="">
+                        <img :src="menu.link" alt="" />
+                      </figure>
                     </div>
-                    <div class="txt3">${{menu.precio}}</div>
+                    <div class="col-6">
+                      <div class="caption">
+                        <div class="txt1">{{ menu.titulo }}</div>
+                        <div class="txt2">
+                          {{ menu.descripcion }}
+                        </div>
+                        <div class="txt3">${{ menu.precio }}</div>
+                        <ul class="pagination set_quantity">
+                          <li class="page-item">
+                            <button class="page-link" @click="menu.cantidad--">
+                              <font-awesome-icon icon="fa-solid fa-minus" />
+                            </button>
+                          </li>
+                          <li class="page-item">
+                            <input
+                              type="text"
+                              name=""
+                              class="page-link"
+                              v-model="menu.cantidad"
+                              id="textbox"
+                            />
+                          </li>
+                          <li class="page-item">
+                            <button class="page-link" @click="menu.cantidad++">
+                              <font-awesome-icon icon="fas fa-plus" />
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                      <button
+                        @click="agregar(menu)"
+                        class="btn btn-primary btn-sm mb-2"
+                      >
+                        Agregar
+                      </button>
+                      <div v-if="menu.cantidad<=0" class="alert alert-danger" style="font-size:.7rem">cantidad incorrecta</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -40,16 +74,80 @@
   </div>
 </template>
 <script>
+import { CarritoStore } from "@/stores/carrito";
 export default {
   name: "Menu",
+  setup() {
+    const store = CarritoStore();
+    const { agregarAPedido } = store;
+    return { agregarAPedido };
+  },
+
   components: {},
 
   data() {
     return {
-      menues: [{titulo:"mila",descripcion:"rica mila",link:"https://via.placeholder.com/160x192",precio:150},
-              {titulo:"papas",descripcion:"rica mila",link:"https://via.placeholder.com/160x192",precio:150},
-              {titulo:"hamburguesa",descripcion:"rica mila",link:"https://via.placeholder.com/160x192",precio:150}],
+      errrorCantidad:false,
+      menues: [
+        {
+          titulo: "mila",
+          descripcion: "rica mila",
+          link: "https://via.placeholder.com/160x192",
+          precio: 150,
+          cantidad: 1,
+        },
+        {
+          titulo: "papas",
+          descripcion: "rica mila",
+          link: "https://via.placeholder.com/160x192",
+          precio: 150,
+          cantidad: 1,
+        },
+        {
+          titulo: "hamburguesa",
+          descripcion: "rica mila",
+          link: "https://via.placeholder.com/160x192",
+          precio: 150,
+          cantidad: 1,
+        },
+      ],
     };
+  },
+  methods: {
+    agregar(plato) {
+      if (plato.cantidad >0) {
+        this.agregarAPedido(plato);
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+.page-link {
+  line-height: 12px;
+  width: 2rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #495057;
+}
+.page-item input {
+  line-height: 22px;
+  padding: 3px;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.page-link:hover {
+  text-decoration: none;
+  color: #495057;
+  outline: none !important;
+}
+.page-link:focus {
+  box-shadow: none;
+}
+</style>

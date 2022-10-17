@@ -2,38 +2,39 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 
-const CarritoStore = defineStore('carrito', {
+export const CarritoStore = defineStore('carrito', {
   state: () => ({
-    listaPedido: [] as ItemPedido[] ,
+    listaPedido: [] as Plato[] ,
 }),
 actions: {
-    agregarAPedido(item:ItemPedido) {
-     let buscado:ItemPedido=this.listaPedido.filter((i)=> i.nombre==item.nombre)[0]
+    agregarAPedido(item:Plato) {
+     let buscado:Plato=this.listaPedido.filter((i)=> i.nombre==item.nombre)[0]
      if(!buscado){
         this.listaPedido.push(item)   
       }else{
         buscado.cantidad++
       }
     },
-    agregarUno(item:ItemPedido){
+    agregarUno(item:Plato){
       item.cantidad++
     },
-    restarUno(item:ItemPedido){
+    restarUno(item:Plato){
       item.cantidad--
     },
     finalizarPedido(usua:User){
-      const url: string = `http://localhost:8080/user/${usua.nick}`
-      axios.post(url, this.listaPedido)
+      const url: string = `http://localhost:8080/usuarios/${usua.nick}`
+      axios.put(url, this.listaPedido)
     }
     
 }
 })
 
-interface ItemPedido {
+interface Plato {
 nombre: string
-cantidad: number
-precio: number
 descripcion:string
+img:String
+precio: number
+cantidad: number
 }
 interface User {
   nick: string
