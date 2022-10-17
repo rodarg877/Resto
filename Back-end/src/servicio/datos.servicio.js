@@ -12,11 +12,12 @@ import * as mongoDB from "mongodb";
 import dotenv from "dotenv";
 // Global Variables
 export const collections = {};
+export let client;
 // Initialize Connection
 export function connectToDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         dotenv.config();
-        const client = new mongoDB.MongoClient('mongodb://127.0.0.1:27017');
+        client = new mongoDB.MongoClient('mongodb://127.0.0.1:27017');
         yield client.connect();
         const db = client.db(process.env.DB_NAME);
         const platosCollection = db.collection('Platos');

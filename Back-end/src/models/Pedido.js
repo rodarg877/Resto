@@ -1,7 +1,5 @@
 export default class Pedido {
-    constructor(platos) {
-        this.nroPedido = ++Pedido.cont;
+    constructor(platos, id) {
         this.platos = platos;
     }
 }
-Pedido.cont = 1;

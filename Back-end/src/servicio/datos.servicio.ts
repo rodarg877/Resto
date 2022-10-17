@@ -7,10 +7,11 @@ export const collections: {
   usuarios?: mongoDB.Collection,
   pedidos?: mongoDB.Collection
 } = {}
+export let client: mongoDB.MongoClient;
 // Initialize Connection
 export async function connectToDatabase() {
   dotenv.config();
-  const client: mongoDB.MongoClient = new mongoDB.MongoClient('mongodb://127.0.0.1:27017');
+  client = new mongoDB.MongoClient('mongodb://127.0.0.1:27017');
 
   await client.connect();
 
