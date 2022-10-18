@@ -11,12 +11,12 @@
                   <div class="row">
                     <div class="col-6">
                       <figure class="">
-                        <img :src="menu.link" alt="" />
+                        <img :src="menu.img" alt="" />
                       </figure>
                     </div>
                     <div class="col-6">
                       <div class="caption">
-                        <div class="txt1">{{ menu.titulo }}</div>
+                        <div class="txt1">{{ menu.nombre }}</div>
                         <div class="txt2">
                           {{ menu.descripcion }}
                         </div>
@@ -71,16 +71,20 @@
         </div>
       </div>
     </div>
+    {{listaPedido}}
   </div>
+  
 </template>
 <script>
 import { CarritoStore } from "@/stores/carrito";
+import { storeToRefs } from 'pinia';
 export default {
   name: "Menu",
   setup() {
     const store = CarritoStore();
+    const {listaPedido} = storeToRefs(store);
     const { agregarAPedido } = store;
-    return { agregarAPedido };
+    return { agregarAPedido,listaPedido };
   },
 
   components: {},
@@ -90,23 +94,23 @@ export default {
       errrorCantidad:false,
       menues: [
         {
-          titulo: "mila",
+          nombre: "mila",
           descripcion: "rica mila",
-          link: "https://via.placeholder.com/160x192",
+          img: "https://via.placeholder.com/160x192",
           precio: 150,
           cantidad: 1,
         },
         {
-          titulo: "papas",
+          nombre: "papas",
           descripcion: "rica mila",
-          link: "https://via.placeholder.com/160x192",
+          img: "https://via.placeholder.com/160x192",
           precio: 150,
           cantidad: 1,
         },
         {
-          titulo: "hamburguesa",
+          nombre: "hamburguesa",
           descripcion: "rica mila",
-          link: "https://via.placeholder.com/160x192",
+          img: "https://via.placeholder.com/160x192",
           precio: 150,
           cantidad: 1,
         },
@@ -115,6 +119,7 @@ export default {
   },
   methods: {
     agregar(plato) {
+      console.log(plato);
       if (plato.cantidad >0) {
         this.agregarAPedido(plato);
       }

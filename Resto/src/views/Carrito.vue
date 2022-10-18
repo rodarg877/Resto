@@ -1,5 +1,4 @@
 <template>
-    
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-10 col-11 mx-auto">
@@ -10,15 +9,17 @@
               col-md-12 col-lg-7 col-11
               mx-auto
               main_cart
-              mb-lg-0 
+              mb-lg-0
               shadow
               mt-2
               mb-2
             "
           >
             <div class="card p-4">
-              <h2 class="py-4 font-weight-bold">Cart (2 items)</h2>
-              <div class="row">
+              <h2 class="py-4 font-weight-bold">
+                Carrito ({{ listaPedido.length }})
+              </h2>
+              <div v-for="(item, index) in listaPedido" :key="index" class="row">
                 <!-- cart images div -->
                 <div
                   class="
@@ -32,7 +33,7 @@
                     product_img
                   "
                 >
-                  <img src="images/img2.png" class="img-fluid" alt="cart img" />
+                  <img :src="item.img" class="img-fluid" alt="cart img" />
                 </div>
 
                 <!-- cart product details -->
@@ -40,10 +41,8 @@
                   <div class="row">
                     <!-- product name  -->
                     <div class="col-6 card-title">
-                      <h1 class="mb-4 product_name">Blue Zara Shirt</h1>
-                      <p class="mb-2">SHIRT - BLUE</p>
-                      <p class="mb-2">COLOR: BLUE</p>
-                      <p class="mb-3">SIZE: M</p>
+                      <h1 class="mb-4 product_name">{{item.nombre}}</h1>
+                      <p class="mb-2">{{item.descripcion}}</p>
                     </div>
                     <!-- quantity inc dec -->
                     <div class="col-6">
@@ -51,9 +50,9 @@
                         <li class="page-item">
                           <button
                             class="page-link"
-                            onclick="decreaseNumber('textbox','itemval')"
+                            @click="item.cantidad--"
                           >
-                          <font-awesome-icon icon="fa-solid fa-minus" />
+                            <font-awesome-icon icon="fa-solid fa-minus" />
                           </button>
                         </li>
                         <li class="page-item">
@@ -68,9 +67,9 @@
                         <li class="page-item">
                           <button
                             class="page-link"
-                            onclick="increaseNumber('textbox','itemval')"
+                            @click="item.cantidad++"
                           >
-                            <font-awesome-icon icon="fas fa-plus"/>
+                            <font-awesome-icon icon="fas fa-plus" />
                           </button>
                         </li>
                       </ul>
@@ -81,10 +80,13 @@
                     <div
                       class="col-8 d-flex justify-content-between remove_wish"
                     >
-                      <p><font-awesome-icon icon="fas fa-trash-alt"/> REMOVE ITEM</p>
+                      <p>
+                        <font-awesome-icon icon="fas fa-trash-alt" /> REMOVE
+                        ITEM
+                      </p>
                     </div>
                     <div class="col-4 d-flex justify-content-end price_money">
-                      <h3>$<span id="itemval">0.00 </span></h3>
+                      <h3>$<span id="itemval">{{item.precio}}</span></h3>
                     </div>
                   </div>
                 </div>
@@ -117,7 +119,9 @@
                 <p class="pad">Total</p>
                 <p class="pad">$<span id="total_cart_amt">0.00</span></p>
               </div>
-              <button class="btn btn-primary pad text-uppercase">Finalizar Compra</button>
+              <button class="btn btn-primary pad text-uppercase">
+                Finalizar Compra
+              </button>
             </div>
           </div>
         </div>
@@ -127,9 +131,24 @@
 </template>
 
 <script>
-export default {};
-</script>
+  import { CarritoStore } from "@/stores/carrito";
+import { storeToRefs } from 'pinia';
+export default {
+  name: " Carrito",
+  setup() {
+    const store = CarritoStore();
+   const {listaPedido}=storeToRefs(store);
+   const {finalizarPedido}=store;
+    return { listaPedido, finalizarPedido};
+  },
+  components: {},
+  data(){
+    return{
 
+    }
+  }
+}
+</script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap");
 * {

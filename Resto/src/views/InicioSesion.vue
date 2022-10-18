@@ -87,7 +87,8 @@ export default {
       if (!this.errorUser && !this.errorPass) {
         
        this.errorUsuario=await this.chequearUser(this.Usuario)
-      !this.errorUsuario? this.$router.push('/'):''
+       console.log(await this.chequearUser(this.Usuario));
+      //!this.errorUsuario? this.$router.push('/'):''
       }
     },
   },

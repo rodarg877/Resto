@@ -10,20 +10,20 @@ export const UsuarioStore = defineStore('UsuarioStore', {
        async chequearUser(usua: User) {
             let buscado: User | null;
             buscado = null
+            let result;
             const url: string = `http://localhost:8080/usuarios/${usua.nick}`
             await axios.get<User>(url)
                 .then(response => {
+                    console.log(response.status);
                     buscado = response.data;
-                });
-
-        
-            if (!!buscado && usua.pass == buscado.pass) {
-                this.usuario = usua.nick;
-                console.log(this.usuario);
-                return false
-            } else {
-                return true
-            }
+                    this.usuario = usua.nick;
+                    result=false
+                }).catch((e: Error) => {
+                    console.log("entro");
+                    result=true
+                    
+                  });
+                  return result;
         }, 
         cerrarSesion(){
             this.usuario=null

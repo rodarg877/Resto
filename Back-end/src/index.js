@@ -1,5 +1,5 @@
 import express from "express";
-import { connectToDatabase, client } from "./servicio/datos.servicio.js";
+import { connectToDatabase } from "./servicio/datos.servicio.js";
 import { platosRouter } from "./routes/plato.routes.js";
 import { usuariosRouter } from "./routes/usuario.router.js";
 import cors from 'cors';
@@ -17,4 +17,4 @@ connectToDatabase()
     .catch((error) => {
     console.error("Database connection failed", error);
     process.exit();
-}).finally(() => client.close());
+});
