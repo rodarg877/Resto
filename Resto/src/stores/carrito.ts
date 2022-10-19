@@ -1,18 +1,20 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useStorage } from '@vueuse/core'
 
 
 export const CarritoStore = defineStore('carrito', {
+ 
   state: () => ({
-    listaPedido: [] as Plato[] ,
+    listaPedido:useStorage("listaPedido",[]) as Plato[] ,
 }),
 actions: {
     agregarAPedido(item:Plato) {
-     let buscado:Plato=this.listaPedido.filter((i)=> i.nombre==item.nombre)[0]
+     let buscado:Plato=this.listaPedido?.filter((i)=> i.nombre==item.nombre)[0]
      if(!buscado){
-        this.listaPedido.push(item)   
+        this.listaPedido.push({...item})   
       }else{
-        buscado.cantidad++
+        buscado.cantidad+=item.cantidad
       }
     },
     finalizarPedido(usua:User){

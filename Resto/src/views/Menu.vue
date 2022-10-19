@@ -92,6 +92,7 @@ export default {
   data() {
     return {
       errrorCantidad:false,
+      cantidad:1,
       menues: [
         {
           nombre: "mila",
