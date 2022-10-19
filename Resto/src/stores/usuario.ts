@@ -12,7 +12,7 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             buscado = null
             let result;
             const url: string = `http://localhost:8080/usuarios/${usua.nick}`
-            await axios.get<User>(url)
+            await axios.get<User,any>(url)
                 .then(response => {
                     console.log(response.status);
                     buscado = response.data;

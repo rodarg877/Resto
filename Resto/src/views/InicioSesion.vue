@@ -25,7 +25,7 @@
               v-model.trim="Usuario.nick"
             />
           </div>
-          <div v-if="errorUser" class="text-danger">Usuario invalido</div>
+          <div v-if="errorUser" class="alert alert-danger mt-2">Usuario invalido</div>
           <div class="input-group form-group mt-3">
             <div class="bg-dark rounded-start d-flex align-items-center">
               <span class="m-3"><i class="bi bi-lock"></i></span>
@@ -37,8 +37,8 @@
               v-model.trim="Usuario.pass"
             />
           </div>
-          <div v-if="errorPass" class="text-danger">password invalido</div>
-          <div v-if="errorUsuario" class="text-danger">password o usuario incorrecto</div>
+          <div v-if="errorPass" class="alert alert-danger mt-2">password invalido</div>
+          <div v-if="errorUsuario" class="alert alert-danger mt-2">password o usuario incorrecto</div>
           <div class="form-group mt-5">
             <input
               type="submit"
@@ -87,8 +87,7 @@ export default {
       if (!this.errorUser && !this.errorPass) {
         
        this.errorUsuario=await this.chequearUser(this.Usuario)
-       console.log(await this.chequearUser(this.Usuario));
-      //!this.errorUsuario? this.$router.push('/'):''
+      !this.errorUsuario? this.$router.push('/'):''
       }
     },
   },

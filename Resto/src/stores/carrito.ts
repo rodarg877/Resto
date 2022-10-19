@@ -15,12 +15,6 @@ actions: {
         buscado.cantidad++
       }
     },
-    agregarUno(item:Plato){
-      item.cantidad++
-    },
-    restarUno(item:Plato){
-      item.cantidad--
-    },
     finalizarPedido(usua:User){
       const url: string = `http://localhost:8080/usuarios/${usua.nick}`
       axios.put(url, this.listaPedido)
