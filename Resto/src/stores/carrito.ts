@@ -6,7 +6,7 @@ import { useStorage } from '@vueuse/core'
 export const CarritoStore = defineStore('carrito', {
  
   state: () => ({
-    listaPedido:useStorage("listaPedido",[]) as Plato[] ,
+    listaPedido:useStorage("listaPedido", []) as unknown as Plato[] ,
 }),
 actions: {
     agregarAPedido(item:Plato) {
@@ -20,6 +20,11 @@ actions: {
     finalizarPedido(usua:User){
       const url: string = `http://localhost:8080/usuarios/${usua.nick}`
       axios.put(url, this.listaPedido)
+    }, 
+    eliminarPlato(item:Plato){
+      console.log(this.listaPedido.indexOf(item));
+      
+      this.listaPedido?.splice(this.listaPedido.indexOf(item), 1)
     }
     
 }

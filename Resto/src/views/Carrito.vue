@@ -19,7 +19,7 @@
               <h2 class="py-4 font-weight-bold">
                 Carrito ({{ listaPedido.length }})
               </h2>
-              <div v-for="(item, index) in listaPedido" :key="index" class="row">
+              <div v-for="(item, index) in listaPedido" :key="index" class="row mt-2">
                 <!-- cart images div -->
                 <div
                   class="
@@ -46,11 +46,11 @@
                     </div>
                     <!-- quantity inc dec -->
                     <div class="col-6">
-                      <ul class="pagination justify-content-end set_quantity">
+                      <ul class="pagination justify-content-end ">
                         <li class="page-item">
                           <button
                             class="page-link"
-                            @click="item.cantidad--"
+                            @click="item.cantidad<=1?item.cantidad:item.cantidad--"
                           >
                             <font-awesome-icon icon="fa-solid fa-minus" />
                           </button>
@@ -60,8 +60,9 @@
                             type="text"
                             name=""
                             class="page-link"
-                            value="0"
+                            v-model="item.cantidad"
                             id="textbox"
+                            min="0"
                           />
                         </li>
                         <li class="page-item">
@@ -80,10 +81,10 @@
                     <div
                       class="col-8 d-flex justify-content-between remove_wish"
                     >
-                      <p>
+                      <button @click="eliminarItem(item)" class="btn btn-outline-danger">
                         <font-awesome-icon icon="fas fa-trash-alt" /> REMOVE
                         ITEM
-                      </p>
+                      </button>
                     </div>
                     <div class="col-4 d-flex justify-content-end price_money">
                       <h3>$<span id="itemval">{{item.precio}}</span></h3>
@@ -101,11 +102,11 @@
               <h2 class="product_name mb-4 py-2">Total</h2>
               <div class="price_indiv d-flex justify-content-between">
                 <p class="pad">Precio Productos</p>
-                <p class="pad">$<span id="product_total_amt">0.00</span></p>
+                <p class="pad">$<span id="product_total_amt">{{calcularProd()}}</span></p>
               </div>
               <div class="price_indiv d-flex justify-content-between">
                 <p class="pad">Delivery</p>
-                <p class="pad">$<span id="shipping_charge">50.0</span></p>
+                <p class="pad">$<span id="shipping_charge">{{precioDelivery}}</span></p>
               </div>
               <hr />
               <div
@@ -117,7 +118,7 @@
                 "
               >
                 <p class="pad">Total</p>
-                <p class="pad">$<span id="total_cart_amt">0.00</span></p>
+                <p class="pad">$<span id="total_cart_amt">{{calcularTotal()}}</span></p>
               </div>
               <button class="btn btn-primary pad text-uppercase">
                 Finalizar Compra
@@ -138,13 +139,24 @@ export default {
   setup() {
     const store = CarritoStore();
    const {listaPedido}=storeToRefs(store);
-   const {finalizarPedido}=store;
-    return { listaPedido, finalizarPedido};
+   const {finalizarPedido, eliminarPlato}=store;
+    return { listaPedido, finalizarPedido,eliminarPlato};
   },
   components: {},
   data(){
     return{
-
+      precioDelivery:50,
+    }
+  },
+  methods:{
+    calcularTotal(){
+      return this.calcularProd()+this.precioDelivery
+    },
+    calcularProd(){
+      return this.listaPedido.reduce((sum, p)=>sum+=(p.precio*p.cantidad),0)
+    },
+    eliminarItem(plato){
+this.eliminarPlato(plato)
     }
   }
 }
@@ -206,19 +218,7 @@ h2 {
   font-size: 1rem;
   font-weight: 600;
 }
-.set_quantity {
-  position: relative;
-}
-.set_quantity::after {
-  content: "(Note, 1 piece)";
-  width: auto;
-  height: auto;
-  text-align: center;
-  position: absolute;
-  bottom: -20px;
-  right: 1.5rem;
-  font-size: 0.8rem;
-}
+
 .page-link {
   line-height: 16px;
   width: 45px;
