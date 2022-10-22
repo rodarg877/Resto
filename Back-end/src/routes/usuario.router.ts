@@ -13,19 +13,9 @@ usuariosRouter.use(express.json());
 usuariosRouter.get("/:nick?", UsuarioController.getUsuarios)
 
 
-usuariosRouter.post("/login", async (req: Request, res: Response) => {
-    try {
-        const newUsuario = req.body as Usuario;
-        const result = await collections.usuarios?.insertOne(newUsuario);
+usuariosRouter.post("/login", UsuarioController.postUsuarios)
+usuariosRouter.post("/", UsuarioController.postUsuario)
 
-        result
-            ? res.status(201).send(`Successfully created a new usuario with id ${result.insertedId}`)
-            : res.status(500).send("Failed to create a usuario");
-    } catch (error: any) {
-        console.error(error);
-        res.status(400).send(error.message);
-    }
-});
 usuariosRouter.put("/pedidos/:id", async (req: Request, res: Response) => {
     const id = req?.params?.id;
 
