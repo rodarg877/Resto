@@ -6,4 +6,10 @@ export default class Plato {
         this.precio = precio;
         this.cantidad = 1;
     }
+    getNombre() {
+        return this.nombre;
+    }
+    getPrecio() {
+        return this.precio;
+    }
 }

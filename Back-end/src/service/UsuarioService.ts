@@ -12,4 +12,8 @@ export default class UsuarioService {
   static async agregarUsuario(user: Usuario) {
     return await UsuarioDaoMongoDb.agregarUsuario(user)
   }
+  static async cambiarPassword(nick:string, newPass:string){
+    return await UsuarioDaoMongoDb.cambiarPassword(nick, newPass)
+    
+  }
 }

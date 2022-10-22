@@ -39,14 +39,14 @@ export default class UsuarioDaoMongoDb {
             }
         });
     }
-    static logUsuario(nick, user) {
+    static logUsuario(user) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: nick })));
+                const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: user.getNick() })));
                 if (usuario) {
                     if (usuario.getPass() == user.getPass()) {
-                        return jwt.sign({ nick: usuario.getNick(), direccion: usuario.getDireccion(), email: usuario.getEmail() }, 'secret');
+                        return jwt.sign({ nick: usuario.getNick() }, 'secret');
                     }
                     else {
                         throw "pass incorrecta";
@@ -58,6 +58,43 @@ export default class UsuarioDaoMongoDb {
             }
             catch (err) {
                 return err;
+            }
+        });
+    }
+    static agregarUsuario(user) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.insertOne(user));
+                if (result) {
+                    return result;
+                }
+                else {
+                    throw "error al crear usuario";
+                }
+            }
+            catch (error) {
+                return error;
+            }
+        });
+    }
+    static cambiarPassword(nick, newPass) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log(nick);
+                console.log(newPass);
+                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: nick }, { $set: { pass: newPass } }));
+                console.log(result);
+                if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
+                    return "Cambio exitoso";
+                }
+                else {
+                    throw "Usuario inexistente";
+                }
+            }
+            catch (error) {
+                return error;
             }
         });
     }

@@ -9,7 +9,7 @@ export default class UsuarioController {
             res.json(await UsuarioService.obtenerUsuarios(nick))
 
         }
-        public static async postUsuarios(req: Request, res: Response) {
+        public static async logIn(req: Request, res: Response) {
             const user =req.body as unknown as Usuario
             res.json(await UsuarioService.loginUsuario(user))
 
@@ -18,5 +18,12 @@ export default class UsuarioController {
             const user =req.body as unknown as Usuario
             res.json(await UsuarioService.agregarUsuario(user))
 
+        }
+        public static async cambiarPassword(req: Request, res: Response){
+            const {newPass} = req.body;
+            const {nick} = req.body;
+            console.log(req.body);
+            
+            res.json(await UsuarioService.cambiarPassword(nick, newPass))
         }
 }

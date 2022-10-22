@@ -7,26 +7,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import UsuarioDaoMongoDb from "../repository/UsuarioDaoMongoDb.js";
-export default class UsuarioService {
-    static obtenerUsuarios(nick) {
+import PlatoService from '../service/PlatoService.js';
+export default class UsuarioController {
+    static getPlatos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            return nick ? yield UsuarioDaoMongoDb.findUsuario(nick) : UsuarioDaoMongoDb.findUsuarios();
+            const { nombre } = req.params;
+            res.json(yield PlatoService.obtenerPlato(nombre));
         });
     }
-    static loginUsuario(user) {
+    static crearPlato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UsuarioDaoMongoDb.logUsuario(user);
+            const plato = req.body;
+            res.json(yield PlatoService.crearPlato(plato));
         });
     }
-    static agregarUsuario(user) {
+    static modificarPlato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UsuarioDaoMongoDb.agregarUsuario(user);
+            const plato = req.body;
+            res.json(yield PlatoService.modificarPlato(plato));
         });
     }
-    static cambiarPassword(nick, newPass) {
+    static eliminarPlato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UsuarioDaoMongoDb.cambiarPassword(nick, newPass);
+            const { nombre } = req.params;
+            res.json(yield PlatoService.eliminarPlato(nombre));
         });
     }
 }

@@ -61,4 +61,23 @@ export default class UsuarioDaoMongoDb {
             return error;
         }
     }
+
+    static async cambiarPassword(nick:string, newPass:string){
+        try{
+            console.log(nick);
+            console.log(newPass);
+
+            
+            const result = await collections.usuarios?.updateOne({nick:nick}, { $set: {pass:  newPass}})
+            console.log(result);
+            
+            if(result?.modifiedCount){
+                return "Cambio exitoso"
+            } else {
+                throw "Usuario inexistente"
+            }
+        } catch(error:any){
+            return error;
+        }
+    }
 }

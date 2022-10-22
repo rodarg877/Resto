@@ -15,4 +15,24 @@ export default class UsuarioController {
             res.json(yield UsuarioService.obtenerUsuarios(nick));
         });
     }
+    static logIn(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = req.body;
+            res.json(yield UsuarioService.loginUsuario(user));
+        });
+    }
+    static postUsuario(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = req.body;
+            res.json(yield UsuarioService.agregarUsuario(user));
+        });
+    }
+    static cambiarPassword(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { newPass } = req.body;
+            const { nick } = req.body;
+            console.log(req.body);
+            res.json(yield UsuarioService.cambiarPassword(nick, newPass));
+        });
+    }
 }

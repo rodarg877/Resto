@@ -15,4 +15,12 @@ export default class Plato {
         this.precio = precio;
         this.cantidad=1;
     }
+
+    public getNombre(){
+        return this.nombre
+    }
+
+    public getPrecio(){
+        return this.precio;
+    }
 }
