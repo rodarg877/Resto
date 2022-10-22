@@ -49,7 +49,7 @@ export default class UsuarioDaoMongoDb {
 
         }
     }
-    static async agregarUsuarios(user: Usuario) {
+    static async agregarUsuario(user: Usuario) {
         try {
             const result = await collections.usuarios?.insertOne(user);
             if (result) {
