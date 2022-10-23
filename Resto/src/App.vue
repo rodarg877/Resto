@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Encabezado from './components/Encabezado.vue'
 import Pie from './components/Pie.vue'

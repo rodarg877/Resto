@@ -26,23 +26,23 @@ export default {
   <div>
     <div class="top1 container">
     <ul class="nav justify-content-end">
-      <li class="nav-item mt-2">
+      <li v-if="usuario == null" class="nav-item mt-2">
         <router-link to="/registro" style="font-size: 1rem;" class="nav-link">Registrarse</router-link>
       </li>
-      <li class="nav-item mt-2">
-        <router-link to="/inicioSesion" style="font-size: 1rem;" class="nav-link " v-if="usuario == null">Iniciar Sesion</router-link>
-      </li>
-      <li class="nav-item mt-2">
-        <router-link to="/" v-if="usuario != null" style="font-size: 1rem;" class="nav-link" @click="cerrarSesionEn">Cerrar Sesion</router-link>
-      </li>
-      <li class="nav-item">
-        <router-link to="/carrito" v-if="usuario != null" class="nav-link" ><i style="font-size: 2rem;" class="bi bi-cart3 ">
+      <li v-else class="nav-item">
+        <router-link to="/carrito"  class="nav-link" ><i style="font-size: 2rem;" class="bi bi-cart3 ">
           <span style="font-size: 0.8rem;" class="position-absolute top-45 start-100 translate-middle badge rounded-pill bg-danger">
              99+
             <span class="visually-hidden">unread messages</span>
            </span>
     </i>
 </router-link>
+      </li>
+      <li v-if="usuario == null" class="nav-item mt-2">
+        <router-link to="/inicioSesion" style="font-size: 1rem;" class="nav-link " v-if="usuario == null">Iniciar Sesion</router-link>
+      </li>
+      <li v-else class="nav-item mt-2">
+        <router-link to="/" style="font-size: 1rem;" class="nav-link" @click="cerrarSesionEn">Cerrar Sesion</router-link>
       </li>
     </ul>
   </div>
