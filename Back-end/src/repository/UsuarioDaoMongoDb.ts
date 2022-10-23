@@ -8,17 +8,13 @@ export default class UsuarioDaoMongoDb {
     static async findUsuario(nick: String) {
         try {
             const usuario: Usuario = (await collections.usuarios?.findOne({ nick: nick })) as unknown as Usuario;
-
             if (usuario) {
                 return usuario;
             } else {
-                throw "usuario no encontrado"
-
+                throw new Error( "usuario no encontrado")
             }
         } catch (err) {
-
-            return err;
-
+            return err.message;
         }
     }
 
@@ -38,14 +34,14 @@ export default class UsuarioDaoMongoDb {
                 if (usuario.getPass() == user.getPass()) {
                     return jwt.sign({ nick: usuario.getNick() }, 'secret')
                 } else {
-                    throw "pass incorrecta"
+                    throw new Error( "pass incorrecta")
                 }
             } else {
-                throw "usuario no encontrado"
+                throw new Error( "usuario no encontrado")
             }
         } catch (err) {
 
-            return err;
+            return err.message;
 
         }
     }
@@ -55,29 +51,25 @@ export default class UsuarioDaoMongoDb {
             if (result) {
                 return result
             } else {
-                throw "error al crear usuario"
+                throw new Error("error al crear usuario")
             }
         } catch (error: any) {
-            return error;
+            return error.message;
         }
     }
 
     static async cambiarPassword(nick:string, newPass:string){
         try{
-            console.log(nick);
-            console.log(newPass);
-
-            
             const result = await collections.usuarios?.updateOne({nick:nick}, { $set: {pass:  newPass}})
             console.log(result);
             
             if(result?.modifiedCount){
                 return "Cambio exitoso"
             } else {
-                throw "Usuario inexistente"
+                throw new Error("Usuario inexistente")
             }
         } catch(error:any){
-            return error;
+            return error.message;
         }
     }
 }

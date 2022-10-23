@@ -18,11 +18,11 @@ export default class PlatoDaoMongoDb {
                     return plato;
                 }
                 else {
-                    throw "Plato no encontrado";
+                    throw new Error("Plato no encontrado");
                 }
             }
             catch (err) {
-                return err;
+                return err.message;
             }
         });
     }
@@ -50,11 +50,10 @@ export default class PlatoDaoMongoDb {
                         return "Plato Agregado";
                     }
                     else {
-                        throw "No se pudo agregar el plato";
+                        throw new Error("No se pudo agregar el plato");
                     }
                 }
                 else {
-                    console.log("Giles");
                     throw new Error("Campor requeridos incompletos");
                 }
             }
@@ -72,7 +71,7 @@ export default class PlatoDaoMongoDb {
                     return result;
                 }
                 else {
-                    throw "error al crear Plato";
+                    throw new Error("error al crear Plato");
                 }
             }
             catch (error) {
@@ -95,7 +94,24 @@ export default class PlatoDaoMongoDb {
     //         return error;
     //     }
     // }
-    static modificarPlato(plato) {
+    static modificarPlato(nombre, plato) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log(plato);
+                const result = yield ((_a = collections.platos) === null || _a === void 0 ? void 0 : _a.updateOne({ nombre: nombre }, { $set: plato }));
+                console.log(result);
+                if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
+                    return "Cambio exitoso";
+                }
+                else {
+                    throw new Error("Plato inexistente");
+                }
+            }
+            catch (error) {
+                error.message;
+            }
+        });
     }
     static eliminarPlato(nombre) {
         var _a;
@@ -106,11 +122,11 @@ export default class PlatoDaoMongoDb {
                     return "Eliminacion exitosa";
                 }
                 else {
-                    throw "No se pudo eliminar";
+                    throw new Error("No se pudo eliminar");
                 }
             }
             catch (error) {
-                return error;
+                return error.message;
             }
         });
     }

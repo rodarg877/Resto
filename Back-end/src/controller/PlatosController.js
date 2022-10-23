@@ -23,8 +23,9 @@ export default class UsuarioController {
     }
     static modificarPlato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { nombre } = req.params;
             const plato = req.body;
-            res.json(yield PlatoService.modificarPlato(plato));
+            res.json(yield PlatoService.modificarPlato(nombre, plato));
         });
     }
     static eliminarPlato(req, res) {

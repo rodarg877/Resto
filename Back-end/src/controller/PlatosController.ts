@@ -15,8 +15,9 @@ export default class UsuarioController {
 
         }
         public static async modificarPlato(req: Request, res: Response) {
+            const {nombre} = req.params;
             const plato =req.body as unknown as Plato
-            res.json(await PlatoService.modificarPlato(plato))
+            res.json(await PlatoService.modificarPlato(nombre,plato))
 
         }
         public static async eliminarPlato(req: Request, res: Response){

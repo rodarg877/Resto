@@ -1,27 +1,31 @@
 export default class Usuario {
 
-    private nick: String;
-    private pass: String;
-    private email: String;
-    private direccion: String;
+   private nick: string;
+   private pass: string;
+   private email: string;
+   private direccion: string;
+   private tipo: string;
 
-    constructor(nick:String, pass:String, email:String, direccion:String) {
-        this.nick = nick;
-        this.pass = pass;
-        this.email = email;
-        this.direccion=direccion;
-
+   constructor(nick: string, pass: string, email: string, direccion: string, tipo: string) {
+      this.nick = nick;
+      this.pass = pass;
+      this.email = email;
+      this.direccion = direccion;
+      this.tipo = "N";
     }
- public getPass():String{
-    return this.pass
- }
- public getNick():String{
-    return this.nick
- }
- public getEmail():String{
-    return this.email
- }
- public getDireccion():String{
-    return this.direccion
- }
+   public getPass(): string {
+      return this.pass
+   }
+   public getNick(): string {
+      return this.nick
+   }
+   public getEmail(): string {
+      return this.email
+   }
+   public getDireccion(): string {
+      return this.direccion
+   }
+   public getTipo(): string {
+      return this.tipo
+   }
 }

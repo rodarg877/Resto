@@ -9,8 +9,8 @@ export default class UsuarioService {
   static async crearPlato(plato: Plato) {
     return await PlatoDaoMongoDb.crearPlato(plato)
   }
-  static async modificarPlato(plato: Plato) {
-    return await PlatoDaoMongoDb.modificarPlato(plato)
+  static async modificarPlato(nombre:string, plato: Plato) {
+    return await PlatoDaoMongoDb.modificarPlato(nombre,plato)
   }
   static async eliminarPlato(nombre:string){
     return await PlatoDaoMongoDb.eliminarPlato(nombre)
