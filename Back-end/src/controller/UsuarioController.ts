@@ -26,4 +26,9 @@ export default class UsuarioController {
             
             res.json(await UsuarioService.cambiarPassword(nick, newPass))
         }
+        public static async enviarMail(req: Request, res: Response){
+            const {email} = req.body;
+            
+            res.json(await UsuarioService.enviarMail(email))
+        }
 }

@@ -1,19 +1,18 @@
 import { ObjectId } from "mongodb";
 export default class Plato {
    
-    private nombre:String;
-    private  descripcion:String;
-    private img:String;
-    private precio:Number;
-    private cantidad:Number;
+    private nombre:string;
+    private  descripcion:string;
+    private img:string;
+    private precio:number;
+    private cantidad?:number;
     public id?: ObjectId
 
-    constructor(nombre:String, descripcion:String, img:String, precio:Number,id?:ObjectId) {
+    constructor(nombre:string, descripcion:string, img:string, precio:number,id?:ObjectId, cantidad?:number) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.img = img;
         this.precio = precio;
-        this.cantidad=1;
     }
 
     public getNombre(){
@@ -22,5 +21,11 @@ export default class Plato {
 
     public getPrecio(){
         return this.precio;
+    }
+    public getDescripcion(){
+        return this.descripcion;
+    }
+    public getImg(){
+        return this.img;
     }
 }

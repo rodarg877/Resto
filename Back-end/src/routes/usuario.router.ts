@@ -10,5 +10,6 @@ usuariosRouter.get("/:nick?", UsuarioController.getUsuarios)
 
 usuariosRouter.post("/login", UsuarioController.logIn)
 usuariosRouter.post("/", UsuarioController.postUsuario)
+usuariosRouter.post("/cambiarPass", UsuarioController.enviarMail)
 usuariosRouter.put("/", UsuarioController.cambiarPassword)
 

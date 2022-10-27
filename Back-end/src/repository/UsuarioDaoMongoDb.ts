@@ -72,4 +72,16 @@ export default class UsuarioDaoMongoDb {
             return error.message;
         }
     }
+    static async verificarMail(email: String) {
+        try {
+            const usuario: Usuario = (await collections.usuarios?.findOne({ email: email })) as unknown as Usuario;
+            if (email) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            return err.message;
+        }
+    }
 }

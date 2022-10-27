@@ -1,7 +1,7 @@
 import Pedido from "../models/Pedido.js"
 import PedidoDaoMongoDb from "../repository/PedidoDaoMongoDb.js"
 
-export default class UsuarioService {
+export default class PedidoService {
 
   static async obtenerPedido(nick: string) {
     return await PedidoDaoMongoDb.findPedido(nick) 

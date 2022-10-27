@@ -4,6 +4,7 @@ export default class Usuario {
         this.pass = pass;
         this.email = email;
         this.direccion = direccion;
+        this.tipo = "N";
     }
     getPass() {
         return this.pass;
@@ -16,5 +17,8 @@ export default class Usuario {
     }
     getDireccion() {
         return this.direccion;
+    }
+    getTipo() {
+        return this.tipo;
     }
 }

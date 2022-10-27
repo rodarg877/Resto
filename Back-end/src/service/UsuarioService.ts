@@ -1,8 +1,9 @@
 import Usuario from "../models/Usuario.js"
 import UsuarioDaoMongoDb from "../repository/UsuarioDaoMongoDb.js"
+import { Email } from "../shared/Email.js"
 
 export default class UsuarioService {
-
+ 
   static async obtenerUsuarios(nick: String) {
     return nick ? await UsuarioDaoMongoDb.findUsuario(nick) : UsuarioDaoMongoDb.findUsuarios()
   }
@@ -15,5 +16,11 @@ export default class UsuarioService {
   static async cambiarPassword(nick:string, newPass:string){
     return await UsuarioDaoMongoDb.cambiarPassword(nick, newPass)
     
+  }
+  static async enviarMail(email:string){
+ 
+    if(await UsuarioDaoMongoDb.verificarMail(email)){
+      Email.enviar(email, "Recuperar Contraseña", `http://localhost:5173/cambiarPass`)
+    }
   }
 }

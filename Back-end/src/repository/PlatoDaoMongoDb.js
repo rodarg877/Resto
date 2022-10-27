@@ -42,7 +42,6 @@ export default class PlatoDaoMongoDb {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log(plato);
                 if (plato.hasOwnProperty('nombre') && plato.hasOwnProperty('precio')) {
                     const result = yield ((_a = collections.platos) === null || _a === void 0 ? void 0 : _a.insertOne(plato));
                     console.log(result);
@@ -62,45 +61,11 @@ export default class PlatoDaoMongoDb {
             }
         });
     }
-    static agregarPlato(plato) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield ((_a = collections.platos) === null || _a === void 0 ? void 0 : _a.insertOne(plato));
-                if (result) {
-                    return result;
-                }
-                else {
-                    throw new Error("error al crear Plato");
-                }
-            }
-            catch (error) {
-                return error;
-            }
-        });
-    }
-    // static async modificarPlato(nick:string, newPass:string){
-    //     try{
-    //         console.log(nick);
-    //         console.log(newPass);
-    //         const result = await collections.platos?.updateOne({nick:nick}, { $set: {pass:  newPass}})
-    //         console.log(result);
-    //         if(result?.modifiedCount){
-    //             return "Cambio exitoso"
-    //         } else {
-    //             throw "Plato inexistente"
-    //         }
-    //     } catch(error:any){
-    //         return error;
-    //     }
-    // }
     static modificarPlato(nombre, plato) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log(plato);
                 const result = yield ((_a = collections.platos) === null || _a === void 0 ? void 0 : _a.updateOne({ nombre: nombre }, { $set: plato }));
-                console.log(result);
                 if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
                     return "Cambio exitoso";
                 }

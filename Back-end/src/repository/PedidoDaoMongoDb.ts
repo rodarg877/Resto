@@ -30,7 +30,8 @@ export default class PedidoDaoMongoDb {
     static async crearPedido(pedido: Pedido) {
         try {
             if (pedido.hasOwnProperty('platos') && pedido.hasOwnProperty('direccion')&& pedido.hasOwnProperty('user')) {
-                const result = await collections.pedidos?.insertOne(Pedido);
+                
+                const result = await collections.pedidos?.insertOne( pedido);
                 if (result?.acknowledged) {
                     return "Pedido Agregado"
                 } else {
