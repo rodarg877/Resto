@@ -17,23 +17,31 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             const url: string = `http://localhost:8080/usuarios/login`
             try{
                 const resultado = await axios.post<{token:string, direccion:string},any>(url, {nick: nick, pass: pass}) 
-                console.log(resultado);
+               // console.log(resultado);
                 
-                
+               if(resultado.data.token != null){
+              //  console.log("Funciona, tiene token.");
                 this.usuario={nick:nick, direccion: resultado.data.direccion, token:resultado.data.token} as User
-
-                console.log(this.usuario)
+                //console.log(this.usuario)
                 result=false
                 localStorage.setItem('usuario', JSON.stringify(this.usuario))
+               }else {
+                //console.log("No tiene token");
+                result=true
+               }
+               
+                //console.log("retorno del chequear" + result);
+                
+               
 
             }catch(e: any){
                 console.log(e);
-                result=true
+                
             }
                   return result;
         },
         setUsuario(user:any){
-            this.usuario = user
+           this.usuario = user
         }, 
         cerrarSesion(){
             this.usuario = null

@@ -22,7 +22,7 @@ export default {
     },
   },
   mounted(){
-    console.log(localStorage.getItem('usuario'));
+    //console.log(localStorage.getItem('usuario'));
     if(localStorage.getItem('usuario')){
       this.setUsuario(localStorage.getItem('usuario')) 
     }

@@ -85,7 +85,10 @@ export default {
       if (!this.errorUser && !this.errorPass) {
         
        this.errorUsuario=await this.chequearUser(this.Usuario.nick, this.Usuario.pass)
-      !this.errorUsuario? this.$router.push('/'):''
+       if(!this.errorUsuario){
+         this.$router.push('/');
+       }
+      
       }
     },
   },
