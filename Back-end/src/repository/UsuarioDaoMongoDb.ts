@@ -26,13 +26,17 @@ export default class UsuarioDaoMongoDb {
             return error.message;
         }
     }
-    static async logUsuario(user: Usuario) {
+    static async logUsuario(nick: string, pass: string) {
         try {
-            const usuario: Usuario = (await collections.usuarios?.findOne({ nick: user.getNick() })) as unknown as Usuario;
-
+            const usuario = (await collections.usuarios?.findOne({nick: nick}));
+            //const usuario: Usuario = new Usuario(usuario2?.nick, usuario2?.pass, usuario2?.email, usuario2?.direccion);
+            //console.log(typeof usuario);
+            
             if (usuario) {
-                if (usuario.getPass() == user.getPass()) {
-                    return jwt.sign({ nick: usuario.getNick() }, 'secret')
+                if (usuario.pass == pass) {
+                    console.log(jwt.sign({ nick: usuario.nick }, 'secret'));
+                    
+                    return {token: jwt.sign({ nick: usuario.nick }, 'secret'), direccion:usuario.direccion} 
                 } else {
                     throw new Error( "pass incorrecta")
                 }

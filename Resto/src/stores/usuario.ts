@@ -1,38 +1,52 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useStorage} from '@vueuse/core'
 
 export const UsuarioStore = defineStore('UsuarioStore', {
     state: () => ({
-        usuario: null as String | null,
+        usuario: null as User | null,
+        
+        //usuario: useStorage("usuario", null) as unknown as User,
     }),
     actions: {
-       async chequearUser(usua: User) {
+       async chequearUser(nick: string, pass: string) {
             let buscado: User | null;
             buscado = null
             let result;
-            const url: string = `http://localhost:8080/usuarios/${usua.nick}`
-            await axios.get<User,any>(url)
-                .then(response => {
-                    console.log(response.status);
-                    buscado = response.data;
-                    this.usuario = usua.nick;
-                    result=false
-                }).catch((e: Error) => {
-                    console.log("entro");
-                    result=true
-                    
-                  });
+            const url: string = `http://localhost:8080/usuarios/login`
+            try{
+                const resultado = await axios.post<{token:string, direccion:string},any>(url, {nick: nick, pass: pass}) 
+                console.log(resultado);
+                
+                
+                this.usuario={nick:nick, direccion: resultado.data.direccion, token:resultado.data.token} as User
+
+                console.log(this.usuario)
+                result=false
+                localStorage.setItem('usuario', JSON.stringify(this.usuario))
+
+            }catch(e: any){
+                console.log(e);
+                result=true
+            }
                   return result;
+        },
+        setUsuario(user:any){
+            this.usuario = user
         }, 
         cerrarSesion(){
-            this.usuario=null
+            this.usuario = null
+            location.reload();
+            localStorage.removeItem('usuario')
+
+            
         }
     }
 })
 
 interface User {
     nick: string
-    pass: string
-    mail: string
+    direccion: string
+    token: string
 }

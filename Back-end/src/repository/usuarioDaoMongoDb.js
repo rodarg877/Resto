@@ -39,14 +39,17 @@ export default class UsuarioDaoMongoDb {
             }
         });
     }
-    static logUsuario(user) {
+    static logUsuario(nick, pass) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: user.getNick() })));
+                const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: nick })));
+                //const usuario: Usuario = new Usuario(usuario2?.nick, usuario2?.pass, usuario2?.email, usuario2?.direccion);
+                //console.log(typeof usuario);
                 if (usuario) {
-                    if (usuario.getPass() == user.getPass()) {
-                        return jwt.sign({ nick: usuario.getNick() }, 'secret');
+                    if (usuario.pass == pass) {
+                        console.log(jwt.sign({ nick: usuario.nick }, 'secret'));
+                        return { token: jwt.sign({ nick: usuario.nick }, 'secret'), direccion: usuario.direccion };
                     }
                     else {
                         throw new Error("pass incorrecta");
@@ -93,6 +96,23 @@ export default class UsuarioDaoMongoDb {
             }
             catch (error) {
                 return error.message;
+            }
+        });
+    }
+    static verificarMail(email) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ email: email })));
+                if (email) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            catch (err) {
+                return err.message;
             }
         });
     }

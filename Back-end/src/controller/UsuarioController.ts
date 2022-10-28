@@ -10,8 +10,9 @@ export default class UsuarioController {
 
         }
         public static async logIn(req: Request, res: Response) {
-            const user =req.body as unknown as Usuario
-            res.json(await UsuarioService.loginUsuario(user))
+            const {nick, pass} =req.body
+            res.json(await UsuarioService.loginUsuario(nick, pass));
+            
 
         }
         public static async postUsuario(req: Request, res: Response) {

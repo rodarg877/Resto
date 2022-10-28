@@ -1,12 +1,15 @@
+import { ObjectId } from "mongodb";
+
 export default class Usuario {
 
+   private id?: ObjectId
    private nick: string;
    private pass: string;
    private email: string;
    private direccion: string;
    private tipo: string;
 
-   constructor(nick: string, pass: string, email: string, direccion: string) {
+   constructor(nick: string, pass: string, email: string, direccion: string, id?: ObjectId) {
       this.nick = nick;
       this.pass = pass;
       this.email = email;

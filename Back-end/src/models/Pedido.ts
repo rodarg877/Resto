@@ -8,10 +8,10 @@ export default class Pedido {
     private estado: string;
     private direccion: string;
     private total:number;
-    //private fecha :string;
+    private fecha :string;
 
     constructor(platos: Plato[], user: string, direccion: string, precioDelivery:number, id?: ObjectId) {
-        //this.fecha= this.setDay();
+        this.fecha= this.setDay();
         this.platos = platos;
         this.user = user;
         this.estado = "P";

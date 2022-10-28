@@ -1,7 +1,6 @@
 export default class Pedido {
-    //private fecha :string;
     constructor(platos, user, direccion, precioDelivery, id) {
-        //this.fecha= this.setDay();
+        this.fecha = this.setDay();
         this.platos = platos;
         this.user = user;
         this.estado = "P";

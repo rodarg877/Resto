@@ -17,8 +17,8 @@ export default class UsuarioController {
     }
     static logIn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = req.body;
-            res.json(yield UsuarioService.loginUsuario(user));
+            const { nick, pass } = req.body;
+            res.json(yield UsuarioService.loginUsuario(nick, pass));
         });
     }
     static postUsuario(req, res) {
@@ -33,6 +33,12 @@ export default class UsuarioController {
             const { nick } = req.body;
             console.log(req.body);
             res.json(yield UsuarioService.cambiarPassword(nick, newPass));
+        });
+    }
+    static enviarMail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.body;
+            res.json(yield UsuarioService.enviarMail(email));
         });
     }
 }

@@ -7,8 +7,8 @@ export default class UsuarioService {
   static async obtenerUsuarios(nick: String) {
     return nick ? await UsuarioDaoMongoDb.findUsuario(nick) : UsuarioDaoMongoDb.findUsuarios()
   }
-  static async loginUsuario(user: Usuario) {
-    return await UsuarioDaoMongoDb.logUsuario(user)
+  static async loginUsuario(nick: string, pass: string) {
+    return await UsuarioDaoMongoDb.logUsuario(nick, pass)
   }
   static async agregarUsuario(user: Usuario) {
     return await UsuarioDaoMongoDb.agregarUsuario(user)

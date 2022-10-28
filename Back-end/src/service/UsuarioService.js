@@ -8,15 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import UsuarioDaoMongoDb from "../repository/UsuarioDaoMongoDb.js";
+import { Email } from "../shared/Email.js";
 export default class UsuarioService {
     static obtenerUsuarios(nick) {
         return __awaiter(this, void 0, void 0, function* () {
             return nick ? yield UsuarioDaoMongoDb.findUsuario(nick) : UsuarioDaoMongoDb.findUsuarios();
         });
     }
-    static loginUsuario(user) {
+    static loginUsuario(nick, pass) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UsuarioDaoMongoDb.logUsuario(user);
+            return yield UsuarioDaoMongoDb.logUsuario(nick, pass);
         });
     }
     static agregarUsuario(user) {
@@ -27,6 +28,13 @@ export default class UsuarioService {
     static cambiarPassword(nick, newPass) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield UsuarioDaoMongoDb.cambiarPassword(nick, newPass);
+        });
+    }
+    static enviarMail(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (yield UsuarioDaoMongoDb.verificarMail(email)) {
+                Email.enviar(email, "Recuperar Contraseña", `http://localhost:5173/cambiarPass`);
+            }
         });
     }
 }

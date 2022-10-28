@@ -7,18 +7,27 @@ export default {
   setup() {
     const store = UsuarioStore();
     const { usuario } = storeToRefs(store);
-    const { cerrarSesion } = store;
-    return { usuario, cerrarSesion };
+    const { cerrarSesion, setUsuario } = store;
+    return { usuario, cerrarSesion, setUsuario };
   },
   components: {},
   data() {
-    return {};
+    return {
+      //usuarioLocal = localStorage.getItem('usuario')
+    };
   },
   methods: {
     cerrarSesionEn() {
       this.cerrarSesion();
     },
   },
+  mounted(){
+    console.log(localStorage.getItem('usuario'));
+    if(localStorage.getItem('usuario')){
+      this.setUsuario(localStorage.getItem('usuario')) 
+    }
+    
+  }
 };
 </script>
 
