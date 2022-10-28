@@ -50,11 +50,9 @@
       </div>
       <div class="card-footer">
         <div class="d-flex justify-content-center container">
-          <a href="registro.html" class="col-md-3" name="register-btn"
-            >Registrarse</a
-          >
+          <router-link to="/registro" >Registrarse</router-link>
           <div class="col-md-1"></div>
-          <a class="col-md-5" name="olvido">¿Olvidaste tu contraseña?</a>
+          <a name="olvido">¿Olvidaste tu contraseña?</a>
         </div>
       </div>
     </div>
