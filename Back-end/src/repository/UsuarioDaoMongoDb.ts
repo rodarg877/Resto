@@ -62,7 +62,7 @@ export default class UsuarioDaoMongoDb {
         }
     }
     static async agregarUsuario(nick:string,email:string,pass:string,direccion:string) {
-        console.log("UsuarioMongo:"+ nick,pass,email,direccion);
+       // console.log("UsuarioMongo:"+ nick,pass,email,direccion);
         
         try {
             const result = await collections.usuarios?.insertOne(new Usuario(nick,pass,email,direccion));

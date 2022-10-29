@@ -85,7 +85,7 @@ export default class UsuarioDaoMongoDb {
     static agregarUsuario(nick, email, pass, direccion) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("UsuarioMongo:" + nick, pass, email, direccion);
+            // console.log("UsuarioMongo:"+ nick,pass,email,direccion);
             try {
                 const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.insertOne(new Usuario(nick, pass, email, direccion)));
                 if (result) {
