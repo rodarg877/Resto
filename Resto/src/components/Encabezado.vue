@@ -13,6 +13,10 @@ export default {
   components: {},
   data() {
     return {
+      pizza:"Pizza",
+      pasta:"Pasta",
+      minutas:"Minutas",
+      bebidas:"Pebidas"
       //usuarioLocal = localStorage.getItem('usuario')
     };
   },
@@ -20,6 +24,7 @@ export default {
     cerrarSesionEn() {
       this.cerrarSesion();
     },
+
   },
   mounted(){
     //console.log(localStorage.getItem('usuario'));
@@ -87,33 +92,22 @@ export default {
                       </li>
                       <li class="sub-menu sub-menu-1">
                         <router-link to="/menu" data-bs-toggle="dropdown"
-                          >Nuestro Menu</router-link
+                          >Nuestro Menu</router-link            
+
                         >
                         <ul class="dropdown-menu">
                           <li>
-                            <router-link to="/menu" class="dropdown-item"
-                              >pizza</router-link
-                            >
+                            <router-link :to="{name:'menu',params:{id:pizza}}"> Pizza </router-link>
+                          </li>
+
+                          <li>
+                            <router-link :to="{name:'menu',params:{id:pasta}}"> Pasta </router-link>
                           </li>
                           <li>
-                            <router-link to="/menu" class="dropdown-item"
-                              >pasta</router-link
-                            >
+                            <router-link :to="{name:'menu',params:{id:minutas}}"> Minutas </router-link>
                           </li>
                           <li>
-                            <router-link to="/menu" class="dropdown-item"
-                              >salads</router-link
-                            >
-                          </li>
-                          <li>
-                            <router-link to="/menu" class="dropdown-item"
-                              >drinks</router-link
-                            >
-                          </li>
-                          <li>
-                            <router-link to="/menu" class="dropdown-item"
-                              >cakes</router-link
-                            >
+                            <router-link :to="{name:'menu',params:{id:bebidas}}"> Bebidas </router-link>
                           </li>
                         </ul>
                       </li>

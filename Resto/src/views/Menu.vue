@@ -5,14 +5,12 @@
         <div class="col-10">
           <h1>Our Menu</h1>
           <div class="row">
-            <div v-for="(menu, index) in menues" :key="index" class="col-6">
+            <div v-for="(menu, index) in menuFiltrado" :key="index" class="col-6">
               <div class="thumb4">
                 <div class="thumbnail clearfix">
                   <div class="row">
-                    <div class="col-6">
-                      <figure class="">
+                    <div  class="col-6 contenedor">
                         <img :src="menu.img" alt="" />
-                      </figure>
                     </div>
                     <div class="col-6">
                       <div class="caption">
@@ -74,8 +72,10 @@
     {{listaPedido}}
   </div>
   
+  
 </template>
 <script>
+import axios from 'axios'
 import { CarritoStore } from "@/stores/carrito";
 import { storeToRefs } from 'pinia';
 export default {
@@ -93,29 +93,8 @@ export default {
     return {
       errrorCantidad:false,
       cantidad:1,
-      menues: [
-        {
-          nombre: "mila",
-          descripcion: "rica mila",
-          img: "https://via.placeholder.com/160x192",
-          precio: 150,
-          cantidad: 1,
-        },
-        {
-          nombre: "papas",
-          descripcion: "rica mila",
-          img: "https://via.placeholder.com/160x192",
-          precio: 150,
-          cantidad: 1,
-        },
-        {
-          nombre: "hamburguesa",
-          descripcion: "rica mila",
-          img: "https://via.placeholder.com/160x192",
-          precio: 150,
-          cantidad: 1,
-        },
-      ],
+      menuFiltrado:[],
+      menues: [],
     };
   },
   methods: {
@@ -124,8 +103,28 @@ export default {
       if (plato.cantidad >0) {
         this.agregarAPedido(plato);
       }
-    },
+    }
   },
+  async mounted(){
+    try {
+    const lista = await axios.get("http://localhost:8080/platos/")
+    this.menues = lista.data;
+    }catch(e){
+      console.log("No se pudo cargar los platos" + e);
+    }
+   this.menuFiltrado = this.menues.filter(x => x.tipoPlato === this.$route.params.id);
+
+
+  },
+    created() { //Necesito explicación.
+    this.$watch(
+      () => this.$route.params, //El watch se aplica cuando cambia algo que cambie del router -> Hace función de calcbak. No cuando es la 1° vez
+      () => {
+     this.menuFiltrado = this.menues.filter(x => x.tipoPlato === this.$route.params.id);
+      }
+    )
+  },
+  
 };
 </script>
 
@@ -155,5 +154,10 @@ export default {
 }
 .page-link:focus {
   box-shadow: none;
+}
+img{
+  object-fit: cover;
+  width:100%;
+  height:100%;
 }
 </style>

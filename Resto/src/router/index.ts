@@ -10,7 +10,7 @@ const router = createRouter({
       component: Main
     },
     {
-      path: '/menu',
+      path: '/menu/:id',
       name: 'menu',
       component: () => import('../views/Menu.vue')
     },
