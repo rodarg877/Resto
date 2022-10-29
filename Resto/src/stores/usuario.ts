@@ -79,8 +79,6 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             console.log(url);
             
             try {
-
-                
                  let result=await axios.get(url); 
                  console.log(result);
                 return result.data;   

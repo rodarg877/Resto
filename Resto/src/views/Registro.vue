@@ -137,8 +137,8 @@ export default {
         !this.Usuario.confPass || this.Usuario.pass != this.Usuario.confPass;
         this.errorUsuarioDuplicado= await this.chequearUsuario(this.Usuario.user)
         this.errorEmailDuplicado = await this.chequearEmail(this.Usuario.email)
-        console.log(this.errorUsuarioDuplicado);
-        console.log(this.errorEmailDuplicado);
+        console.log( "Ya existe usuario?" + this.errorUsuarioDuplicado);
+        console.log("Ya existe el mail?" + this.errorEmailDuplicado);
       if (
         !this.errorUser &&
         !this.errorEmail &&
