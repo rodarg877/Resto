@@ -13,7 +13,7 @@
         <h3>CREAR TU CUENTA</h3>
       </div>
       <div class="card-body w-100 mt-3">
-        <form name="registro" @submit="validar" method="post">
+        <form name="registro" @submit.prevent="validar">
           <div class="input-group form-group mt-1">
             <label class="w-100" for="username">User name</label>
             <input
@@ -24,6 +24,9 @@
             />
             <span id="name" class="alert alert-danger" v-if="errorUser">
               Usuario no valido</span
+            >
+            <span id="name" class="alert alert-danger" v-if="errorUsuarioDuplicado">
+              El usuario ya existe</span
             >
             <label class="w-100 mt-3" for="pass"
               >Dirección de correo electrónico</label
@@ -37,9 +40,10 @@
             <span id="name" class="alert alert-danger" v-if="errorEmail"
               >Mail invalido</span
             >
-            <label class="w-100 mt-3" for="confirmPass"
-              >Confirma tu dirección</label
+            <span id="name" class="alert alert-danger" v-if="errorEmailDuplicado">
+              El email ya existe</span
             >
+            <label class="w-100 mt-3" for="confirmPass">Repetir e-mail</label>
             <input
               type="text"
               class="form-control w-100 mt-1"
@@ -48,6 +52,16 @@
             />
             <span id="name" class="alert alert-danger" v-if="errorConfEmail"
               >Error en la confirmacion de email</span
+            >
+            <label class="w-100 mt-3" for="pass">Domicilio</label>
+            <input
+              type="text"
+              class="form-control w-100 mt-1"
+              placeholder="direccion..."
+              v-model="Usuario.direccion"
+            />
+            <span id="name" class="alert alert-danger" v-if="errorEmail"
+              >direccion invalido</span
             >
             <label class="w-100 mt-3" for="pass">Password</label>
             <input
@@ -83,14 +97,19 @@
       </div>
     </div>
   </div>
- 
 </template>
 
 
 <script>
+import { UsuarioStore } from "@/stores/usuario";
+import { storeToRefs } from "pinia";
 export default {
   name: "Registro",
-  components: {
+  components: {},
+  setup() {
+    const store = UsuarioStore();
+    const { registrarUsuario, chequearUsuario,chequearEmail,chequearUser } = store;
+    return { registrarUsuario , chequearUsuario,chequearEmail,chequearUser };
   },
   data: () => ({
     Usuario: {},
@@ -100,27 +119,52 @@ export default {
     errorConfEmail: false,
     errorPass: false,
     errorConfPass: false,
+    errorDireccion: false,
+    errorUsuarioDuplicado:false,
+    errorEmailDuplicado:false
   }),
   methods: {
-    validar(e) {
+    async validar() {
       this.errorUser = !this.Usuario.user || this.Usuario.user.length < 3;
       this.errorEmail =
         !this.Usuario.email || !this.reg.test(this.Usuario.email);
       this.errorConfEmail =
         !this.Usuario.confEmail || this.Usuario.email != this.Usuario.confEmail;
+
       this.errorPass = !this.Usuario.pass || this.Usuario.pass.length < 6;
+      this.errorDireccion = this.Usuario.direccion.length < 6;
       this.errorConfPass =
         !this.Usuario.confPass || this.Usuario.pass != this.Usuario.confPass;
+        this.errorUsuarioDuplicado= await this.chequearUsuario(this.Usuario.user)
+        this.errorEmailDuplicado = await this.chequearEmail(this.Usuario.email)
+        console.log(this.errorUsuarioDuplicado);
+        console.log(this.errorEmailDuplicado);
       if (
         !this.errorUser &&
         !this.errorEmail &&
         !this.errorConfEmail &&
         !this.errorPass &&
-        !this.errorConfPass
+        !this.errorConfPass &&
+        !this.errorDireccion &&
+        !this.errorUsuarioDuplicado &&
+        !this.errorEmailDuplicado
+
       ) {
-        return true;
+        
+        console.log("Datos correctos");
+        if (
+          this.registrarUsuario(
+            this.Usuario.user,
+            this.Usuario.email,
+            this.Usuario.pass,
+            this.Usuario.direccion
+          )
+        ) {
+          console.log("Se registró el usuario correctamente");
+          this.chequearUser(this.Usuario.user, this.Usuario.pass)
+          this.$router.push("/");
+        }
       }
-      e.preventDefault();
     },
   },
 };

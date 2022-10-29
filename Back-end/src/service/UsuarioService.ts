@@ -7,11 +7,15 @@ export default class UsuarioService {
   static async obtenerUsuarios(nick: String) {
     return nick ? await UsuarioDaoMongoDb.findUsuario(nick) : UsuarioDaoMongoDb.findUsuarios()
   }
+  static async getUsuariosXEmail(email: String) {
+    return  await UsuarioDaoMongoDb.getUsuariosXEmail(email)
+  }
   static async loginUsuario(nick: string, pass: string) {
     return await UsuarioDaoMongoDb.logUsuario(nick, pass)
   }
-  static async agregarUsuario(user: Usuario) {
-    return await UsuarioDaoMongoDb.agregarUsuario(user)
+  static async agregarUsuario(nick:string,email:string,pass:string,direccion:string) {
+    console.log("service"+nick,pass,email,direccion);
+    return await UsuarioDaoMongoDb.agregarUsuario(nick,email,pass,direccion)
   }
   static async cambiarPassword(nick:string, newPass:string){
     return await UsuarioDaoMongoDb.cambiarPassword(nick, newPass)

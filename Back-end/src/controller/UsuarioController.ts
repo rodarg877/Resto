@@ -9,6 +9,11 @@ export default class UsuarioController {
             res.json(await UsuarioService.obtenerUsuarios(nick))
 
         }
+        public static async getUsuariosXEmail(req: Request, res: Response) {
+            const { email } = req.params;
+            res.json(await UsuarioService.getUsuariosXEmail(email))
+
+        }
         public static async logIn(req: Request, res: Response) {
             const {nick, pass} =req.body
             res.json(await UsuarioService.loginUsuario(nick, pass));
@@ -16,8 +21,11 @@ export default class UsuarioController {
 
         }
         public static async postUsuario(req: Request, res: Response) {
-            const user =req.body as unknown as Usuario
-            res.json(await UsuarioService.agregarUsuario(user))
+            
+
+            const{nick,email,pass,direccion} = req.body;
+            console.log("controller"+ nick,pass,email,direccion);
+            res.json(await UsuarioService.agregarUsuario(nick,email,pass,direccion));
 
         }
         public static async cambiarPassword(req: Request, res: Response){

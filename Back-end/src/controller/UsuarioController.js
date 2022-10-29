@@ -15,6 +15,12 @@ export default class UsuarioController {
             res.json(yield UsuarioService.obtenerUsuarios(nick));
         });
     }
+    static getUsuariosXEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.params;
+            res.json(yield UsuarioService.getUsuariosXEmail(email));
+        });
+    }
     static logIn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { nick, pass } = req.body;
@@ -23,8 +29,9 @@ export default class UsuarioController {
     }
     static postUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = req.body;
-            res.json(yield UsuarioService.agregarUsuario(user));
+            const { nick, email, pass, direccion } = req.body;
+            console.log("controller" + nick, pass, email, direccion);
+            res.json(yield UsuarioService.agregarUsuario(nick, email, pass, direccion));
         });
     }
     static cambiarPassword(req, res) {

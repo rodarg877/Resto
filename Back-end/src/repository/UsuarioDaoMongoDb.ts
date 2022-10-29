@@ -9,12 +9,24 @@ export default class UsuarioDaoMongoDb {
         try {
             const usuario: Usuario = (await collections.usuarios?.findOne({ nick: nick })) as unknown as Usuario;
             if (usuario) {
-                return usuario;
+                return true;
             } else {
                 throw new Error( "usuario no encontrado")
             }
         } catch (err) {
-            return err.message;
+            return false;
+        }
+    }
+    static async getUsuariosXEmail(email: String) {
+        try {
+            const usuario: Usuario = (await collections.usuarios?.findOne({ email: email })) as unknown as Usuario;
+            if (usuario) {
+                return true;
+            } else {
+                throw new Error( "usuario no encontrado")
+            }
+        } catch (err) {
+            return false;
         }
     }
 
@@ -49,9 +61,11 @@ export default class UsuarioDaoMongoDb {
 
         }
     }
-    static async agregarUsuario(user: Usuario) {
+    static async agregarUsuario(nick:string,email:string,pass:string,direccion:string) {
+        console.log("UsuarioMongo:"+ nick,pass,email,direccion);
+        
         try {
-            const result = await collections.usuarios?.insertOne(user);
+            const result = await collections.usuarios?.insertOne(new Usuario(nick,pass,email,direccion));
             if (result) {
                 return result
             } else {

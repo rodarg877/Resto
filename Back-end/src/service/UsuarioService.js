@@ -15,14 +15,20 @@ export default class UsuarioService {
             return nick ? yield UsuarioDaoMongoDb.findUsuario(nick) : UsuarioDaoMongoDb.findUsuarios();
         });
     }
+    static getUsuariosXEmail(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield UsuarioDaoMongoDb.getUsuariosXEmail(email);
+        });
+    }
     static loginUsuario(nick, pass) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield UsuarioDaoMongoDb.logUsuario(nick, pass);
         });
     }
-    static agregarUsuario(user) {
+    static agregarUsuario(nick, email, pass, direccion) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UsuarioDaoMongoDb.agregarUsuario(user);
+            console.log("service" + nick, pass, email, direccion);
+            return yield UsuarioDaoMongoDb.agregarUsuario(nick, email, pass, direccion);
         });
     }
     static cambiarPassword(nick, newPass) {

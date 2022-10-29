@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import Usuario from '../models/Usuario.js';
 import { collections } from '../servicio/datos.servicio.js';
 import jwt from 'jsonwebtoken';
 export default class UsuarioDaoMongoDb {
@@ -16,14 +17,31 @@ export default class UsuarioDaoMongoDb {
             try {
                 const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: nick })));
                 if (usuario) {
-                    return usuario;
+                    return true;
                 }
                 else {
                     throw new Error("usuario no encontrado");
                 }
             }
             catch (err) {
-                return err.message;
+                return false;
+            }
+        });
+    }
+    static getUsuariosXEmail(email) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ email: email })));
+                if (usuario) {
+                    return true;
+                }
+                else {
+                    throw new Error("usuario no encontrado");
+                }
+            }
+            catch (err) {
+                return false;
             }
         });
     }
@@ -64,11 +82,12 @@ export default class UsuarioDaoMongoDb {
             }
         });
     }
-    static agregarUsuario(user) {
+    static agregarUsuario(nick, email, pass, direccion) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("UsuarioMongo:" + nick, pass, email, direccion);
             try {
-                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.insertOne(user));
+                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.insertOne(new Usuario(nick, pass, email, direccion)));
                 if (result) {
                     return result;
                 }

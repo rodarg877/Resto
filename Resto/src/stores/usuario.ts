@@ -49,6 +49,44 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             localStorage.removeItem('usuario')
 
             
+        },
+        async registrarUsuario(nick:string,email:string,pass:string,direccion:string){
+            console.log("counter: " + nick,email,pass,direccion);
+            
+            const nuevoUsuario = {nick:nick,email:email,pass:pass,direccion:direccion};
+            const urlRegistrar: string = `http://localhost:8080/usuarios/`
+            try {
+                await axios.post(urlRegistrar,nuevoUsuario); 
+                return true;   
+            }catch(e){
+                return false;
+            }
+
+        },
+        async chequearUsuario(nick:string){
+            const url: string = `http://localhost:8080/usuarios/${nick}`
+            console.log(url);
+            try {
+                let result=await axios.get(url); 
+                console.log(result); 
+                return result.data;   
+            }catch(e){
+                return false;
+            }
+        },
+        async chequearEmail(email:string){
+            const url: string = `http://localhost:8080/usuarios/${email}`
+            console.log(url);
+            
+            try {
+
+                
+                 let result=await axios.get(url); 
+                 console.log(result);
+                return result.data;   
+            }catch(e){
+                return false;
+            }
         }
     }
 })
