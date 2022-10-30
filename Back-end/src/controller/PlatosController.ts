@@ -10,8 +10,8 @@ export default class UsuarioController {
 
         }
         public static async crearPlato(req: Request, res: Response) {
-            const plato =req.body as unknown as Plato
-            res.json(await PlatoService.crearPlato(plato))
+            const {nombre,descripcion,img,precio,tipoPlato} = req.body;
+            res.json(await PlatoService.crearPlato(nombre,descripcion,img,precio,tipoPlato));
 
         }
         public static async modificarPlato(req: Request, res: Response) {

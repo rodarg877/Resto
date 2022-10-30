@@ -20,9 +20,11 @@ export function connectToDatabase() {
         client = new mongoDB.MongoClient('mongodb://127.0.0.1:27017');
         yield client.connect();
         const db = client.db(process.env.DB_NAME);
+        const precioDeliveryCollection = db.collection('PreciosDelivery');
         const platosCollection = db.collection('Platos');
         const usuariosCollection = db.collection('Usuarios');
         const pedidosCollection = db.collection('Pedidos');
+        collections.preciosDelivery = precioDeliveryCollection;
         collections.platos = platosCollection;
         collections.usuarios = usuariosCollection;
         collections.pedidos = pedidosCollection;

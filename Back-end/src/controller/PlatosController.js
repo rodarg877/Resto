@@ -17,8 +17,8 @@ export default class UsuarioController {
     }
     static crearPlato(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const plato = req.body;
-            res.json(yield PlatoService.crearPlato(plato));
+            const { nombre, descripcion, img, precio, tipoPlato } = req.body;
+            res.json(yield PlatoService.crearPlato(nombre, descripcion, img, precio, tipoPlato));
         });
     }
     static modificarPlato(req, res) {

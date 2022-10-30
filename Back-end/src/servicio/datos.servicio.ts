@@ -5,7 +5,8 @@ import dotenv from "dotenv";
 export const collections: {
   platos?: mongoDB.Collection,
   usuarios?: mongoDB.Collection,
-  pedidos?: mongoDB.Collection
+  pedidos?: mongoDB.Collection,
+  preciosDelivery?: mongoDB.Collection
 } = {}
 export let client: mongoDB.MongoClient;
 // Initialize Connection
@@ -17,9 +18,11 @@ export async function connectToDatabase() {
 
   const db: mongoDB.Db = client.db(process.env.DB_NAME);
 
+  const precioDeliveryCollection: mongoDB.Collection = db.collection('PreciosDelivery');
   const platosCollection: mongoDB.Collection = db.collection('Platos');
   const usuariosCollection: mongoDB.Collection = db.collection('Usuarios');
   const pedidosCollection: mongoDB.Collection = db.collection('Pedidos');
+  collections.preciosDelivery = precioDeliveryCollection;
   collections.platos = platosCollection;
   collections.usuarios = usuariosCollection;
   collections.pedidos = pedidosCollection;

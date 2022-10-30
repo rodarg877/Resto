@@ -5,14 +5,17 @@ export default class Plato {
     private  descripcion:string;
     private img:string;
     private precio:number;
+    private tipoPlato:string;
     private cantidad?:number;
     public id?: ObjectId
 
-    constructor(nombre:string, descripcion:string, img:string, precio:number,id?:ObjectId, cantidad?:number) {
+    constructor(nombre:string, descripcion:string,img:string, precio:number,tipoPlato:string,id?:ObjectId, cantidad?:number) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.img = img;
         this.precio = precio;
+        this.tipoPlato = tipoPlato;
+        this.cantidad = 1;
     }
 
     public getNombre(){

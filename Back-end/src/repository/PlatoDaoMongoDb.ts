@@ -30,19 +30,18 @@ export default class PlatoDaoMongoDb {
     }
 
 
-    static async crearPlato(plato: Plato) {
+    static async crearPlato(nombre:string,descripcion:string,img:string,precio:string,tipoPlato:string) {
+        
+        const newPrecio = Number(precio);
         try {
-            if (plato.hasOwnProperty('nombre') && plato.hasOwnProperty('precio')) {
-                const result = await collections.platos?.insertOne(plato);
+
+                const result = await collections.platos?.insertOne( new Plato(nombre,descripcion,img, newPrecio,tipoPlato)); 
                 console.log(result);
                 if (result?.acknowledged) {
                     return "Plato Agregado"
                 } else {
                     throw new Error("No se pudo agregar el plato")
                 }
-            } else {
-                throw new Error("Campor requeridos incompletos")
-            }
         } catch (err: any) {
             return err.message;
         }

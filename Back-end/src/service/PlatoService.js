@@ -14,9 +14,9 @@ export default class UsuarioService {
             return nombre ? yield PlatoDaoMongoDb.findPlato(nombre) : PlatoDaoMongoDb.findPlatos();
         });
     }
-    static crearPlato(plato) {
+    static crearPlato(nombre, descripcion, img, precio, tipoPlato) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield PlatoDaoMongoDb.crearPlato(plato);
+            return yield PlatoDaoMongoDb.crearPlato(nombre, descripcion, img, precio, tipoPlato);
         });
     }
     static modificarPlato(nombre, plato) {

@@ -13,8 +13,8 @@ export default class PedidoController {
         public static async crearPedido(req: Request, res: Response) {
              const {platos, user, direccion,precioDelivery}=req.body
             let newPlatos:Plato[]=[];
-            platos.forEach((p: { nombre: string; descripcion: string; img: string; precio: number; }) => {
-               const  nuevoP=new Plato(p.nombre, p.descripcion, p.img, p.precio)
+            platos.forEach((p: { nombre: string; descripcion: string; img: string; precio: number, tipoPedido:string; }) => {
+               const  nuevoP=new Plato(p.nombre, p.descripcion, p.img, p.precio,p.tipoPedido)
                 newPlatos.push(nuevoP)
             });
 

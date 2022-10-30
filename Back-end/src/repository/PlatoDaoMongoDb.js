@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import Plato from '../models/Plato.js';
 import { collections } from '../servicio/datos.servicio.js';
 export default class PlatoDaoMongoDb {
     static findPlato(nombre) {
@@ -38,22 +39,18 @@ export default class PlatoDaoMongoDb {
             }
         });
     }
-    static crearPlato(plato) {
+    static crearPlato(nombre, descripcion, img, precio, tipoPlato) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            const newPrecio = Number(precio);
             try {
-                if (plato.hasOwnProperty('nombre') && plato.hasOwnProperty('precio')) {
-                    const result = yield ((_a = collections.platos) === null || _a === void 0 ? void 0 : _a.insertOne(plato));
-                    console.log(result);
-                    if (result === null || result === void 0 ? void 0 : result.acknowledged) {
-                        return "Plato Agregado";
-                    }
-                    else {
-                        throw new Error("No se pudo agregar el plato");
-                    }
+                const result = yield ((_a = collections.platos) === null || _a === void 0 ? void 0 : _a.insertOne(new Plato(nombre, descripcion, img, newPrecio, tipoPlato)));
+                console.log(result);
+                if (result === null || result === void 0 ? void 0 : result.acknowledged) {
+                    return "Plato Agregado";
                 }
                 else {
-                    throw new Error("Campor requeridos incompletos");
+                    throw new Error("No se pudo agregar el plato");
                 }
             }
             catch (err) {

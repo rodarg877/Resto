@@ -22,7 +22,7 @@ export default class PedidoController {
             const { platos, user, direccion, precioDelivery } = req.body;
             let newPlatos = [];
             platos.forEach((p) => {
-                const nuevoP = new Plato(p.nombre, p.descripcion, p.img, p.precio);
+                const nuevoP = new Plato(p.nombre, p.descripcion, p.img, p.precio, p.tipoPedido);
                 newPlatos.push(nuevoP);
             });
             const pedido = new Pedido(newPlatos, user, direccion, precioDelivery);
