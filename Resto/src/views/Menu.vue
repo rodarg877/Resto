@@ -53,6 +53,7 @@
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
         <div class="col-2">
@@ -115,6 +116,7 @@ export default {
    this.menuFiltrado = this.menues.filter(x => x.tipoPlato === this.$route.params.id);
 
 
+
   },
     created() { //Necesito explicación.
     this.$watch(
@@ -160,4 +162,7 @@ img{
   width:100%;
   height:100%;
 }
+
+
+
 </style>
