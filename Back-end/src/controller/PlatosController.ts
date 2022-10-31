@@ -9,9 +9,11 @@ export default class UsuarioController {
             res.json(await PlatoService.obtenerPlato(nombre))
 
         }
-        public static async crearPlato(req: Request, res: Response) {
-            const {nombre,descripcion,img,precio,tipoPlato} = req.body;
-            res.json(await PlatoService.crearPlato(nombre,descripcion,img,precio,tipoPlato));
+        public static async crearPlato(req: Request, res: Response) {            
+            const {nombre,descripcion,imagen,precio,tipoPlato} = req.body;
+            console.log("Nombre" + nombre + " imagen: " + imagen);
+            
+            res.json(await PlatoService.crearPlato(nombre,descripcion,imagen,precio,tipoPlato));
 
         }
         public static async modificarPlato(req: Request, res: Response) {

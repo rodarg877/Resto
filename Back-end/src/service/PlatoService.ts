@@ -7,6 +7,7 @@ export default class UsuarioService {
     return nombre ? await PlatoDaoMongoDb.findPlato(nombre) : PlatoDaoMongoDb.findPlatos()
   }
   static async crearPlato(nombre:string,descripcion:string,img:string,precio:string,tipoPlato:string) {
+    
     return await PlatoDaoMongoDb.crearPlato(nombre,descripcion,img,precio,tipoPlato)
   }
   static async modificarPlato(nombre:string, plato: Plato) {
