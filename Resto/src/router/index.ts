@@ -27,6 +27,11 @@ const router = createRouter({
     {
       path: '/quienesSomos',
       name: 'quienesSomos',
+      component: () => import('../views/QuienSomos.vue')
+    },
+    {
+      path: '/contacto',
+      name: 'contacto',
       component: () => import('../views/Contacto.vue')
     },
     {
@@ -48,6 +53,11 @@ const router = createRouter({
       path: '/carrito',
       name: 'carrito',
       component: () => import('../views/Carrito.vue')
+    },
+    {
+      path: '/addPlato',
+      name: 'addPlato',
+      component: () => import('../views/AddPlato.vue')
     },
 
   ]

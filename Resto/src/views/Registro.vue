@@ -137,8 +137,8 @@ export default {
         !this.Usuario.confPass || this.Usuario.pass != this.Usuario.confPass;
         this.errorUsuarioDuplicado= await this.chequearUsuario(this.Usuario.user)
         this.errorEmailDuplicado = await this.chequearEmail(this.Usuario.email)
-        console.log( "Ya existe usuario?" + this.errorUsuarioDuplicado);
-        console.log("Ya existe el mail?" + this.errorEmailDuplicado);
+      //  console.log( "Ya existe usuario?" + this.errorUsuarioDuplicado);
+      //  console.log("Ya existe el mail?" + this.errorEmailDuplicado);
       if (
         !this.errorUser &&
         !this.errorEmail &&
@@ -151,7 +151,7 @@ export default {
 
       ) {
         
-        console.log("Datos correctos");
+       // console.log("Datos correctos");
         if (
           this.registrarUsuario(
             this.Usuario.user,
@@ -160,7 +160,7 @@ export default {
             this.Usuario.direccion
           )
         ) {
-          console.log("Se registró el usuario correctamente");
+         // console.log("Se registró el usuario correctamente");
           this.chequearUser(this.Usuario.user, this.Usuario.pass)
           this.$router.push("/");
         }

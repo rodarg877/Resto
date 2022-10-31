@@ -15,8 +15,8 @@ export default {
     return {
       pizza:"Pizza",
       pasta:"Pasta",
-      minutas:"Minutas",
-      bebidas:"Pebidas"
+      minutas:"Minuta",
+      bebidas:"Bebida"
       //usuarioLocal = localStorage.getItem('usuario')
     };
   },

@@ -132,7 +132,8 @@
 </template>
 
 <script>
-  import { CarritoStore } from "@/stores/carrito";
+import axios from 'axios'
+import { CarritoStore } from "@/stores/carrito";
 import { storeToRefs } from 'pinia';
 export default {
   name: " Carrito",
@@ -145,7 +146,7 @@ export default {
   components: {},
   data(){
     return{
-      precioDelivery:50,
+      precioDelivery:0,
     }
   },
   methods:{
@@ -158,7 +159,11 @@ export default {
     eliminarItem(plato){
 this.eliminarPlato(plato)
     }
-  }
+  },
+ async mounted(){
+   let montoDelivery = await axios.get("http://localhost:8080/delivery/");
+   this.precioDelivery = montoDelivery.data.precio;
+     }
 }
 </script>
 <style scoped>
