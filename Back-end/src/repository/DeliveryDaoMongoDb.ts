@@ -2,7 +2,7 @@ import { collections } from '../servicio/datos.servicio.js';
 
 
 export default class DeliveryDaoMongoDb {
-    static async actualizarPrecio(precio:string){
+    static async actualizarPrecio(precio:Number){
         try {
             if(collections.preciosDelivery?.findOne({}) != null){
                 collections.preciosDelivery?.drop();

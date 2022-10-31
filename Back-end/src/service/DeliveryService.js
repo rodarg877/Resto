@@ -11,7 +11,8 @@ import DeliveryDaoMongoDb from "../repository/DeliveryDaoMongoDb.js";
 export default class DeliveryService {
     static actualizarPrecio(precio) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield DeliveryDaoMongoDb.actualizarPrecio(precio);
+            const precioNumber = Number(precio);
+            return yield DeliveryDaoMongoDb.actualizarPrecio(precioNumber);
         });
     }
     static getPrecioDelivery() {

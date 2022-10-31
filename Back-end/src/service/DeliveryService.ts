@@ -2,7 +2,8 @@ import DeliveryDaoMongoDb from "../repository/DeliveryDaoMongoDb.js";
 export default class DeliveryService {
 
     static async actualizarPrecio(precio:string){
-        return await DeliveryDaoMongoDb.actualizarPrecio(precio);
+        const precioNumber = Number(precio);
+        return await DeliveryDaoMongoDb.actualizarPrecio(precioNumber);
     }
 
     static async getPrecioDelivery(){
