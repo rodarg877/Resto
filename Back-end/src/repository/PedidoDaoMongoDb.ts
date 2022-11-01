@@ -28,6 +28,8 @@ export default class PedidoDaoMongoDb {
 
 
     static async crearPedido(pedido: Pedido) {
+        console.log(pedido);
+        
         try {
             if (pedido.hasOwnProperty('platos') && pedido.hasOwnProperty('direccion')&& pedido.hasOwnProperty('user')) {
                 

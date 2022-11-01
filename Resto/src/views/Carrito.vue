@@ -106,7 +106,7 @@
               </div>
               <div class="price_indiv d-flex justify-content-between">
                 <p class="pad">Delivery</p>
-                <p class="pad">$<span id="shipping_charge">{{precioDelivery}}</span></p>
+                <p class="pad">$<span id="shipping_charge">{{valorDelivery}}</span></p>
               </div>
               <hr />
               <div
@@ -120,7 +120,7 @@
                 <p class="pad">Total</p>
                 <p class="pad">$<span id="total_cart_amt">{{calcularTotal()}}</span></p>
               </div>
-              <button class="btn btn-primary pad text-uppercase">
+              <button @click="this.crearPedido()" class="btn btn-primary pad text-uppercase">
                 Finalizar Compra
               </button>
             </div>
@@ -139,19 +139,18 @@ export default {
   name: " Carrito",
   setup() {
     const store = CarritoStore();
-   const {listaPedido}=storeToRefs(store);
-   const {finalizarPedido, eliminarPlato}=store;
-    return { listaPedido, finalizarPedido,eliminarPlato};
+   const {listaPedido,valorDelivery}=storeToRefs(store);
+   const {finalizarPedido, eliminarPlato, obtenerPrecioDelivery,crearPedido}=store;
+    return { listaPedido, finalizarPedido,eliminarPlato, obtenerPrecioDelivery,valorDelivery,crearPedido};
   },
   components: {},
   data(){
     return{
-      precioDelivery:0,
     }
   },
   methods:{
     calcularTotal(){
-      return this.calcularProd()+this.precioDelivery
+      return this.calcularProd()+this.valorDelivery
     },
     calcularProd(){
       return this.listaPedido.reduce((sum, p)=>sum+=(p.precio*p.cantidad),0)
@@ -161,9 +160,8 @@ this.eliminarPlato(plato)
     }
   },
  async mounted(){
-   let montoDelivery = await axios.get("http://localhost:8080/delivery/");
-   this.precioDelivery = montoDelivery.data.precio;
-     }
+   this.obtenerPrecioDelivery();
+}
 }
 </script>
 <style scoped>

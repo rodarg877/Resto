@@ -19,7 +19,7 @@
                           {{ menu.descripcion }}
                         </div>
                         <div class="txt3">${{ menu.precio }}</div>
-                        <ul class="pagination set_quantity">
+                        <ul v-if="this.estaLogueado" class="pagination set_quantity">
                           <li class="page-item">
                             <button class="page-link" @click="menu.cantidad--">
                               <font-awesome-icon icon="fa-solid fa-minus" />
@@ -41,13 +41,15 @@
                           </li>
                         </ul>
                       </div>
-                      <button
+                      <button v-if="this.estaLogueado"
                         @click="agregar(menu)"
                         class="btn btn-primary btn-sm mb-2"
                       >
                         Agregar
                       </button>
                       <div v-if="menu.cantidad<=0" class="alert alert-danger" style="font-size:.7rem">cantidad incorrecta</div>
+                      
+                       <div v-if="agregadoOk == menu.nombre" class="alert alert-success" style="font-size:.7rem">Agregado ok</div>
                     </div>
                   </div>
                 </div>
@@ -96,6 +98,8 @@ export default {
       cantidad:1,
       menuFiltrado:[],
       menues: [],
+      estaLogueado:false,
+      agregadoOk:"",
     };
   },
   methods: {
@@ -103,6 +107,8 @@ export default {
       console.log(plato);
       if (plato.cantidad >0) {
         this.agregarAPedido(plato);
+        plato.cantidad = 1;
+        this.agregadoOk = plato.nombre;
       }
     }
   },
@@ -115,7 +121,9 @@ export default {
     }
    this.menuFiltrado = this.menues.filter(x => x.tipoPlato === this.$route.params.id);
 
-
+    if(localStorage.getItem('usuario')){
+      this.estaLogueado = true;
+    }
 
   },
     created() { //Necesito explicación.

@@ -37,6 +37,7 @@ export default class PedidoDaoMongoDb {
     static crearPedido(pedido) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(pedido);
             try {
                 if (pedido.hasOwnProperty('platos') && pedido.hasOwnProperty('direccion') && pedido.hasOwnProperty('user')) {
                     const result = yield ((_a = collections.pedidos) === null || _a === void 0 ? void 0 : _a.insertOne(pedido));

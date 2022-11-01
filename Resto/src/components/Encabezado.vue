@@ -1,14 +1,17 @@
 <script>
 import { UsuarioStore } from "../stores/usuario.ts";
+import {CarritoStore} from "../stores/carrito.ts"
 import { storeToRefs } from "pinia";
 
 export default {
   name: "Encabezado",
   setup() {
     const store = UsuarioStore();
+    const store2 = CarritoStore();
     const { usuario } = storeToRefs(store);
+    const {listaPedido} = storeToRefs(store2);
     const { cerrarSesion, setUsuario } = store;
-    return { usuario, cerrarSesion, setUsuario };
+    return { usuario, cerrarSesion, setUsuario, listaPedido };
   },
   components: {},
   data() {
@@ -38,7 +41,7 @@ export default {
 
 <template>
   <div>
-    <div class="top1 container">
+    <div class="top1 ">
     <ul class="nav justify-content-end">
       <li v-if="usuario == null" class="nav-item mt-2">
         <router-link to="/registro" style="font-size: 1rem;" class="nav-link">Registrarse</router-link>
@@ -46,7 +49,7 @@ export default {
       <li v-else class="nav-item">
         <router-link to="/carrito"  class="nav-link" ><i style="font-size: 2rem;" class="bi bi-cart3 ">
           <span style="font-size: 0.8rem;" class="position-absolute top-45 start-100 translate-middle badge rounded-pill bg-danger">
-             99+
+             {{this.listaPedido.length}}
             <span class="visually-hidden">unread messages</span>
            </span>
     </i>
@@ -61,10 +64,10 @@ export default {
     </ul>
   </div>
     <div class="top2">
-      <div class="container">
+      <div class="">
         <div class="row">
           <div class="col-12">
-            <div class="top3_inner clearfix">
+            <div class="top3_inner clearfix ">
               <header>  
                 <div class="logo_wrapper">
                   <router-link class="logo" to="/"
@@ -111,9 +114,7 @@ export default {
                           </li>
                         </ul>
                       </li>
-                      <li>
-                        <router-link to="/contacto">Contactanos</router-link>
-                      </li>
+
                     </ul>
                   </div>
                 </div>
