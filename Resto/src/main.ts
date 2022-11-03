@@ -11,10 +11,10 @@ import './assets/app.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faMinus, faPlus, faTrashAlt,faPeopleCarryBox} from '@fortawesome/free-solid-svg-icons'
-import { faCircleCheck} from '@fortawesome/free-regular-svg-icons'
+import { faMinus, faPlus, faTrashAlt,faPeopleCarryBox, faHouseChimney,faUserPen} from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faCircleUser} from '@fortawesome/free-regular-svg-icons'
 
-library.add(faMinus,faPlus,faTrashAlt,faCircleCheck,faPeopleCarryBox)
+library.add(faMinus,faPlus,faTrashAlt,faCircleCheck,faPeopleCarryBox,faCircleUser,faHouseChimney,faUserPen)
 
 const app = createApp(App)
 

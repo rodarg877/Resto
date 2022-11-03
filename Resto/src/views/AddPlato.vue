@@ -56,13 +56,11 @@
             />
 
             <label class="w-100 mt-3" for="pass">Tipo de plato</label>
-            <input
-              type="text"
-              class="form-control w-100 mt-1"
-              placeholder="ingresar tipo de plato"
-              v-model="Plato.tipoPlato"
-              required
-            />
+            <select  class="form-select" v-model="Plato.tipoPlato"  required>
+  <option v-for="(option, index) in PlatoOptions" :key="index" :value="option" >
+    {{ option}}
+  </option>
+</select>
           </div>
           <div class="form-group mt-5">
             <input
@@ -82,13 +80,14 @@ import axios from 'axios'
 export default {
     data(){
         return{
-    Plato:{},
+    Plato:{tipoPlato:"Pizza"},
     nombrePlatoIncompleto:false,
     DescripcionIncompleto:false,
     ImagenPlatoIncompleto:false,
     PrecioPlatoIncompleto:false,
     TipoPlatoIncompleto:false,
-    platoYaExistente:false
+    platoYaExistente:false,
+    PlatoOptions:["Pizza","Pasta","Bebida","Minuta"]
         }
     },
     methods: {

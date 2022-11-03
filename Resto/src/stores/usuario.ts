@@ -41,7 +41,7 @@ export const UsuarioStore = defineStore('UsuarioStore', {
                   return result;
         },
         setUsuario(user:any){
-           this.usuario = user
+           this.usuario = JSON.parse (user)
         }, 
         cerrarSesion(){
             this.usuario = null

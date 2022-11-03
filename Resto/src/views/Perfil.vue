@@ -1,105 +1,70 @@
 <template>
-  <div class="container snippets">
-    <div class="row" id="user-profile">
-      <div class="col-lg-3 col-md-4 col-sm-4">
-        <div class="main-box clearfix">
-          <h2>Username</h2>
-          <div class="profile-status">
-            <font-awesome-icon icon="fa-regular fa-circle-check" /> Online
-          </div>
-          <img
-            src="https://bootdey.com/img/Content/avatar/avatar1.png"
-            alt=""
-            class="img-fluid img-thumbnail center-block"
-          />
-          <div class="profile-label mt-2">
-            <a asp-action="CambiarImagen" class="btn btn-primary edit-profile">
-              <i class="fa fa-pencil-square fa-lg"></i> Editar foto
-            </a>
-          </div>
-          <div class="profile-details">
-            <ul>
-              <li class="mt-2">
-                <font-awesome-icon icon="fa-solid fa-people-carry-box" />Pedidos
-                en curso: <span></span>
-              </li>
-              <li class="mt-2">
-                <font-awesome-icon icon="fa-solid fa-people-carry-box" />Pedidos
-                Realizados:
-                <span></span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="profile-message-btn center-block mb-3">
-            <a asp-action="Soporte" class="btn btn-success">
-              <i class="fa fa-envelope mb-2"></i> Enviar Consulta
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-9 col-md-8 col-sm-8">
-        <div class="main-box clearfix mt-5">
-          <div class="">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link active"
-                  id="enCurso-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#enCurso-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="enCurso-tab-pane"
-                  aria-selected="true"
-                >
-                  Pedidos en curso
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link "
-                  id="finalizados-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#finalizados-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="finalizados-tab-pane"
-                  aria-selected="true"
-                >
-                  Pedidos Finalizados
-                </button>
-              </li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane fade show active" id="enCurso-tab-pane" role="tabpanel" aria-labelledby="enCurso-tab" tabindex="0">
-                <div class="row mt-5">
-                  <div class="col-md-3 ml-3 tarjeta">
-                    <h5 id="nombre" class="tituloTarjeta"></h5>
-                    <img class="tamañoJuegoVenta" src="" alt="" />
-                    <h5 class="titulo2"></h5>
-                    <a class="btn btn-outline-primary">Ver me</a>
-                  </div>
+ <div class="container mb-4 main-container">
+    <div class="row">
+        <div class="col-lg-4 pb-5">
+            <!-- Account Sidebar-->
+            <div class="author-card pb-3">
+                <div class="author-card-cover" style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);"></div>
+                <div class="author-card-profile">
+                    <div class="author-card-avatar"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
+                    </div>
+                    <div class="author-card-details">
+                        <h5 class="author-card-name text-lg">usuario.nick</h5><span class="author-card-position">usuario.email</span>
+                    </div>
                 </div>
-              </div>
-              <!-- Pedido tarjeta-->
-              <div class="tab-pane fade" id="finalizados-tab-pane"  role="tabpanel" aria-labelledby="enCurso-tab" tabindex="0">
-                <div class="row mt-5">
-                  <div class="col-md-3 ml-3 tarjeta">
-                    <h5 id="nombre" class="tituloTarjeta"></h5>
-                    <img class="tamañoJuegoVenta" src="" alt="" />
-                    <h5 class="titulo2"></h5>
-                    <a class="btn btn-outline-primary">Ver Mas</a>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="wizard">
+                <nav class="list-group list-group-flush">
+                  <a class="list-group-item" ><font-awesome-icon icon="fa-solid fa-house-chimney" /> Direccion: usuario.direccion</a>
+                  <a class="list-group-item"><font-awesome-icon icon="fa-solid fa-user-pen" /> Profile Settings</a>
+                    
+                </nav>
+            </div>
         </div>
-      </div>
+        <!-- Orders Table-->
+        <div class="col-lg-8 pb-5">
+            <div class="d-flex justify-content-end pb-3">
+                <div class="form-inline">
+                    <label class="text-muted mr-3" for="order-sort">Sort Orders</label>
+                    <select class="form-control" id="order-sort">
+                        <option>All</option>
+                        <option>Delivered</option>
+                        <option>In Progress</option>
+                        <option>Delayed</option>
+                        <option>Canceled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Nro Pedido #</th>
+                            <th>Fecha de compra</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  class="align-baseline" v-for="pedido in Pedidos" :key="pedido._id">
+                            <td><a class="navi-link" href="#order-details" data-toggle="modal">{{pedido._id}}</a></td>
+                            <td>{{pedido.fecha}}</td>
+                            <td v-if="pedido.estado==='P'"><span class="badge bg-info m-0">En progreso</span></td>
+                            <td v-if="pedido.estado==='F'"><span class="badge bg-success m-0">Finalizado</span></td>
+                            <td v-if="pedido.estado==='C'"><span class="badge bg-success m-0">Finalizado</span></td>
+                            <td><span>${{pedido.total}}</span></td>
+                            <td class="text-aling-center" v-if="pedido.estado==='P'">
+                              <button class="btn btn-danger btn-sm mr-1">Cancelar</button>
+                              <button v-if="true" class="btn btn-success btn-sm">Finalizar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 </template>
   <script>
 export default {
@@ -107,8 +72,194 @@ export default {
   setup() {},
   components: {},
   data() {
-    return {};
+    return {
+      Pedidos: [
+        {
+          _id: "dsds1",
+          fecha: "23 enero",
+          user: "rod",
+          platos: [
+            {
+              nombre: "Mila",
+              precio: 1800,
+              cantidad: 2,
+            },
+          ],
+          direccion: "safgs343453",
+          total: 3600,
+          estado: "P",
+        },
+      ],
+    };
   },
   methods: {},
 };
 </script>
+<style  scoped>
+body{
+    background:#eee;    
+}
+.main-container{
+    margin-top:40px;    
+}
+.widget-author {
+  margin-bottom: 58px;
+}
+.author-card {
+  position: relative;
+  padding-bottom: 48px;
+  background-color: #fff;
+  box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
+}
+.author-card .author-card-cover {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.author-card .author-card-cover::after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  opacity: 0.5;
+}
+.author-card .author-card-cover > .btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 0 10px;
+}
+.author-card .author-card-profile {
+  display: table;
+  position: relative;
+  margin-top: -22px;
+  padding-right: 15px;
+  padding-bottom: 16px;
+  padding-left: 20px;
+  z-index: 5;
+}
+.author-card .author-card-profile .author-card-avatar, .author-card .author-card-profile .author-card-details {
+  display: table-cell;
+  vertical-align: middle;
+}
+.author-card .author-card-profile .author-card-avatar {
+  width: 85px;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .15);
+  overflow: hidden;
+}
+.author-card .author-card-profile .author-card-avatar > img {
+  display: block;
+  width: 100%;
+}
+.author-card .author-card-profile .author-card-details {
+  padding-top: 20px;
+  padding-left: 15px;
+}
+.author-card .author-card-profile .author-card-name {
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.author-card .author-card-profile .author-card-position {
+  display: block;
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 600;
+}
+.author-card .author-card-info {
+  margin-bottom: 0;
+  padding: 0 25px;
+  font-size: 13px;
+}
+.author-card .author-card-social-bar-wrap {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
+  width: 100%;
+}
+.author-card .author-card-social-bar-wrap .author-card-social-bar {
+  display: table;
+  margin: auto;
+  background-color: #fff;
+  box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .11);
+}
+.btn-style-1.btn-white {
+    background-color: #fff;
+}
+.list-group-item i {
+    display: inline-block;
+    margin-top: -1px;
+    margin-right: 8px;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+.mr-1, .mx-1 {
+    margin-right: .25rem !important;
+}
+
+.list-group-item.active:not(.disabled) {
+    border-color: #e7e7e7;
+    background: #fff;
+    color: #ac32e4;
+    cursor: default;
+    pointer-events: none;
+}
+.list-group-flush:last-child .list-group-item:last-child {
+    border-bottom: 0;
+}
+
+.list-group-flush .list-group-item {
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+
+.list-group-flush .list-group-item {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+}
+.list-group-item.active {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.list-group-item:last-child {
+    margin-bottom: 0;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+a.list-group-item, .list-group-item-action {
+    color: #404040;
+    font-weight: 600;
+}
+.list-group-item {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    border: 1px solid #e7e7e7 !important;
+    border-radius: 0 !important;
+    color: #404040;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.125);
+}
+</style>
