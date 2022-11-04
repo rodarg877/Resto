@@ -14,7 +14,7 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             let buscado: User | null;
             buscado = null
             let result;
-            const url: string = `http://localhost:8080/usuarios/login`
+            const url: string = `/usuarios/login`
             try{
                 const resultado = await axios.post<{token:string, direccion:string},any>(url, {nick: nick, pass: pass}) 
                // console.log(resultado);
@@ -85,6 +85,10 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             }catch(e){
                 return false;
             }
+        },
+        async isAdmin(){
+            const url: string = `http://localhost:8080/usuarios/validador/${this.usuario.token}`
+            return await axios.get(url);
         }
     }
 })

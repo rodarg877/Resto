@@ -9,14 +9,14 @@
                     <div class="author-card-avatar"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
                     </div>
                     <div class="author-card-details">
-                        <h5 class="author-card-name text-lg">usuario.nick</h5><span class="author-card-position">usuario.email</span>
+                        <h5 class="display-6">{{usuario.nick}}</h5>
                     </div>
                 </div>
             </div>
             <div class="wizard">
                 <nav class="list-group list-group-flush">
-                  <a class="list-group-item" ><font-awesome-icon icon="fa-solid fa-house-chimney" /> Direccion: usuario.direccion</a>
-                  <a class="list-group-item"><font-awesome-icon icon="fa-solid fa-user-pen" /> Profile Settings</a>
+                  <a class="list-group-item" ><font-awesome-icon icon="fa-solid fa-house-chimney" /> Direccion: {{usuario.direccion}}</a>
+                  <router-link to="/modificarPerfil" class="list-group-item"><font-awesome-icon icon="fa-solid fa-user-pen" /> Profile Settings</router-link>
                     
                 </nav>
             </div>
@@ -25,14 +25,14 @@
         <div class="col-lg-8 pb-5">
             <div class="d-flex justify-content-end pb-3">
                 <div class="form-inline">
-                    <label class="text-muted mr-3" for="order-sort">Sort Orders</label>
-                    <select class="form-control" id="order-sort">
-                        <option>All</option>
-                        <option>Delivered</option>
-                        <option>In Progress</option>
-                        <option>Delayed</option>
-                        <option>Canceled</option>
+                    <label class="text-muted mr-3" for="order-sort">Filtrar</label>
+                    <select @change="filtrar" v-model="estadoSeleccionado" class="form-control" id="order-sort">
+                       <option v-for="(option, index) in estadoOpcions" :key="index" :value="option.valor" >
+                       {{option.texto}}
+                      </option>
                     </select>
+                    {{estadoSeleccionado}}
+        
                 </div>
             </div>
             <div class="table-responsive">
@@ -47,16 +47,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr  class="align-baseline" v-for="pedido in Pedidos" :key="pedido._id">
+                        <tr  class="align-baseline" v-for="pedido in arrayFiltado" :key="pedido._id">
                             <td><a class="navi-link" href="#order-details" data-toggle="modal">{{pedido._id}}</a></td>
                             <td>{{pedido.fecha}}</td>
                             <td v-if="pedido.estado==='P'"><span class="badge bg-info m-0">En progreso</span></td>
                             <td v-if="pedido.estado==='F'"><span class="badge bg-success m-0">Finalizado</span></td>
-                            <td v-if="pedido.estado==='C'"><span class="badge bg-success m-0">Finalizado</span></td>
+                            <td v-if="pedido.estado==='C'"><span class="badge bg-danger m-0">Cancelado</span></td>
                             <td><span>${{pedido.total}}</span></td>
                             <td class="text-aling-center" v-if="pedido.estado==='P'">
-                              <button class="btn btn-danger btn-sm mr-1">Cancelar</button>
-                              <button v-if="true" class="btn btn-success btn-sm">Finalizar</button>
+                              <button @click="cancelar(pedido)" class="btn btn-danger btn-sm mr-1">Cancelar</button>
+                              <button @click="finalizar(pedido)" v-if="true" class="btn btn-success btn-sm">Finalizar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -67,33 +67,67 @@
 </div>
 </template>
   <script>
+import { UsuarioStore } from "@/stores/usuario";
+import { storeToRefs } from 'pinia';
+import axios from "axios";
 export default {
-  name: "Perfil",
-  setup() {},
+  name: "perfil",
+  setup() {
+    const store = UsuarioStore();
+   const {usuario}=storeToRefs(store);
+   const {isAdmin}=store;
+    return {usuario,isAdmin};
+  },
   components: {},
   data() {
     return {
-      Pedidos: [
-        {
-          _id: "dsds1",
-          fecha: "23 enero",
-          user: "rod",
-          platos: [
-            {
-              nombre: "Mila",
-              precio: 1800,
-              cantidad: 2,
-            },
-          ],
-          direccion: "safgs343453",
-          total: 3600,
-          estado: "P",
-        },
-      ],
+   estadoOpcions:[{valor:"T", texto:"Todos"},{valor:"P", texto:"En proceso"}, {valor:"F", texto:"Finalizado"}, {valor:"C", texto:"Cancelado"}],
+   estadoSeleccionado: "T",
+   arrayFiltado:[],
+   Pedidos: [],
     };
   },
-  methods: {},
-};
+  methods: {
+    async cancelar(pedido){
+      try {
+        pedido.estado = "C";
+      console.log(await axios.put(`http://localhost:8080/pedidos/${pedido._id}`, pedido));  
+      }catch(e){
+        "No funcionó"
+      }
+    },
+    async finalizar(pedido){
+    try {
+        pedido.estado = "F";
+       await axios.put(`http://localhost:8080/pedidos/${pedido._id}`, pedido); 
+      }catch(e){
+        "No funcionó"
+      }
+    }
+  },
+  async mounted(){
+    const lista = await axios.get(`http://localhost:8080/pedidos/${this.usuario.nick}`)
+    this.Pedidos = lista.data;
+    this.arrayFiltado = this.Pedidos;
+   // console.log(this.Pedidos);
+   this.isAdmin();
+
+  },
+  computed: {
+     filtrar(){
+     // console.log("Funciona con el metodo filtrar antes del if");
+      if(this.estadoSeleccionado === "T"){
+       // console.log("Funciona con el if");
+        this.arrayFiltado = this.Pedidos;
+      }else {
+        this.arrayFiltado = this.Pedidos.filter(x => x.estado === this.estadoSeleccionado);
+       // console.log("El array filtado es: " + this.arrayFiltado);
+        
+      }
+    // console.log("El array filtado es: " + this.arrayFiltado);
+
+  }
+}};
 </script>
 <style  scoped>
 body{

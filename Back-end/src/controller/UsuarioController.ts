@@ -40,4 +40,10 @@ export default class UsuarioController {
             
             res.json(await UsuarioService.enviarMail(email))
         }
+
+        public static async isAdmin(req: Request, res: Response){
+            const{token} = req.params;
+            res.send(await UsuarioService.isAdmin(token));
+        }
+
 }

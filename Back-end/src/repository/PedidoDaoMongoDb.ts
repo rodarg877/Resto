@@ -9,13 +9,16 @@ export default class PedidoDaoMongoDb {
 
     static async findPedido(nick: String) {
         try {
-            const user: Usuario = (await collections.usuarios?.findOne({ nick: nick })) as unknown as Usuario
+            const user: any = (await collections.usuarios?.findOne({ nick: nick }));
+            //const usuarioB = new Usuario("")
+            console.log(typeof user);
+            
             if (user) {
-                if (user.getTipo() == 'N') {
+                if (user.tipo == 'N') {
                     const pedidos: Pedido[] = (await collections.pedidos?.find({ user: nick }).toArray()) as unknown as Pedido[];
                     return pedidos
-                } else if (user.getTipo() == 'A') {
-                    const pedidos: Pedido[] = (await collections.pedidos?.find({ estado: "P" }).toArray()) as unknown as Pedido[];
+                } else if (user.tipo == 'A') {
+                    const pedidos: Pedido[] = (await collections.pedidos?.find({}).toArray()) as unknown as Pedido[];
                     return pedidos
                 }
             } else {
@@ -49,8 +52,10 @@ export default class PedidoDaoMongoDb {
 
 
     public static async modificarPedido(id: string, pedido: Pedido) {
+        let pedidoModicado:any = pedido; //ver de hacerlo sin el any        
         try {
-            const result = await collections.pedidos?.updateOne({ id: new ObjectId(id) }, { $set: pedido })
+            const result = await collections.pedidos?.updateOne({ _id: new ObjectId(id) }, { $set:{estado:pedidoModicado.estado}}) 
+            
             if (result?.modifiedCount) {
                 return "Cambio exitoso"
             } else {

@@ -15,13 +15,15 @@ export default class PedidoDaoMongoDb {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: nick })));
+                //const usuarioB = new Usuario("")
+                console.log(typeof user);
                 if (user) {
-                    if (user.getTipo() == 'N') {
+                    if (user.tipo == 'N') {
                         const pedidos = (yield ((_b = collections.pedidos) === null || _b === void 0 ? void 0 : _b.find({ user: nick }).toArray()));
                         return pedidos;
                     }
-                    else if (user.getTipo() == 'A') {
-                        const pedidos = (yield ((_c = collections.pedidos) === null || _c === void 0 ? void 0 : _c.find({ estado: "P" }).toArray()));
+                    else if (user.tipo == 'A') {
+                        const pedidos = (yield ((_c = collections.pedidos) === null || _c === void 0 ? void 0 : _c.find({}).toArray()));
                         return pedidos;
                     }
                 }
@@ -60,8 +62,9 @@ export default class PedidoDaoMongoDb {
     static modificarPedido(id, pedido) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            let pedidoModicado = pedido; //ver de hacerlo sin el any        
             try {
-                const result = yield ((_a = collections.pedidos) === null || _a === void 0 ? void 0 : _a.updateOne({ id: new ObjectId(id) }, { $set: pedido }));
+                const result = yield ((_a = collections.pedidos) === null || _a === void 0 ? void 0 : _a.updateOne({ _id: new ObjectId(id) }, { $set: { estado: pedidoModicado.estado } }));
                 if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
                     return "Cambio exitoso";
                 }

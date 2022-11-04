@@ -59,6 +59,11 @@ const router = createRouter({
       name: 'addPlato',
       component: () => import('../views/AddPlato.vue')
     },
+    {
+      path: '/modificarPerfil',
+      name: 'modificarPerfil',
+      component: () => import('../views/modificarPerfil.vue')
+    },
 
   ]
 })

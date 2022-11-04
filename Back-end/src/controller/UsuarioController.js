@@ -48,4 +48,10 @@ export default class UsuarioController {
             res.json(yield UsuarioService.enviarMail(email));
         });
     }
+    static isAdmin(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { token } = req.params;
+            res.send(yield UsuarioService.isAdmin(token));
+        });
+    }
 }

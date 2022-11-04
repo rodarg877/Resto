@@ -9,4 +9,4 @@ pedidosRouter.use(express.json());
 
 pedidosRouter.get("/:nick", PedidosController.getPedidos)
 pedidosRouter.post("/", PedidosController.crearPedido)
-pedidosRouter.put("/:nombre", PedidosController.modificarPedido)
+pedidosRouter.put("/:id", PedidosController.modificarPedido)

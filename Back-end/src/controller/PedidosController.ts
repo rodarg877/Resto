@@ -9,7 +9,7 @@ export default class PedidoController {
             const { nick } = req.params;
             res.json(await PedidoService.obtenerPedido(nick))
 
-        }
+    }
         public static async crearPedido(req: Request, res: Response) {
              const {platos, user, direccion,precioDelivery}=req.body
             let newPlatos:Plato[]=[];

@@ -1,6 +1,9 @@
+import { JsonWebTokenError } from "jsonwebtoken"
 import Usuario from "../models/Usuario.js"
 import UsuarioDaoMongoDb from "../repository/UsuarioDaoMongoDb.js"
 import { Email } from "../shared/Email.js"
+import jwt from 'jsonwebtoken';
+
 
 export default class UsuarioService {
  
@@ -26,5 +29,16 @@ export default class UsuarioService {
     if(await UsuarioDaoMongoDb.verificarMail(email)){
       Email.enviar(email, "Recuperar Contraseña", `http://localhost:5173/cambiarPass`)
     }
+  }
+
+  static async isAdmin(token:string){ //acá vamos a decodificar el token.
+    const tokenDecodificado = jwt.verify(token,'secret',(error,payload)=> {
+      console.log(payload);
+      
+      return payload;
+
+    }) ;
+    
+   // return tokenDecodificado.isAdmin;
   }
 }

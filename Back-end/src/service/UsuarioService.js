@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import UsuarioDaoMongoDb from "../repository/UsuarioDaoMongoDb.js";
 import { Email } from "../shared/Email.js";
+import jwt from 'jsonwebtoken';
 export default class UsuarioService {
     static obtenerUsuarios(nick) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -41,6 +42,15 @@ export default class UsuarioService {
             if (yield UsuarioDaoMongoDb.verificarMail(email)) {
                 Email.enviar(email, "Recuperar Contraseña", `http://localhost:5173/cambiarPass`);
             }
+        });
+    }
+    static isAdmin(token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tokenDecodificado = jwt.verify(token, 'secret', (error, payload) => {
+                console.log(payload);
+                return payload;
+            });
+            return tokenDecodificado.isAdmin;
         });
     }
 }

@@ -47,8 +47,8 @@ export default class UsuarioDaoMongoDb {
             if (usuario) {
                 if (usuario.pass == pass) {
                     console.log(jwt.sign({ nick: usuario.nick }, 'secret'));
-                    
-                    return {token: jwt.sign({ nick: usuario.nick }, 'secret'), direccion:usuario.direccion} 
+                let isAdmin = usuario.tipo == "A"; 
+                    return {token: jwt.sign({ nick: usuario.nick, isAdmin:isAdmin }, 'secret'), direccion:usuario.direccion} 
                 } else {
                     throw new Error( "pass incorrecta")
                 }
