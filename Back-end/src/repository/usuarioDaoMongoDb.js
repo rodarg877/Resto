@@ -66,8 +66,8 @@ export default class UsuarioDaoMongoDb {
                 //console.log(typeof usuario);
                 if (usuario) {
                     if (usuario.pass == pass) {
-                        console.log(jwt.sign({ nick: usuario.nick }, 'secret'));
                         let isAdmin = usuario.tipo == "A";
+                        console.log(isAdmin);
                         return { token: jwt.sign({ nick: usuario.nick, isAdmin: isAdmin }, 'secret'), direccion: usuario.direccion };
                     }
                     else {

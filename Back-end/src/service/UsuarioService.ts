@@ -32,13 +32,8 @@ export default class UsuarioService {
   }
 
   static async isAdmin(token:string){ //acá vamos a decodificar el token.
-    const tokenDecodificado = jwt.verify(token,'secret',(error,payload)=> {
-      console.log(payload);
-      
-      return payload;
-
-    }) ;
+    const payload:any = jwt.verify(token,'secret');
     
-   // return tokenDecodificado.isAdmin;
+      return payload.isAdmin;
   }
 }

@@ -14,10 +14,10 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             let buscado: User | null;
             buscado = null
             let result;
-            const url: string = `/usuarios/login`
+            const url: string = `http://localhost:8080/usuarios/login`
             try{
                 const resultado = await axios.post<{token:string, direccion:string},any>(url, {nick: nick, pass: pass}) 
-               // console.log(resultado);
+               console.log(resultado);
                 
                if(resultado.data.token != null){
               //  console.log("Funciona, tiene token.");
@@ -62,17 +62,6 @@ export const UsuarioStore = defineStore('UsuarioStore', {
                 return false;
             }
 
-        },
-        async chequearUsuario(nick:string){
-            const url: string = `http://localhost:8080/usuarios/${nick}`
-            console.log(url);
-            try {
-                let result=await axios.get(url); 
-                console.log(result); 
-                return result.data;   
-            }catch(e){
-                return false;
-            }
         },
         async chequearEmail(email:string){
             const url: string = `http://localhost:8080/usuarios/${email}`
