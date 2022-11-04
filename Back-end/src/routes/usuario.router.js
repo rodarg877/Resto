@@ -8,4 +8,5 @@ usuariosRouter.get("/validador/:token", UsuarioController.isAdmin);
 usuariosRouter.post("/login", UsuarioController.logIn); //para los post/put -> x body.
 usuariosRouter.post("/", UsuarioController.postUsuario);
 usuariosRouter.post("/cambiarPass", UsuarioController.enviarMail);
+usuariosRouter.put("/modificarUsuario", UsuarioController.modificarUsuario);
 usuariosRouter.put("/", UsuarioController.cambiarPassword);

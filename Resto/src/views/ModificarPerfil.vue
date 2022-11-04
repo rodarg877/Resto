@@ -10,7 +10,7 @@
   >
     <div class="card p-4 text-light bg-secondary mb-5 rounded-lg ancho mt-5">
       <div class="card-header">
-        <h3>CREAR TU CUENTA</h3>
+        <h3>MODIFICAR TU CUENTA</h3>
       </div>
       <div class="card-body w-100 mt-3">
         <form name="registro" @submit.prevent="validar">
@@ -20,14 +20,9 @@
               type="text"
               class="form-control w-100 mt-1"
               placeholder="Usuario"
-              v-model="Usuario.user"
+              v-model="Usuario.nick"
+              disabled
             />
-            <span id="name" class="alert alert-danger" v-if="errorUser">
-              Usuario no valido</span
-            >
-            <span id="name" class="alert alert-danger" v-if="errorUsuarioDuplicado">
-              El usuario ya existe</span
-            >
             <label class="w-100 mt-3" for="pass"
               >Dirección de correo electrónico</label
             >
@@ -40,15 +35,12 @@
             <span id="name" class="alert alert-danger" v-if="errorEmail"
               >Mail invalido</span
             >
-            <span id="name" class="alert alert-danger" v-if="errorEmailDuplicado">
-              El email ya existe</span
-            >
             <label class="w-100 mt-3" for="confirmPass">Repetir e-mail</label>
             <input
               type="text"
               class="form-control w-100 mt-1"
               placeholder="email@email.com"
-              v-model="Usuario.confEmail"
+              v-model="UsuarioConf.confEmail"
             />
             <span id="name" class="alert alert-danger" v-if="errorConfEmail"
               >Error en la confirmacion de email</span
@@ -61,7 +53,7 @@
               v-model="Usuario.direccion"
             />
             <span id="name" class="alert alert-danger" v-if="errorEmail"
-              >direccion invalido</span
+              >direccion invalida</span
             >
             <label class="w-100 mt-3" for="pass">Password</label>
             <input
@@ -74,13 +66,13 @@
               >Password no valido</span
             >
             <label for="confirmPass" class="w-100 mt-3"
-              >Confirma tu Password</label
+              >Confirma tu Password </label
             >
             <input
               type="password"
               class="form-control w-100 mt-1"
               placeholder="Contraseña"
-              v-model="Usuario.confPass"
+              v-model="UsuarioConf.confPass"
             />
             <span id="name" v-if="errorConfPass" class="alert alert-danger"
               >No coincide el Password
@@ -92,11 +84,17 @@
               value="Registrarse"
               class="btn btn-dark float-end text-white w-100"
             />
+            <span id="name" v-if="sinCambios" class="alert alert-danger " role="alert"
+              >No ingreso nada para cambiar
+      </span>
           </div>
         </form>
+       
       </div>
     </div>
+   
   </div>
+
 </template>
 
 
@@ -108,64 +106,48 @@ export default {
   components: {},
   setup() {
     const store = UsuarioStore();
-    const { registrarUsuario, chequearUsuario,chequearEmail,chequearUser } = store;
-    return { registrarUsuario , chequearUsuario,chequearEmail,chequearUser };
+    const {usuario}= storeToRefs(store);
+    const {modificarUsuario  } = store;
+    return { usuario,modificarUsuario };
   },
   data: () => ({
     Usuario: {},
+    UsuarioConf:{},
     reg: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-    errorUser: false,
     errorEmail: false,
     errorConfEmail: false,
     errorPass: false,
     errorConfPass: false,
     errorDireccion: false,
-    errorUsuarioDuplicado:false,
-    errorEmailDuplicado:false
+    sinCambios:false
   }),
   methods: {
     async validar() {
-      this.errorUser = !this.Usuario.user || this.Usuario.user.length < 3;
-      this.errorEmail =
-        !this.Usuario.email || !this.reg.test(this.Usuario.email);
-      this.errorConfEmail =
-        !this.Usuario.confEmail || this.Usuario.email != this.Usuario.confEmail;
-
-      this.errorPass = !this.Usuario.pass || this.Usuario.pass.length < 6;
+      if(this.Usuario.email){
+        this.errorEmail = !this.reg.test(this.Usuario.email);
+      this.errorConfEmail = this.Usuario.email != this.UsuarioConf.confEmail;
+      }
+      if(this.Usuario.pass){
+      this.errorPass = this.Usuario.pass.length < 6;
+      this.errorConfPass = this.Usuario.pass != this.UsuarioConf.confPass;
+      }
+      if(this.Usuario.direccion){
       this.errorDireccion = this.Usuario.direccion.length < 6;
-      this.errorConfPass =
-        !this.Usuario.confPass || this.Usuario.pass != this.Usuario.confPass;
-        this.errorUsuarioDuplicado= await this.chequearUsuario(this.Usuario.user)
-        this.errorEmailDuplicado = await this.chequearEmail(this.Usuario.email)
-      //  console.log( "Ya existe usuario?" + this.errorUsuarioDuplicado);
-      //  console.log("Ya existe el mail?" + this.errorEmailDuplicado);
-      if (
-        !this.errorUser &&
-        !this.errorEmail &&
-        !this.errorConfEmail &&
-        !this.errorPass &&
-        !this.errorConfPass &&
-        !this.errorDireccion &&
-        !this.errorUsuarioDuplicado &&
-        !this.errorEmailDuplicado
-
-      ) {
-        
-       // console.log("Datos correctos");
+      }
+      const hayError=!this.errorEmail && !this.errorConfEmail &&!this.errorPass &&!this.errorConfPass &&!this.errorDireccion 
+      this.sinCambios= !this.Usuario.pass&& !this.Usuario.email && (!this.Usuario.direccion || this.Usuario.direccion==this.usuario.direccion) 
+      if ( hayError && sinCambios) {
         if (
-          this.registrarUsuario(
-            this.Usuario.user,
-            this.Usuario.email,
-            this.Usuario.pass,
-            this.Usuario.direccion
-          )
+          this.modificarUsuario(this.Usuario)
         ) {
-         // console.log("Se registró el usuario correctamente");
-          this.chequearUser(this.Usuario.user, this.Usuario.pass)
-          this.$router.push("/");
+          this.$router.push("/Perfil");
         }
       }
     },
   },
+  mounted(){
+    this.Usuario.nick=this.usuario.nick
+    this.Usuario.direccion=this.usuario.direccion
+  }
 };
 </script>

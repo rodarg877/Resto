@@ -94,13 +94,27 @@ export default class UsuarioDaoMongoDb {
     static async verificarMail(email: String) {
         try {
             const usuario: Usuario = (await collections.usuarios?.findOne({ email: email })) as unknown as Usuario;
-            if (email) {
+            if (usuario) {
                 return true;
             } else {
                 return false;
             }
         } catch (err) {
             return err.message;
+        }
+    }
+    static async modificarUsuario(usuario: any){
+        try{
+            const result = await collections.usuarios?.updateOne({nick:usuario.nick}, { $set:usuario})
+            console.log(result);
+            
+            if(result?.modifiedCount){
+                return true
+            } else {
+                throw new Error("Usuario inexistente")
+            }
+        } catch(error:any){
+            return false;
         }
     }
 }

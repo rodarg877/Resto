@@ -32,7 +32,6 @@ export default {
     //console.log(localStorage.getItem('usuario'));
     if (localStorage.getItem("usuario")) {
       this.setUsuario(localStorage.getItem("usuario"));
-      console.log(typeof this.usuario);
     }
   },
 };
@@ -121,7 +120,7 @@ export default {
                         >
                       </li>
                       <li class="sub-menu sub-menu-1">
-                        <router-link to="/menu" data-bs-toggle="dropdown"
+                        <router-link to="" data-bs-toggle="dropdown"
                           >Nuestro Menu</router-link
                         >
                         <ul class="dropdown-menu">

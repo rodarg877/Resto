@@ -45,11 +45,6 @@ const router = createRouter({
       component: () => import('../views/Registro.vue')
     },
     {
-      path: '/mesa',
-      name: 'mesa',
-      component: () => import('../views/Mesas.vue')
-    },
-    {
       path: '/carrito',
       name: 'carrito',
       component: () => import('../views/Carrito.vue')

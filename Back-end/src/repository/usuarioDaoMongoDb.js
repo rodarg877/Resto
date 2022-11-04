@@ -124,7 +124,7 @@ export default class UsuarioDaoMongoDb {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ email: email })));
-                if (email) {
+                if (usuario) {
                     return true;
                 }
                 else {
@@ -133,6 +133,26 @@ export default class UsuarioDaoMongoDb {
             }
             catch (err) {
                 return err.message;
+            }
+        });
+    }
+    static modificarUsuario(usuario) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log(usuario);
+                console.log(usuario.nick);
+                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: usuario.nick }, { $set: usuario }));
+                console.log(result);
+                if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
+                    return true;
+                }
+                else {
+                    throw new Error("Usuario inexistente");
+                }
+            }
+            catch (error) {
+                return false;
             }
         });
     }

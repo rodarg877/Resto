@@ -47,12 +47,14 @@ export default class UsuarioService {
     static isAdmin(token) {
         return __awaiter(this, void 0, void 0, function* () {
             const payload = jwt.verify(token, 'secret');
-            const result = JSON.stringify(payload);
-            console.log(payload);
-            console.log("---------------------------");
-            console.log(result);
             return payload.isAdmin;
-            // return tokenDecodificado.isAdmin;
+        });
+    }
+    static modificarUsuario(usuario) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield UsuarioDaoMongoDb.modificarUsuario(usuario);
+            console.log(res);
+            return res;
         });
     }
 }

@@ -45,5 +45,9 @@ export default class UsuarioController {
             const{token} = req.params;
             res.send(await UsuarioService.isAdmin(token));
         }
+        public static async modificarUsuario(req: Request, res: Response){
+            const usuario=req.body
+            res.send(await UsuarioService.modificarUsuario(usuario))
+        }
 
 }

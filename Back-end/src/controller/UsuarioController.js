@@ -54,4 +54,10 @@ export default class UsuarioController {
             res.send(yield UsuarioService.isAdmin(token));
         });
     }
+    static modificarUsuario(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const usuario = req.body;
+            res.send(yield UsuarioService.modificarUsuario(usuario));
+        });
+    }
 }
