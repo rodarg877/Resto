@@ -75,6 +75,10 @@
                             <div class="col-3">${{plato.cantidad * plato.precio}}</div> 
                         </div> 
                             </div>
+                            <div class="row">
+                          <div class="col-9 h3 p-3">Total</div>
+                        <div class="col-3 p-3">${{pedido.total}}</div>
+                        </div>
                           </div>
                         </div>
                       </div>
