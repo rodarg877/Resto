@@ -1,7 +1,7 @@
 <template>
  <div class="container mb-4 main-container">
     <div class="row">
-        <div class="col-lg-4 pb-5">
+        <div class="col-lg-3 pb-5">
             <!-- Account Sidebar-->
             <div class="author-card pb-3">
                 <div class="author-card-cover" style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);"></div>
@@ -9,60 +9,78 @@
                     <div class="author-card-avatar"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Daniel Adams">
                     </div>
                     <div class="author-card-details">
-                        <h5 class="display-6">{{usuario.nick}}</h5>
+                        <h5 class="display-6">{{usuario.nick}}<h5 v-if="esAdmin">(Admin) </h5></h5>
                     </div>
                 </div>
             </div>
             <div class="wizard">
                 <nav class="list-group list-group-flush">
                   <a class="list-group-item" ><font-awesome-icon icon="fa-solid fa-house-chimney" /> Direccion: {{usuario.direccion}}</a>
-                  <router-link to="/modificarPerfil" class="list-group-item"><font-awesome-icon icon="fa-solid fa-user-pen" /> Profile Settings</router-link>
-                    
+                  <router-link to="/modificarPerfil" class="list-group-item"><font-awesome-icon icon="fa-solid fa-user-pen" /> Modificar Perfil</router-link>
+                  <router-link v-if="esAdmin" to="/addPlato" class="list-group-item"><font-awesome-icon icon="fa-solid fa-utensils" /> Agregar Platos</router-link>
                 </nav>
             </div>
         </div>
         <!-- Orders Table-->
-        <div class="col-lg-8 pb-5">
+      <div class="col-lg-9 pb-5">
             <div class="d-flex justify-content-end pb-3">
                 <div class="form-inline">
                     <label class="text-muted mr-3" for="order-sort">Filtrar</label>
                     <select @change="filtrar" v-model="estadoSeleccionado" class="form-control" id="order-sort">
                        <option v-for="(option, index) in estadoOpcions" :key="index" :value="option.valor" >
-                       {{option.texto}}
+                        {{option.texto}}
                       </option>
                     </select>
-                    {{estadoSeleccionado}}
-        
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th>Nro Pedido #</th>
-                            <th>Fecha de compra</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr  class="align-baseline" v-for="pedido in arrayFiltado" :key="pedido._id">
-                            <td><a class="navi-link" href="#order-details" data-toggle="modal">{{pedido._id}}</a></td>
-                            <td>{{pedido.fecha}}</td>
-                            <td v-if="pedido.estado==='P'"><span class="badge bg-info m-0">En progreso</span></td>
-                            <td v-if="pedido.estado==='F'"><span class="badge bg-success m-0">Finalizado</span></td>
-                            <td v-if="pedido.estado==='C'"><span class="badge bg-danger m-0">Cancelado</span></td>
-                            <td><span>${{pedido.total}}</span></td>
-                            <td class="text-aling-center" v-if="pedido.estado==='P'">
+                     <div class="table-responsive">
+                      <div class="table table-hover mb-0">
+                        <div class="row">
+                            <div class="col-3 m-0">Nro Pedido #</div>
+                            <div class="col-1">Nombre</div>
+                            <div class="col-1">Fecha</div>
+                            <div class="col-2">Direccion</div>
+                            <div class="col-2">Status</div>
+                            <div class="col-1">Total</div>
+                            <div class="col-2"></div>
+                        </div>
+                        <div  class="align-baseline" v-for="pedido in arrayFiltado" :key="pedido._id">
+                          <div class="row">
+                            <div class="col-3"><a class="navi-link p-2" data-bs-toggle="collapse" :href="'#p'+pedido._id" role="button" aria-expanded="false" :aria-controls="pedido._id">{{pedido._id}}</a> </div>
+                            <div class="col-1">{{pedido.user}}</div>
+                            <div class="col-1">{{pedido.fecha}}</div>
+                            <div class="col-2">{{pedido.direccion}}</div>
+                            <div class="col-2" v-if="pedido.estado==='P'"><span class="badge bg-info m-0 ">En progreso</span></div>
+                            <div class="col-2" v-if="pedido.estado==='F'"><span class="badge bg-success m-0 ">Finalizado</span></div>
+                            <div class="col-2" v-if="pedido.estado==='C'"><span class="badge bg-danger m-0 ">Cancelado</span></div>
+                            <div  class="col-1"><span>${{pedido.total}}</span></div>
+                            <div class=" col-2" v-if="pedido.estado==='P'">
                               <button @click="cancelar(pedido)" class="btn btn-danger btn-sm mr-1">Cancelar</button>
-                              <button @click="finalizar(pedido)" v-if="true" class="btn btn-success btn-sm">Finalizar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                              <button @click="finalizar(pedido)" v-if="esAdmin" class="btn btn-success btn-sm">Finalizar</button>
+                            </div>
+                          </div>
+                          <div class="collapse" :id="'p'+pedido._id">
+                            <div class="card card-body">
+                              <div class="row p-3">
+                            <div class="col-2 h3"><b><u>Cantidad</u></b></div>
+                            <div class="col-4 h3"><b><u>Plato</u></b></div>
+                            <div class="col-3 h3"><b><u>Precio Unitario</u></b></div>
+                            <div class="col-3 h3"><b><u> SubTotal</u></b></div>
+                        </div>
+                        <div  class="align-baseline" v-for="plato in pedido.platos" :key="plato.nombre">
+                        <div class="row">
+                          <div class="col-2">{{plato.cantidad}}</div>
+                          <div class="col-4">{{plato.nombre}}</div>
+                            <div class="col-3">${{plato.precio}}</div>
+                            <div class="col-3">${{plato.cantidad * plato.precio}}</div> 
+                        </div> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
     </div>
 </div>
 </template>
@@ -85,6 +103,7 @@ export default {
    estadoSeleccionado: "T",
    arrayFiltado:[],
    Pedidos: [],
+   esAdmin:false,
     };
   },
   methods: {
@@ -103,14 +122,14 @@ export default {
       }catch(e){
         "No funcionó"
       }
-    }
+    },
+
   },
   async mounted(){
     const lista = await axios.get(`http://localhost:8080/pedidos/${this.usuario.nick}`)
     this.Pedidos = lista.data;
     this.arrayFiltado = this.Pedidos;
-   // console.log(this.Pedidos);
-   this.isAdmin();
+    this.esAdmin=await this.isAdmin();
 
   },
   computed: {

@@ -66,8 +66,8 @@
               >Password no valido</span
             >
             <label for="confirmPass" class="w-100 mt-3"
-              >Confirma tu Password </label
-            >
+              >Confirma tu Password
+            </label>
             <input
               type="password"
               class="form-control w-100 mt-1"
@@ -77,24 +77,26 @@
             <span id="name" v-if="errorConfPass" class="alert alert-danger"
               >No coincide el Password
             </span>
+           
           </div>
-          <div class="form-group mt-5">
+          <div class="input-group mt-5">
             <input
               type="submit"
-              value="Registrarse"
+              value="modificar"
               class="btn btn-dark float-end text-white w-100"
             />
-            <span id="name" v-if="sinCambios" class="alert alert-danger " role="alert"
-              >No ingreso nada para cambiar
-      </span>
+            <span
+            id="name"
+            v-if="sinCambios"
+            class="alert alert-danger  w-100 mt-1"
+            role="alert"
+            >No ingreso nada para cambiar
+          </span>
           </div>
         </form>
-       
       </div>
     </div>
-   
   </div>
-
 </template>
 
 
@@ -102,52 +104,58 @@
 import { UsuarioStore } from "@/stores/usuario";
 import { storeToRefs } from "pinia";
 export default {
-  name: "Registro",
+  name: "modificarPerfil",
   components: {},
   setup() {
     const store = UsuarioStore();
-    const {usuario}= storeToRefs(store);
-    const {modificarUsuario  } = store;
-    return { usuario,modificarUsuario };
+    const { usuario } = storeToRefs(store);
+    const { modificarUsuario } = store;
+    return { usuario, modificarUsuario };
   },
-  data: () => ({
-    Usuario: {},
-    UsuarioConf:{},
-    reg: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-    errorEmail: false,
-    errorConfEmail: false,
-    errorPass: false,
-    errorConfPass: false,
-    errorDireccion: false,
-    sinCambios:false
-  }),
+  data() {
+    return {
+      Usuario: {},
+      UsuarioConf: {},
+      reg: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      errorEmail: false,
+      errorConfEmail: false,
+      errorPass: false,
+      errorConfPass: false,
+      errorDireccion: false,
+      sinCambios: false,
+    };
+  },
   methods: {
     async validar() {
-      if(this.Usuario.email){
+      if (this.Usuario.email) {
         this.errorEmail = !this.reg.test(this.Usuario.email);
-      this.errorConfEmail = this.Usuario.email != this.UsuarioConf.confEmail;
+        this.errorConfEmail = this.Usuario.email != this.UsuarioConf.confEmail;
       }
-      if(this.Usuario.pass){
-      this.errorPass = this.Usuario.pass.length < 6;
-      this.errorConfPass = this.Usuario.pass != this.UsuarioConf.confPass;
+      if (this.Usuario.pass) {
+        this.errorPass = this.Usuario.pass.length < 6;
+        this.errorConfPass = this.Usuario.pass != this.UsuarioConf.confPass;
       }
-      if(this.Usuario.direccion){
-      this.errorDireccion = this.Usuario.direccion.length < 6;
+      if (this.Usuario.direccion) {
+        this.errorDireccion = this.Usuario.direccion.length < 6;
       }
-      const hayError=!this.errorEmail && !this.errorConfEmail &&!this.errorPass &&!this.errorConfPass &&!this.errorDireccion 
-      this.sinCambios= !this.Usuario.pass&& !this.Usuario.email && (!this.Usuario.direccion || this.Usuario.direccion==this.usuario.direccion) 
-      if ( hayError && sinCambios) {
-        if (
-          this.modificarUsuario(this.Usuario)
-        ) {
+      const hayError =
+        !this.errorEmail &&
+        !this.errorConfEmail &&
+        !this.errorPass &&
+        !this.errorConfPass &&
+        !this.errorDireccion;
+      this.sinCambios= !this.Usuario.pass&& !this.Usuario.email && (!this.Usuario.direccion || this.Usuario.direccion==this.usuario.direccion)
+      
+      if (hayError && !this.sinCambios) {
+        if (this.modificarUsuario(this.Usuario)) {
           this.$router.push("/Perfil");
         }
       }
     },
   },
-  mounted(){
-    this.Usuario.nick=this.usuario.nick
-    this.Usuario.direccion=this.usuario.direccion
-  }
+  mounted() {
+    this.Usuario.nick = this.usuario.nick;
+    this.Usuario.direccion = this.usuario.direccion;
+  },
 };
 </script>

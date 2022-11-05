@@ -61,9 +61,16 @@ export const UsuarioStore = defineStore('UsuarioStore', {
                 return false;
             }
         },
-        async isAdmin() {
+        async  isAdmin() {
             const url: string = `http://localhost:8080/usuarios/validador/${this.usuario?.token}`
-            return await axios.get(url);
+            
+                const result=await axios.get(url)  
+                if(await result.data==true){
+                    return true
+                }else{
+                    return false
+                }
+            
         },
         async modificarUsuario(usuario:any) {
             const url: string = `http://localhost:8080/usuarios/modificarUsuario`

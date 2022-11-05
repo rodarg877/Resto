@@ -140,8 +140,6 @@ export default class UsuarioDaoMongoDb {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log(usuario);
-                console.log(usuario.nick);
                 const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: usuario.nick }, { $set: usuario }));
                 console.log(result);
                 if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
