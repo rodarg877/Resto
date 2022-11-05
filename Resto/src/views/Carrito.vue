@@ -120,7 +120,7 @@
                 <p class="pad">Total</p>
                 <p class="pad">$<span id="total_cart_amt">{{calcularTotal()}}</span></p>
               </div>
-              <button @click="this.crearPedido()" class="btn btn-primary pad text-uppercase">
+              <button @click="finalizarPedido" class="btn btn-primary pad text-uppercase">
                 Finalizar Compra
               </button>
             </div>
@@ -140,8 +140,8 @@ export default {
   setup() {
     const store = CarritoStore();
    const {listaPedido,valorDelivery}=storeToRefs(store);
-   const {finalizarPedido, eliminarPlato, obtenerPrecioDelivery,crearPedido}=store;
-    return { listaPedido, finalizarPedido,eliminarPlato, obtenerPrecioDelivery,valorDelivery,crearPedido};
+   const {eliminarPlato, obtenerPrecioDelivery,crearPedido}=store;
+    return { listaPedido,eliminarPlato, obtenerPrecioDelivery,valorDelivery,crearPedido};
   },
   components: {},
   data(){
@@ -157,6 +157,10 @@ export default {
     },
     eliminarItem(plato){
 this.eliminarPlato(plato)
+    },
+    finalizarPedido(){
+      this.crearPedido()
+      this.$router.push('/perfil');
     }
   },
  async mounted(){

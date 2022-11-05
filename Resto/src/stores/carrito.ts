@@ -28,7 +28,6 @@ actions: {
     //valorDelivery ->Parametro o storage.
       const url: string = `http://localhost:8080/pedidos`
       const usuario = JSON.parse(localStorage.getItem('usuario')); //funciona igual.
-      console.log(usuario.nick);
       
       //Creamos pedido
       const pedidoNew:Pedido = {platos:this.listaPedido,user:usuario.nick,direccion:usuario.direccion,precioDelivery:this.valorDelivery} as  Pedido;
@@ -36,6 +35,8 @@ actions: {
       //llamada al endpoint
 
       await axios.post(url, pedidoNew);
+      this.listaPedido=[]
+      
     }, 
     eliminarPlato(item:Plato){
       console.log(this.listaPedido.indexOf(item));
