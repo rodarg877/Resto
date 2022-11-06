@@ -12,6 +12,7 @@ export default class DeliveryController {
     static actualizarPrecio(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { precio } = req.body;
+            console.log("El precio que llega es: " + precio);
             res.json(yield DeliveryService.actualizarPrecio(precio));
         });
     }

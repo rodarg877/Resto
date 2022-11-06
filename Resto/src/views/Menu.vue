@@ -62,17 +62,14 @@
           <h2>Our Menu</h2>
 
           <ul class="ul1">
-            <li><a href="#">PIZZA</a></li>
-            <li><a href="#">PASTA</a></li>
-            <li><a href="#">ANTIPASTA</a></li>
-            <li><a href="#">SALADS</a></li>
-            <li><a href="#">DRINKS</a></li>
-            <li><a href="#">CAKES</a></li>
+            <li><router-link :to="{ name: 'menu', params: { id: pizza } }">Pizza</router-link></li>
+            <li><router-link :to="{ name: 'menu', params: { id: pasta } }" > Pasta</router-link></li>
+            <li><router-link :to="{ name: 'menu', params: { id: minutas } }">Minutas </router-link></li>
+            <li><router-link :to="{ name: 'menu', params: { id: bebidas } }">Bebidas</router-link></li>
           </ul>
         </div>
       </div>
     </div>
-    {{listaPedido}}
   </div>
   
   
@@ -94,6 +91,10 @@ export default {
 
   data() {
     return {
+      pizza:"Pizza",
+      pasta: "Pasta",
+      minutas: "Minuta",
+      bebidas: "Bebida",
       errrorCantidad:false,
       cantidad:1,
       menuFiltrado:[],

@@ -18,6 +18,7 @@
                   <a class="list-group-item" ><font-awesome-icon icon="fa-solid fa-house-chimney" /> Direccion: {{usuario.direccion}}</a>
                   <router-link to="/modificarPerfil" class="list-group-item"><font-awesome-icon icon="fa-solid fa-user-pen" /> Modificar Perfil</router-link>
                   <router-link v-if="esAdmin" to="/addPlato" class="list-group-item"><font-awesome-icon icon="fa-solid fa-utensils" /> Agregar Platos</router-link>
+                  <router-link v-if="esAdmin" to="/precioDelivery" class="list-group-item"><font-awesome-icon icon="fa-solid fa-dollar-sign" /> Valor delivery</router-link>
                 </nav>
             </div>
         </div>
@@ -133,7 +134,7 @@ export default {
     const lista = await axios.get(`http://localhost:8080/pedidos/${this.usuario.nick}`)
     this.Pedidos = lista.data;
     this.arrayFiltado = this.Pedidos;
-    this.esAdmin=await this.isAdmin();
+    //this.esAdmin=await this.isAdmin();
 
   },
   computed: {

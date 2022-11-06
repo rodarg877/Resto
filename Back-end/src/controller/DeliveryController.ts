@@ -6,6 +6,8 @@ export default class DeliveryController {
 
      static async actualizarPrecio(req: Request, res: Response){
         const {precio}= req.body;
+        console.log("El precio que llega es: " + precio);
+        
         res.json(await DeliveryService.actualizarPrecio(precio));
     }
 
