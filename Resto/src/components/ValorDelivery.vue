@@ -57,8 +57,11 @@ methods: {
     //  console.log( "El valor delivery es: " +this.valorDelivery + valor);
 
         try {
+          //Faltaria validar que sea distinto a 0 o q este vacio.
           const valorActual = await axios.post("http://localhost:8080/delivery/",valor);
-        alert("Valor fijado")
+        alert("Valor")
+        this.$router.push("/");
+
         }catch(e){
             console.log("Error guardado en la BD");
         }
