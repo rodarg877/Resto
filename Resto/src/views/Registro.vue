@@ -109,7 +109,7 @@ export default {
   setup() {
     const store = UsuarioStore();
     const { registrarUsuario, chequearUsuario,chequearEmail,chequearUser } = store;
-    return { registrarUsuario , chequearUsuario,chequearEmail,chequearUser };
+    return { registrarUsuario ,chequearUsuario,chequearEmail,chequearUser };
   },
   data: () => ({
     Usuario: {},
@@ -137,7 +137,7 @@ export default {
         !this.Usuario.confPass || this.Usuario.pass != this.Usuario.confPass;
         this.errorUsuarioDuplicado= await this.chequearUsuario(this.Usuario.user)
         this.errorEmailDuplicado = await this.chequearEmail(this.Usuario.email)
-      //  console.log( "Ya existe usuario?" + this.errorUsuarioDuplicado);
+        console.log( "Ya existe usuario?" + this.errorUsuarioDuplicado);
       //  console.log("Ya existe el mail?" + this.errorEmailDuplicado);
       if (
         !this.errorUser &&

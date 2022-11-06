@@ -6,7 +6,7 @@ export const UsuarioStore = defineStore('UsuarioStore', {
         usuario: null as User | null,
     }),
     actions: {
-        async chequearUser(nick: string, pass: string) {
+        async chequearUser(nick: string, pass: string) { 
             let buscado: User | null;
             buscado = null
             let result;
@@ -25,6 +25,15 @@ export const UsuarioStore = defineStore('UsuarioStore', {
                 console.log(e);
             }
             return result;
+        },
+        async chequearUsuario(nick:String){
+        const url: string = `http://localhost:8080/usuarios/${nick}`;
+            try {
+                const usuarioBuscado = await axios.get(url);
+                return usuarioBuscado.data;
+            }catch(e){
+                console.log("Error con la conexion con el back");
+            }
         },
         setUsuario(user: any) {
             this.usuario = JSON.parse(user)

@@ -107,7 +107,7 @@ export default {
    estadoSeleccionado: "T",
    arrayFiltado:[],
    Pedidos: [],
-   esAdmin:false,
+   esAdmin:true,
     };
   },
   methods: {
