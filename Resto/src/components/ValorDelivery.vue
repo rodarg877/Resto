@@ -23,7 +23,7 @@
               type="number"
               class="form-control w-100 mt-1"
               placeholder="$.."
-              v-model="this.valorDelivery"
+              v-model="valorDelivery"
             />
           </div>
           <div class="form-group mt-5">
@@ -50,11 +50,15 @@ data(){
 
 },
 methods: {
-      asignarValor(){
-        console.log( "El valor delivery es: " +this.valorDelivery);
+    async  asignarValor(){
+      let valor = {precio: this.valorDelivery}
+     // let valor = {}
+     // valor.precio = this.valorDelivery;
+    //  console.log( "El valor delivery es: " +this.valorDelivery + valor);
+
         try {
-            await axios.post("http://localhost:8080/delivery",this.valorDelivery);
-        console.log("respuesta endpoint" + valor.data);
+          const valorActual = await axios.post("http://localhost:8080/delivery/",valor);
+        alert("Valor fijado")
         }catch(e){
             console.log("Error guardado en la BD");
         }
