@@ -15,14 +15,13 @@ export default class PedidoDaoMongoDb {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ nick: nick })));
-                //const usuarioB = new Usuario("")
-                console.log(typeof user);
                 if (user) {
                     if (user.tipo == 'N') {
                         const pedidos = (yield ((_b = collections.pedidos) === null || _b === void 0 ? void 0 : _b.find({ user: nick }).toArray()));
                         return pedidos;
                     }
                     else if (user.tipo == 'A') {
+                        console.log('entro');
                         const pedidos = (yield ((_c = collections.pedidos) === null || _c === void 0 ? void 0 : _c.find({}).toArray()));
                         return pedidos;
                     }

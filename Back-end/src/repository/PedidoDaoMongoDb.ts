@@ -10,8 +10,6 @@ export default class PedidoDaoMongoDb {
     static async findPedido(nick: String) {
         try {
             const user: any = (await collections.usuarios?.findOne({ nick: nick }));
-            //const usuarioB = new Usuario("")
-            console.log(typeof user);
             
             if (user) {
                 if (user.tipo == 'N') {
