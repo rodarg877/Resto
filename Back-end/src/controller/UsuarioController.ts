@@ -36,9 +36,9 @@ export default class UsuarioController {
             res.json(await UsuarioService.cambiarPassword(nick, newPass))
         }
         public static async enviarMail(req: Request, res: Response){
-            const {email} = req.body;
+            const {email, pass} = req.body;
             
-            res.json(await UsuarioService.enviarMail(email))
+            res.json(await UsuarioService.enviarMail(email,pass))
         }
 
         public static async isAdmin(req: Request, res: Response){
@@ -47,7 +47,8 @@ export default class UsuarioController {
         }
         public static async modificarUsuario(req: Request, res: Response){
             const usuario=req.body
-            res.send(await UsuarioService.modificarUsuario(usuario))
+            const {token}= req.params
+            res.send(await UsuarioService.modificarUsuario(usuario,token))
         }
 
 }

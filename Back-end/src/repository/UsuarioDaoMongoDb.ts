@@ -117,4 +117,18 @@ export default class UsuarioDaoMongoDb {
             return false;
         }
     }
+    static async modificarPass(payload: any){
+        try{
+            const result = await collections.usuarios?.updateOne({nick:payload.nick}, { $set:{pass:payload.pass}})
+            console.log(result);
+            
+            if(result?.modifiedCount){
+                return true
+            } else {
+                throw new Error("Usuario inexistente")
+            }
+        } catch(error:any){
+            return false;
+        }
+    }
 }

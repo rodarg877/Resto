@@ -21,7 +21,6 @@ export default class PedidoDaoMongoDb {
                         return pedidos;
                     }
                     else if (user.tipo == 'A') {
-                        console.log('entro');
                         const pedidos = (yield ((_c = collections.pedidos) === null || _c === void 0 ? void 0 : _c.find({}).toArray()));
                         return pedidos;
                     }

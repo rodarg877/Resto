@@ -44,8 +44,8 @@ export default class UsuarioController {
     }
     static enviarMail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email } = req.body;
-            res.json(yield UsuarioService.enviarMail(email));
+            const { email, pass } = req.body;
+            res.json(yield UsuarioService.enviarMail(email, pass));
         });
     }
     static isAdmin(req, res) {
@@ -57,7 +57,8 @@ export default class UsuarioController {
     static modificarUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const usuario = req.body;
-            res.send(yield UsuarioService.modificarUsuario(usuario));
+            const { token } = req.params;
+            res.send(yield UsuarioService.modificarUsuario(usuario, token));
         });
     }
 }

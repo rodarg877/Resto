@@ -62,7 +62,12 @@ const router = createRouter({
     {
       path: '/modificarPerfil',
       name: 'modificarPerfil',
-      component: () => import('../views/modificarPerfil.vue')
+      component: () => import('../views/ModificarPerfil.vue')
+    },
+    {
+      path: '/cambiarPass',
+      name: 'cambiarPass',
+      component: () => import('../views/CambiarPass.vue')
     },
 
   ]

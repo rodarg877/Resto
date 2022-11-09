@@ -89,6 +89,15 @@ export const UsuarioStore = defineStore('UsuarioStore', {
         }
                     localStorage.setItem('usuario', JSON.stringify(this.usuario))
             return res ;
+        },
+        async modificarPass(usuario:any) {
+            const url: string = `http://localhost:8080/usuarios/${this.usuario?.token}`
+            const res=await axios.put(url,usuario)
+            if(usuario.direccion){
+            this.usuario = {nick:usuario.nick,direccion: usuario.direccion, token:this.usuario?.token}as User
+        }
+                    localStorage.setItem('usuario', JSON.stringify(this.usuario))
+            return res ;
         }
     }
 })

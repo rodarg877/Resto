@@ -154,4 +154,22 @@ export default class UsuarioDaoMongoDb {
             }
         });
     }
+    static modificarPass(payload) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: payload.nick }, { $set: { pass: payload.pass } }));
+                console.log(result);
+                if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
+                    return true;
+                }
+                else {
+                    throw new Error("Usuario inexistente");
+                }
+            }
+            catch (error) {
+                return false;
+            }
+        });
+    }
 }

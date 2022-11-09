@@ -24,10 +24,11 @@ export default class UsuarioService {
     return await UsuarioDaoMongoDb.cambiarPassword(nick, newPass)
 
   }
-  static async enviarMail(email: string) {
+  static async enviarMail(email: string, pass:string) {
 
     if (await UsuarioDaoMongoDb.verificarMail(email)) {
-      Email.enviar(email, "Recuperar Contraseña", `http://localhost:5173/cambiarPass`)
+      const token= jwt.sign({ email:email, pass:pass }, 'secret')
+      Email.enviar(email, "Recuperar Contraseña", `http://localhost:8080/usuarios/modificarUsuario/${token}`)
     }
   }
 
@@ -36,10 +37,12 @@ export default class UsuarioService {
 
     return payload.isAdmin;
   }
-  static async modificarUsuario(usuario: any) {
-    const res=await UsuarioDaoMongoDb.modificarUsuario(usuario)
-    console.log(res);
-    
-    return res
+  static async modificarUsuario(usuario: any, token:string) {
+     if(token){
+      const payload: any = jwt.verify(token, 'secret');
+     return await UsuarioDaoMongoDb.modificarPass(payload)
+    }else{ 
+      return await UsuarioDaoMongoDb.modificarUsuario(usuario)
+    }
   }
 }

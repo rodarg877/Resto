@@ -52,7 +52,7 @@
         <div class="d-flex justify-content-center container">
           <router-link to="/registro" >Registrarse</router-link>
           <div class="col-md-1"></div>
-          <a name="olvido">¿Olvidaste tu contraseña?</a>
+          <router-link to="/cambiarPass" >¿Olvidaste tu contraseña?</router-link>
         </div>
       </div>
     </div>
