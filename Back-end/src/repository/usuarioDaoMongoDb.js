@@ -31,6 +31,7 @@ export default class UsuarioDaoMongoDb {
     static getUsuariosXEmail(email) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("El email que llega es el: " + email);
             try {
                 const usuario = (yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.findOne({ email: email })));
                 if (usuario) {
@@ -101,11 +102,11 @@ export default class UsuarioDaoMongoDb {
             }
         });
     }
-    static cambiarPassword(nick, newPass) {
+    static cambiarPassword(email, newPass) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: nick }, { $set: { pass: newPass } }));
+                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ email: email }, { $set: { pass: newPass } }));
                 console.log(result);
                 if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
                     return "Cambio exitoso";
@@ -141,24 +142,6 @@ export default class UsuarioDaoMongoDb {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: usuario.nick }, { $set: usuario }));
-                console.log(result);
-                if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
-                    return true;
-                }
-                else {
-                    throw new Error("Usuario inexistente");
-                }
-            }
-            catch (error) {
-                return false;
-            }
-        });
-    }
-    static modificarPass(payload) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const result = yield ((_a = collections.usuarios) === null || _a === void 0 ? void 0 : _a.updateOne({ nick: payload.nick }, { $set: { pass: payload.pass } }));
                 console.log(result);
                 if (result === null || result === void 0 ? void 0 : result.modifiedCount) {
                     return true;

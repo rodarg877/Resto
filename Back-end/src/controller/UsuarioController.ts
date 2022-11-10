@@ -10,7 +10,9 @@ export default class UsuarioController {
 
         }
         public static async getUsuariosXEmail(req: Request, res: Response) {
+            
             const { email } = req.params;
+
             res.json(await UsuarioService.getUsuariosXEmail(email))
 
         }
@@ -24,21 +26,19 @@ export default class UsuarioController {
             
 
             const{nick,email,pass,direccion} = req.body;
-            console.log("controller"+ nick,pass,email,direccion);
             res.json(await UsuarioService.agregarUsuario(nick,email,pass,direccion));
 
         }
         public static async cambiarPassword(req: Request, res: Response){
-            const {newPass} = req.body;
-            const {nick} = req.body;
+            const {pass,email} = req.body;
+
             console.log(req.body);
             
-            res.json(await UsuarioService.cambiarPassword(nick, newPass))
+            res.json(await UsuarioService.cambiarPassword(email, pass))
         }
         public static async enviarMail(req: Request, res: Response){
-            const {email, pass} = req.body;
-            
-            res.json(await UsuarioService.enviarMail(email,pass))
+            const {email} = req.body;       
+            res.json(await UsuarioService.enviarMail(email))
         }
 
         public static async isAdmin(req: Request, res: Response){
@@ -47,8 +47,7 @@ export default class UsuarioController {
         }
         public static async modificarUsuario(req: Request, res: Response){
             const usuario=req.body
-            const {token}= req.params
-            res.send(await UsuarioService.modificarUsuario(usuario,token))
+            res.send(await UsuarioService.modificarUsuario(usuario))
         }
 
 }

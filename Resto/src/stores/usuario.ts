@@ -59,7 +59,7 @@ export const UsuarioStore = defineStore('UsuarioStore', {
 
         },
         async chequearEmail(email: string) {
-            const url: string = `http://localhost:8080/usuarios/${email}`
+            const url: string = `http://localhost:8080/usuarios/chequeo/${email}`
             console.log(url);
 
             try {
@@ -67,6 +67,8 @@ export const UsuarioStore = defineStore('UsuarioStore', {
                 console.log(result);
                 return result.data;
             } catch (e) {
+                console.log(e);
+                
                 return false;
             }
         },
@@ -91,13 +93,17 @@ export const UsuarioStore = defineStore('UsuarioStore', {
             return res ;
         },
         async modificarPass(usuario:any) {
-            const url: string = `http://localhost:8080/usuarios/${this.usuario?.token}`
-            const res=await axios.put(url,usuario)
-            if(usuario.direccion){
-            this.usuario = {nick:usuario.nick,direccion: usuario.direccion, token:this.usuario?.token}as User
-        }
-                    localStorage.setItem('usuario', JSON.stringify(this.usuario))
-            return res ;
+            console.log("Llega acá?");
+            
+            const url: string = `http://localhost:8080/usuarios/cambiarPass`
+            const res=await axios.post(url,usuario);
+          //  return res ;
+        },
+
+        async confirmarCambios(usuario:any){
+            const url: string = `http://localhost:8080/usuarios/confirmarCambio`;
+            await axios.put(url,usuario);
+
         }
     }
 })

@@ -30,22 +30,20 @@ export default class UsuarioController {
     static postUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { nick, email, pass, direccion } = req.body;
-            console.log("controller" + nick, pass, email, direccion);
             res.json(yield UsuarioService.agregarUsuario(nick, email, pass, direccion));
         });
     }
     static cambiarPassword(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { newPass } = req.body;
-            const { nick } = req.body;
+            const { pass, email } = req.body;
             console.log(req.body);
-            res.json(yield UsuarioService.cambiarPassword(nick, newPass));
+            res.json(yield UsuarioService.cambiarPassword(email, pass));
         });
     }
     static enviarMail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email, pass } = req.body;
-            res.json(yield UsuarioService.enviarMail(email, pass));
+            const { email } = req.body;
+            res.json(yield UsuarioService.enviarMail(email));
         });
     }
     static isAdmin(req, res) {
@@ -57,8 +55,7 @@ export default class UsuarioController {
     static modificarUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const usuario = req.body;
-            const { token } = req.params;
-            res.send(yield UsuarioService.modificarUsuario(usuario, token));
+            res.send(yield UsuarioService.modificarUsuario(usuario));
         });
     }
 }

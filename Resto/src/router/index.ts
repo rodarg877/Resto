@@ -69,6 +69,12 @@ const router = createRouter({
       name: 'cambiarPass',
       component: () => import('../views/CambiarPass.vue')
     },
+    {
+      path: '/confirmarCambio',
+      name: 'confirmarCambio',
+      component: () => import('../views/confirmarCambio.vue')
+    },
+    
 
   ]
 })

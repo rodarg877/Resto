@@ -32,16 +32,15 @@ export default class UsuarioService {
             return yield UsuarioDaoMongoDb.agregarUsuario(nick, email, pass, direccion);
         });
     }
-    static cambiarPassword(nick, newPass) {
+    static cambiarPassword(email, newPass) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield UsuarioDaoMongoDb.cambiarPassword(nick, newPass);
+            return yield UsuarioDaoMongoDb.cambiarPassword(email, newPass);
         });
     }
-    static enviarMail(email, pass) {
+    static enviarMail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             if (yield UsuarioDaoMongoDb.verificarMail(email)) {
-                const token = jwt.sign({ email: email, pass: pass }, 'secret');
-                Email.enviar(email, "Recuperar Contraseña", `http://localhost:8080/usuarios/modificarUsuario/${token}`);
+                Email.enviar(email, "Recuperar Contraseña", `http://127.0.0.1:5173/confirmarCambio`);
             }
         });
     }
@@ -51,15 +50,9 @@ export default class UsuarioService {
             return payload.isAdmin;
         });
     }
-    static modificarUsuario(usuario, token) {
+    static modificarUsuario(usuario) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (token) {
-                const payload = jwt.verify(token, 'secret');
-                return yield UsuarioDaoMongoDb.modificarPass(payload);
-            }
-            else {
-                return yield UsuarioDaoMongoDb.modificarUsuario(usuario);
-            }
+            return yield UsuarioDaoMongoDb.modificarUsuario(usuario);
         });
     }
 }

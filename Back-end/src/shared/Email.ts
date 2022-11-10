@@ -3,7 +3,9 @@ import nodemailer from 'nodemailer'
 class Email {
 
      static enviar(para: string, asunto: string, cuerpoMensaje: string, pathArchivoAdjunto?: string) : Promise<any> {
+        console.log("LLego hasta el enviar mail??");
         return new Promise( (resolve,reject) => {
+            
             var transporter = nodemailer.createTransport({
                 host: 'smtp.mail.yahoo.com',
                 port: 465,

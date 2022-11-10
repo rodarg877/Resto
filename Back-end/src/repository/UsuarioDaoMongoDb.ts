@@ -18,6 +18,8 @@ export default class UsuarioDaoMongoDb {
         }
     }
     static async getUsuariosXEmail(email: String) {
+        console.log("El email que llega es el: " + email);
+        
         try {
             const usuario: Usuario = (await collections.usuarios?.findOne({ email: email })) as unknown as Usuario;
             if (usuario) {
@@ -77,9 +79,9 @@ export default class UsuarioDaoMongoDb {
         }
     }
 
-    static async cambiarPassword(nick:string, newPass:string){
+    static async cambiarPassword(email:string, newPass:string){
         try{
-            const result = await collections.usuarios?.updateOne({nick:nick}, { $set: {pass:  newPass}})
+            const result = await collections.usuarios?.updateOne({email:email}, { $set: {pass:  newPass}})
             console.log(result);
             
             if(result?.modifiedCount){
@@ -117,7 +119,7 @@ export default class UsuarioDaoMongoDb {
             return false;
         }
     }
-    static async modificarPass(payload: any){
+   /* static async modificarPass(payload: any){
         try{
             const result = await collections.usuarios?.updateOne({nick:payload.nick}, { $set:{pass:payload.pass}})
             console.log(result);
@@ -131,4 +133,5 @@ export default class UsuarioDaoMongoDb {
             return false;
         }
     }
+    */
 }

@@ -20,16 +20,16 @@ export default class UsuarioService {
     console.log("service" + nick, pass, email, direccion);
     return await UsuarioDaoMongoDb.agregarUsuario(nick, email, pass, direccion)
   }
-  static async cambiarPassword(nick: string, newPass: string) {
-    return await UsuarioDaoMongoDb.cambiarPassword(nick, newPass)
+  static async cambiarPassword(email: string, newPass: string) {
+    return await UsuarioDaoMongoDb.cambiarPassword(email, newPass)
 
   }
-  static async enviarMail(email: string, pass:string) {
+  static async enviarMail(email: string) {
 
     if (await UsuarioDaoMongoDb.verificarMail(email)) {
-      const token= jwt.sign({ email:email, pass:pass }, 'secret')
-      Email.enviar(email, "Recuperar Contraseña", `http://localhost:8080/usuarios/modificarUsuario/${token}`)
+      Email.enviar(email, "Recuperar Contraseña", `http://127.0.0.1:5173/confirmarCambio`)
     }
+
   }
 
   static async isAdmin(token: string) { //acá vamos a decodificar el token.
@@ -37,12 +37,8 @@ export default class UsuarioService {
 
     return payload.isAdmin;
   }
-  static async modificarUsuario(usuario: any, token:string) {
-     if(token){
-      const payload: any = jwt.verify(token, 'secret');
-     return await UsuarioDaoMongoDb.modificarPass(payload)
-    }else{ 
-      return await UsuarioDaoMongoDb.modificarUsuario(usuario)
-    }
+  static async modificarUsuario(usuario: any) {
+   return await UsuarioDaoMongoDb.modificarUsuario(usuario)
+  
   }
 }

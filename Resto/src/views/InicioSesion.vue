@@ -51,7 +51,7 @@
       <div class="card-footer">
         <div class="d-flex justify-content-center container">
           <router-link to="/registro" >Registrarse</router-link>
-          <div class="col-md-1"></div>
+         <!-- <div class="col-md-1"></div> -->
           <router-link to="/cambiarPass" >¿Olvidaste tu contraseña?</router-link>
         </div>
       </div>
