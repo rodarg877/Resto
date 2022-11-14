@@ -36,7 +36,6 @@ export default class UsuarioController {
     static cambiarPassword(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { pass, email } = req.body;
-            console.log(req.body);
             res.json(yield UsuarioService.cambiarPassword(email, pass));
         });
     }

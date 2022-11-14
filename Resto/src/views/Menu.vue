@@ -19,7 +19,7 @@
                           {{ menu.descripcion }}
                         </div>
                         <div class="txt3">${{ menu.precio }}</div>
-                        <ul v-if="this.estaLogueado" class="pagination set_quantity">
+                        <ul v-if="this.estaLogueado && esAdmin" class="pagination set_quantity">
                           <li class="page-item">
                             <button class="page-link" @click="menu.cantidad--">
                               <font-awesome-icon icon="fa-solid fa-minus" />
@@ -41,12 +41,19 @@
                           </li>
                         </ul>
                       </div>
-                      <button v-if="this.estaLogueado"
+                      <button v-if="this.estaLogueado && !this.rolAdmin"
                         @click="agregar(menu)"
                         class="btn btn-primary btn-sm mb-2"
                       >
                         Agregar
                       </button>
+                      
+                       <router-link v-if="rolAdmin" :to="{ name: 'modificarPlato', params: { nombrePlato: menu.nombre } }"
+                          ><button 
+                        class="btn btn-primary btn-sm mb-2"
+                      >Modificar plato</button></router-link
+                        >
+                      
                       <div v-if="menu.cantidad<=0" class="alert alert-danger" style="font-size:.7rem">cantidad incorrecta</div>
                       
                        <div v-if="agregadoOk == menu.nombre" class="alert alert-success" style="font-size:.7rem">Agregado ok</div>
@@ -76,15 +83,18 @@
 </template>
 <script>
 import axios from 'axios'
+import { UsuarioStore } from "@/stores/usuario";
 import { CarritoStore } from "@/stores/carrito";
 import { storeToRefs } from 'pinia';
 export default {
   name: "Menu",
   setup() {
     const store = CarritoStore();
+    const storeB = UsuarioStore();
+   const {isAdmin} = storeB;
     const {listaPedido} = storeToRefs(store);
     const { agregarAPedido } = store;
-    return { agregarAPedido,listaPedido };
+    return { agregarAPedido,listaPedido,isAdmin };
   },
 
   components: {},
@@ -101,6 +111,7 @@ export default {
       menues: [],
       estaLogueado:false,
       agregadoOk:"",
+      rolAdmin:true
     };
   },
   methods: {
@@ -111,7 +122,8 @@ export default {
         plato.cantidad = 1;
         this.agregadoOk = plato.nombre;
       }
-    }
+    },
+ 
   },
   async mounted(){
     try {
@@ -125,6 +137,11 @@ export default {
     if(localStorage.getItem('usuario')){
       this.estaLogueado = true;
     }
+
+   // let valorAdmin = await this.isAdmin();
+   // console.log("Valor admin: " + valorAdmin);
+   // this.esAdmin = valorAdmin;
+    
 
   },
     created() { //Necesito explicación.

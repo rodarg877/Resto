@@ -32,7 +32,6 @@ export default class UsuarioController {
         public static async cambiarPassword(req: Request, res: Response){
             const {pass,email} = req.body;
 
-            console.log(req.body);
             
             res.json(await UsuarioService.cambiarPassword(email, pass))
         }

@@ -108,7 +108,7 @@ export default {
    estadoSeleccionado: "T",
    arrayFiltado:[],
    Pedidos: [],
-   esAdmin:true,
+   esAdmin:false,
     };
   },
   methods: {
@@ -134,7 +134,7 @@ export default {
     const lista = await axios.get(`http://localhost:8080/pedidos/${this.usuario.nick}`)
     this.Pedidos = lista.data;
     this.arrayFiltado = this.Pedidos;
-    //this.esAdmin=await this.isAdmin();
+    this.esAdmin=await this.isAdmin();
 
   },
   computed: {
