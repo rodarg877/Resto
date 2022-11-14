@@ -26,6 +26,8 @@ export default {
   methods: {
     cerrarSesionEn() {
       this.cerrarSesion();
+      this.$router.push("/");
+
     },
   },
   mounted() {

@@ -13,7 +13,7 @@
         <h3>Agregar un plato</h3>
       </div>
       <div class="card-body w-100 mt-3">
-        <form name="addPlato" @submit.prevent="validarSiYaExiste">
+        <form name="addPlato" @submit.prevent="modificarPlato">
           <div class="input-group form-group mt-1">
             <label class="w-100" for="username">Nombre del plato</label>
             <input
@@ -22,6 +22,7 @@
               placeholder="Plato"
               v-model="Plato.nombre"
               required
+              disabled
             />
             
             <span id="name" class="alert alert-danger" v-if="platoYaExistente">
@@ -42,7 +43,7 @@
               type="text"
               class="form-control w-100 mt-1"
               placeholder="ingresar url"
-              v-model="Plato.imagen"
+              v-model="Plato.img"
               required
             />
 
@@ -65,7 +66,7 @@
           <div class="form-group mt-5">
             <input
              type="submit"
-              value="Agregar plato"
+              value="Modificar plato"
               class="btn btn-dark float-end text-white w-100"
             />
           </div>
@@ -80,7 +81,7 @@ import axios from 'axios'
 export default {
     data(){
         return{
-    Plato:{nombre:this.$route.params.id,tipoPlato:"Pizza"},
+    Plato:{nombre:this.$route.params.nombrePlato,tipoPlato:"Pizza"},
     nombrePlatoIncompleto:false,
     DescripcionIncompleto:false,
     ImagenPlatoIncompleto:false,
@@ -91,32 +92,13 @@ export default {
         }
     },
     methods: {
-        /*
-        ValidarDatosIncompletos(){
-            nombrePlatoIncompleto = this.Plato.nombre.length < 4;
-            DescripcionIncompleto = this.Plato.nombre.length < 4;
-            ImagenPlatoIncompleto = this.Plato.nombre.length < 4;
-            PrecioPlatoIncompleto = this.Plato.nombre.length < 4;
-            PrecioPlatoIncompleto = this.Plato.nombre.length < 1;
-            TipoPlatoIncompleto = this.Plato.nombre.length < 4;
-            Lo comento xq con los Required no seria necesario para saber si estan incompletos.
-        }
-        */
-       async validarSiYaExiste(){
-        try {
-            const platoExistente = await axios.get(`http://localhost:8080/platos/${this.Plato.nombre}`);
-            if(platoExistente.data.nombre != undefined){
-                this.platoYaExistente = true;
-                console.log("Existe el plato");
-            }else {
-           // this.platoYaExistente = false;
-            console.log("Imagen: " + this.Plato.imagen);
-             const platoExistente = await axios.post("http://localhost:8080/platos/",this.Plato);
-             alert("Plato agregado")
-
-            }
+       async modificarPlato(){
+        try {            
+             const platoExistente = await axios.put(`http://localhost:8080/platos/${this.Plato.nombre}`,this.Plato);
+             alert("Plato modificado") 
+             this.$router.push("/perfil");
         }catch(e){
-            console.log("No se pudo validar si ya existe y agregar el plato");
+            console.log("No se pudo moficar el plato");
         }
        }
       

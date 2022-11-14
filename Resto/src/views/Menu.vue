@@ -19,7 +19,7 @@
                           {{ menu.descripcion }}
                         </div>
                         <div class="txt3">${{ menu.precio }}</div>
-                        <ul v-if="this.estaLogueado && esAdmin" class="pagination set_quantity">
+                        <ul v-if="this.estaLogueado && !rolAdmin" class="pagination set_quantity">
                           <li class="page-item">
                             <button class="page-link" @click="menu.cantidad--">
                               <font-awesome-icon icon="fa-solid fa-minus" />
@@ -138,10 +138,10 @@ export default {
       this.estaLogueado = true;
     }
 
-   // let valorAdmin = await this.isAdmin();
-   // console.log("Valor admin: " + valorAdmin);
-   // this.esAdmin = valorAdmin;
-    
+    //let valorAdmin =  this.isAdmin().data;
+    //console.log("Valor admin: " + valorAdmin);
+    //this.rolAdmin = valorAdmin;
+      
 
   },
     created() { //Necesito explicación.
