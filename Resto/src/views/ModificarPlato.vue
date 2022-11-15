@@ -81,7 +81,7 @@ import axios from 'axios'
 export default {
     data(){
         return{
-    Plato:{nombre:this.$route.params.nombrePlato,tipoPlato:"Pizza"},
+    Plato:{nombre:this.$route.params.nombrePlato,tipoPlato:this.$route.params.tipoPlato},
     nombrePlatoIncompleto:false,
     DescripcionIncompleto:false,
     ImagenPlatoIncompleto:false,

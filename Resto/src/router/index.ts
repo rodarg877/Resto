@@ -60,7 +60,7 @@ const router = createRouter({
       component: () => import('../views/AddPlato.vue')
     },
     {
-      path: '/modificarPlato/:nombrePlato',
+      path: '/modificarPlato/:tipoPlato&:nombrePlato',
       name: 'modificarPlato',
       component: () => import('../views/ModificarPlato.vue')
     },

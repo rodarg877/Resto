@@ -19,7 +19,7 @@
                           {{ menu.descripcion }}
                         </div>
                         <div class="txt3">${{ menu.precio }}</div>
-                        <ul v-if="this.estaLogueado && !rolAdmin" class="pagination set_quantity">
+                        <ul v-if="this.estaLogueado && !this.rolAdmin" class="pagination set_quantity">
                           <li class="page-item">
                             <button class="page-link" @click="menu.cantidad--">
                               <font-awesome-icon icon="fa-solid fa-minus" />
@@ -48,7 +48,7 @@
                         Agregar
                       </button>
                       
-                       <router-link v-if="rolAdmin" :to="{ name: 'modificarPlato', params: { nombrePlato: menu.nombre } }"
+                       <router-link v-if="rolAdmin" :to="{ name: 'modificarPlato', params: { tipoPlato:menu.tipoPlato,nombrePlato: menu.nombre} }"
                           ><button 
                         class="btn btn-primary btn-sm mb-2"
                       >Modificar plato</button></router-link
@@ -111,7 +111,7 @@ export default {
       menues: [],
       estaLogueado:false,
       agregadoOk:"",
-      rolAdmin:true
+      rolAdmin:false
     };
   },
   methods: {
@@ -138,9 +138,9 @@ export default {
       this.estaLogueado = true;
     }
 
-    //let valorAdmin =  this.isAdmin().data;
-    //console.log("Valor admin: " + valorAdmin);
-    //this.rolAdmin = valorAdmin;
+    let valorAdmin = await this.isAdmin();
+    console.log("Valor admin: " + valorAdmin);
+    this.rolAdmin = valorAdmin;
       
 
   },
