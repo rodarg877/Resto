@@ -47,12 +47,18 @@
                       >
                         Agregar
                       </button>
-                      
-                       <router-link v-if="rolAdmin" :to="{ name: 'modificarPlato', params: { tipoPlato:menu.tipoPlato,nombrePlato: menu.nombre} }"
-                          ><button 
-                        class="btn btn-primary btn-sm mb-2"
-                      >Modificar plato</button></router-link
+                      <div class="row" v-if="rolAdmin">
+                      <router-link  class="btn btn-primary col-5 btn-sm mb-2" :to="{ name: 'modificarPlato', params: { tipoPlato:menu.tipoPlato,nombrePlato: menu.nombre} }"
+                          > 
+                        
+                      Modificar plato</router-link
                         >
+                        <div></div>
+                        <button @click="eliminarPlato(menu)" 
+                        class="btn btn-danger col-5   btn-sm mb-2"
+                      >Eliminar plato</button>
+                      </div>
+                       
                       
                       <div v-if="menu.cantidad<=0" class="alert alert-danger" style="font-size:.7rem">cantidad incorrecta</div>
                       
@@ -123,6 +129,10 @@ export default {
         this.agregadoOk = plato.nombre;
       }
     },
+    async eliminarPlato(plato){
+        await axios.delete(`http://localhost:8080/platos/${plato.nombre}`);
+        location.reload();
+    }
  
   },
   async mounted(){
